@@ -1,0 +1,18 @@
+{
+  "name": "Moma: pregnancy to postpartum",
+  "short_name": "Moma",
+  "description": "Your pregnancy, made lighter. A private companion from the first scan to the first year, with an AI that knows where you are.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#B4D7EE",
+  "theme_color": "#F6F3EE",
+  "categories": ["health", "medical", "lifestyle"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

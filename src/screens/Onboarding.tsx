@@ -28,23 +28,13 @@ export default function Onboarding() {
   );
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
-      <View style={{ backgroundColor: C.sky, paddingTop: 70, paddingBottom: 26, borderBottomLeftRadius: 40, borderBottomRightRadius: 40, overflow: 'hidden' }}>
-        <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '55%', backgroundColor: C.lav, opacity: 0.55 }} />
-        <Text style={{ fontSize: 76, fontWeight: '800', color: C.ink, letterSpacing: -3, textAlign: 'center', lineHeight: 80 }}>moma</Text>
-        <View style={{ height: 220, marginTop: 6 }}>
-          <View style={{ position: 'absolute', left: '50%', marginLeft: -150, top: 30 }}><Blob color={C.coral} face="calm" size={140} arms /></View>
-          <View style={{ position: 'absolute', left: '50%', marginLeft: -102, top: 108 }}><Blob color={C.peach} face="smile" size={50} leaf /></View>
-          <View style={{ position: 'absolute', left: '50%', marginLeft: 4, top: 50 }}><Blob color={C.lav} face="smile" size={80} wave /></View>
-          <View style={{ position: 'absolute', left: '50%', marginLeft: 60, top: 118 }}><Blob color={C.mint} face="wink" size={74} /></View>
-          <View style={{ position: 'absolute', left: '50%', marginLeft: -6, top: 140 }}><Blob color={C.butter} face="happy" size={62} /></View>
-          <View style={{ position: 'absolute', left: '50%', marginLeft: 20, top: 0, backgroundColor: C.ink, borderRadius: 99, paddingVertical: 9, paddingHorizontal: 16, transform: [{ rotate: '-6deg' }] }}>
-            <Text style={{ color: '#fff', fontWeight: '700', fontSize: 16 }}>Hi mama~</Text>
-          </View>
-        </View>
+      <View style={{ paddingTop: 56, paddingHorizontal: 22, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Blob color={C.coral} face="smile" size={54} arms />
+        <Text style={{ fontSize: 30, fontWeight: '800', color: C.ink, letterSpacing: -1 }}>moma</Text>
       </View>
       <View style={{ padding: 22 }}>
-      <Text style={{ fontSize: 24, fontWeight: '700', color: C.ink, letterSpacing: -0.6, textAlign: 'center' }}>Your pregnancy, made lighter</Text>
-      <Muted style={{ fontSize: 14.5, marginBottom: 8, textAlign: 'center', marginTop: 6 }}>From the first scan to the first year. Private by default: everything stays on this phone.</Muted>
+      <Text style={{ fontSize: 26, fontWeight: '700', color: C.ink, letterSpacing: -0.6 }}>Let's set things up</Text>
+      <Muted style={{ fontSize: 14.5, marginBottom: 8, marginTop: 6 }}>Three quick questions so Moma knows where you are. It all stays on this phone.</Muted>
       <Label>Your first name</Label>
       <Input value={name} onChangeText={setName} placeholder="e.g. Ada" />
       <Label>Where are you?</Label>

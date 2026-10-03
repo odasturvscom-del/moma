@@ -21,7 +21,11 @@
       "package": "com.moma.app"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "name": "Moma",
+      "shortName": "Moma",
+      "themeColor": "#B4D7EE",
+      "backgroundColor": "#B4D7EE"
     },
     "scheme": "moma",
     "splash": {

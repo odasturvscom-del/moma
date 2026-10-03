@@ -9,6 +9,7 @@ import { C } from './src/theme';
 import { Text } from './src/ui';
 import { IHome, IChart, ISpark, ICal, IUser } from './src/icons';
 import Onboarding from './src/screens/Onboarding';
+import Welcome from './src/screens/Welcome';
 import Today from './src/screens/Today';
 import Track from './src/screens/Track';
 import Ask from './src/screens/Ask';
@@ -44,8 +45,9 @@ function Shell() {
   const [tab, setTab] = useState<Tab>('today');
   const [sub, setSub] = useState('');
   const [pending, setPending] = useState<string | null>(null);
+  const [started, setStarted] = useState(false);
   if (!ready) return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: C.bg }}><ActivityIndicator color={C.ink} /></View>;
-  if (!s.onboarded) return <View style={{ flex: 1, backgroundColor: C.bg }}><Onboarding /></View>;
+  if (!s.onboarded) return started ? <View style={{ flex: 1, backgroundColor: C.bg }}><Onboarding /></View> : <Welcome onStart={() => setStarted(true)} />;
   const go = (t: string, sb?: string) => { setTab(t as Tab); if (sb) setSub(sb); };
   const ask = (t: string) => { setPending(t); setTab('ask'); };
   return (
@@ -83,7 +85,11 @@ export default function App() {
     <SafeAreaProvider>
       <StoreProvider>
         <StatusBar style="dark" />
-        <Shell />
+        <View style={{ flex: 1, backgroundColor: Platform.OS === 'web' ? '#E9E4F2' : C.bg }}>
+          <View style={{ flex: 1, width: '100%', maxWidth: 480, alignSelf: 'center', backgroundColor: C.bg, overflow: 'hidden' }}>
+            <Shell />
+          </View>
+        </View>
       </StoreProvider>
     </SafeAreaProvider>
   );

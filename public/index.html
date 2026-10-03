@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, shrink-to-fit=no" />
+    <title>Moma: your pregnancy, made lighter</title>
+    <meta name="description" content="A private companion from the first scan to the first year, with an AI that knows where you are." />
+    <meta name="theme-color" content="#B4D7EE" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Moma" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Moma: your pregnancy, made lighter" />
+    <meta property="og:description" content="Pregnancy to postpartum, with a caring AI companion. Private by default." />
+    <meta property="og:image" content="https://moma-app-web.vercel.app/og.png" />
+    <meta property="og:url" content="https://moma-app-web.vercel.app/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://moma-app-web.vercel.app/og.png" />
+    <style id="expo-reset">
+      html, body { height: 100%; }
+      body { overflow: hidden; margin: 0; background: #E9E4F2; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
+      #root { display: flex; height: 100%; flex: 1; }
+    </style>
+    <script>
+      window.__momaInstall = null;
+      window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); window.__momaInstall = e; window.dispatchEvent(new Event('moma-installable')); });
+      if ('serviceWorker' in navigator) { window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); }); }
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run Moma.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
