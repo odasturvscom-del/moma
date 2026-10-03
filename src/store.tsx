@@ -26,7 +26,9 @@ export const dkey = (d: Date = new Date()) => {
   return z.toISOString().slice(0, 10);
 };
 export const parseKey = (k: string) => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
-export const fmtDate = (k: string | Date) => (typeof k === 'string' ? parseKey(k) : k).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+// Always day month year, e.g. 31 March 2027, whatever the phone's language settings.
+export const fmtDate = (k: string | Date) => { const d = typeof k === 'string' ? parseKey(k) : k; return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; };
 export const fmtTime = (t: number) => new Date(t).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 export const ago = (t: number) => { const m = Math.round((Date.now() - t) / 6e4); if (m < 1) return 'just now'; if (m < 60) return `${m} min ago`; return `${Math.floor(m / 60)}h ${m % 60}m ago`; };
 const daysSince = (k: string) => Math.max(0, Math.floor((parseKey(dkey()).getTime() - parseKey(k).getTime()) / DAY));

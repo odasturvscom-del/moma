@@ -91,11 +91,32 @@ export function FlagCard({ t }: { t: NonNullable<Triage> }) {
 export function Input(props: React.ComponentProps<typeof TextInput>) {
   return <TextInput placeholderTextColor={C.muted} {...props} style={[st.input, props.multiline && { minHeight: 64, textAlignVertical: 'top' }, props.style]} />;
 }
+const toDMY = (k: string | null) => (k && /^\d{4}-\d{2}-\d{2}$/.test(k) ? `${k.slice(8, 10)}/${k.slice(5, 7)}/${k.slice(0, 4)}` : '');
+// Typed date entry for the web app: DD/MM/YYYY with the slashes added automatically.
+function WebDate({ value, onChange }: { value: string | null; onChange: (k: string) => void }) {
+  const [t, setT] = useState(toDMY(value));
+  const [ok, setOk] = useState(!!value);
+  const change = (raw: string) => {
+    const d = raw.replace(/\D/g, '').slice(0, 8);
+    setT(d.length > 4 ? `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}` : d.length > 2 ? `${d.slice(0, 2)}/${d.slice(2)}` : d);
+    if (d.length === 8) {
+      const dd = +d.slice(0, 2), mm = +d.slice(2, 4), yy = +d.slice(4);
+      const dt = new Date(yy, mm - 1, dd);
+      if (yy > 1900 && dt.getDate() === dd && dt.getMonth() === mm - 1) { setOk(true); onChange(dkey(dt)); return; }
+    }
+    setOk(false);
+  };
+  return (
+    <View>
+      <Input value={t} onChangeText={change} placeholder="DD/MM/YYYY" keyboardType="number-pad" maxLength={10} />
+      {ok && value ? <Text style={{ fontSize: 13, color: C.muted, marginTop: 6, marginLeft: 6 }}>{fmtDate(value)}</Text>
+        : t.length === 10 ? <Text style={{ fontSize: 13, color: C.red, marginTop: 6, marginLeft: 6 }}>That date doesn't look right</Text> : null}
+    </View>
+  );
+}
 export function DateField({ value, onChange, max, min }: { value: string | null; onChange: (k: string) => void; max?: Date; min?: Date }) {
   const [open, setOpen] = useState(false);
-  if (Platform.OS === 'web') {
-    return <Input value={value ?? ''} onChangeText={t => onChange(t)} placeholder="YYYY-MM-DD" />;
-  }
+  if (Platform.OS === 'web') return <WebDate value={value} onChange={onChange} />;
   return (
     <View>
       <Pressable onPress={() => setOpen(o => !o)} style={st.input}>
