@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Pressable, Alert, Platform } from 'react-native';
 import { Blob } from '../mascot';
-import { useStore, dkey, parseKey, DAY, Mode } from '../store';
+import { useStore, dkey, parseKey, DAY, Mode, State } from '../store';
+import { track } from '../telemetry';
 import { COUNTRIES, Country } from '../content';
 import { Text, Btn, Input, Label, Muted, Seg, DateField, Chip } from '../ui';
 import { C } from '../theme';
@@ -16,10 +17,14 @@ export default function Onboarding() {
   const finish = () => {
     if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) { const m = 'Please pick a date'; Platform.OS === 'web' ? alert(m) : Alert.alert(m); return; }
     const lmp = mode === 'pregnant' ? (dt === 'due' ? dkey(new Date(parseKey(date).getTime() - 280 * DAY)) : date) : null;
-    set(s => ({
-      ...s, name: name.trim(), mode, country, onboarded: true, lmp, birth: mode === 'postpartum' ? date : null,
+    set(s => {
+      const next: State = {
+      ...s, name: name.trim(), mode, country, onboarded: true, lmp, birth: mode === 'postpartum' ? date : null, lastOpen: dkey(),
       chat: [{ r: 'a', c: `Hi${name.trim() ? ' ' + name.trim() : ''}, I'm Moma. Ask me anything about ${mode === 'pregnant' ? 'your pregnancy' : 'recovery and your baby'}, day or night. If something feels wrong, I'll always point you to the right person fast.` }],
-    }));
+      };
+      track(next, 'onboard'); track(next, 'open');
+      return next;
+    });
   };
   const Toggle = ({ k, label }: { k: Mode; label: string }) => (
     <Pressable onPress={() => setMode(k)} style={{ flex: 1, borderWidth: 2, borderColor: mode === k ? C.ink : C.line, backgroundColor: mode === k ? (k === 'pregnant' ? C.lav : C.mint) : '#fff', borderRadius: 22, padding: 16, alignItems: 'center' }}>

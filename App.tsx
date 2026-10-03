@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Pressable, ActivityIndicator, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { useFonts, Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-google-fonts/outfit';
-import { StoreProvider, useStore, preg, pp } from './src/store';
+import { StoreProvider, useStore, preg, pp, dkey } from './src/store';
+import { track } from './src/telemetry';
 import { C } from './src/theme';
 import { Text } from './src/ui';
 import { IHome, IChart, ISpark, ICal, IUser } from './src/icons';
@@ -41,11 +42,14 @@ function Header({ onMe }: { onMe: () => void }) {
 }
 
 function Shell() {
-  const { s, ready } = useStore();
+  const { s, set, ready } = useStore();
   const [tab, setTab] = useState<Tab>('today');
   const [sub, setSub] = useState('');
   const [pending, setPending] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
+  useEffect(() => {
+    if (ready && s.onboarded && s.lastOpen !== dkey()) { track(s, 'open'); set(x => ({ ...x, lastOpen: dkey() })); }
+  }, [ready, s.onboarded]);
   if (!ready) return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: C.bg }}><ActivityIndicator color={C.ink} /></View>;
   if (!s.onboarded) return started ? <View style={{ flex: 1, backgroundColor: C.bg }}><Onboarding /></View> : <Welcome onStart={() => setStarted(true)} />;
   const go = (t: string, sb?: string) => { setTab(t as Tab); if (sb) setSub(sb); };

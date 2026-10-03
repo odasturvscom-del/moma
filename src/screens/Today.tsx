@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Pressable } from 'react-native';
 import { useStore, preg, pp, fmtDate, ago, dkey, DAY } from '../store';
 import { weekInfo, ppInfo, MILESTONES } from '../content';
@@ -6,6 +6,7 @@ import { Text, Muted } from '../ui';
 import { Blob, MOOD_BLOBS } from '../mascot';
 import { ISpark, IGo } from '../icons';
 import CheckIn from './CheckIn';
+import { getConfig } from '../telemetry';
 import { C } from '../theme';
 
 const Tile = ({ bg, children, onPress, h, style }: { bg: string; children: React.ReactNode; onPress?: () => void; h?: number; style?: object }) => (
@@ -38,6 +39,8 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
   const { s, set } = useStore();
   const L = s.logs[dkey()];
   const [open, setOpen] = useState(false);
+  const [news, setNews] = useState('');
+  useEffect(() => { getConfig(s).then(c => setNews(c?.announcement ?? '')); }, []);
   const logFeed = (k: string) => set(x => ({ ...x, feeds: [...x.feeds, { t: Date.now(), k }] }));
   const logNappy = (k: string) => set(x => ({ ...x, nappies: [...x.nappies, { t: Date.now(), k }] }));
   const checkTile = (
@@ -145,6 +148,13 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
   }
   return (
     <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 10, paddingBottom: 30 }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      {news ? (
+        <View style={{ backgroundColor: C.butter, borderRadius: 22, padding: 14, marginBottom: 12, flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+          <ISpark color={C.ink} size={20} />
+          <Text style={{ flex: 1, fontSize: 14, color: C.ink, lineHeight: 19, fontWeight: '500' }}>{news}</Text>
+          <Pressable accessibilityLabel="Dismiss" onPress={() => setNews('')} hitSlop={10}><Text style={{ fontSize: 16, color: C.ink }}>✕</Text></Pressable>
+        </View>
+      ) : null}
       {body ?? <View style={{ backgroundColor: '#fff', borderRadius: 28, padding: 18 }}><Text>Add your dates in Me to get started.</Text></View>}
       <Pressable onPress={() => ask(s.mode === 'pregnant' ? "What's happening this week?" : 'Summarise my week for my health visitor')}
         style={{ marginTop: 12, backgroundColor: C.ink, borderRadius: 28, padding: 18, flexDirection: 'row', alignItems: 'center', gap: 12 }}>

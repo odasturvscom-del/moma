@@ -12,12 +12,12 @@ export type State = {
   logs: Record<string, Log>; moves: number[]; ctx: { s: number; e?: number }[];
   feeds: { t: number; k: string }[]; nappies: { t: number; k: string }[];
   appts: { id: number; t: string; d: string }[]; chat: ChatMsg[];
-  ai: { serverUrl: string };
+  ai: { serverUrl: string }; stats: boolean; lastOpen: string | null;
 };
 export const DEFAULT: State = {
   onboarded: false, name: '', mode: 'pregnant', lmp: null, birth: null, country: 'UK',
   logs: {}, moves: [], ctx: [], feeds: [], nappies: [], appts: [], chat: [],
-  ai: { serverUrl: process.env.EXPO_PUBLIC_MOMA_API_URL ?? '' },
+  ai: { serverUrl: process.env.EXPO_PUBLIC_MOMA_API_URL ?? '' }, stats: true, lastOpen: null,
 };
 const KEY = 'moma.v1';
 

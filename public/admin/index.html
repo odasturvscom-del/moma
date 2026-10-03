@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Moma admin</title>
+<link rel="icon" href="/icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#F6F3EE;--ink:#141414;--muted:#6F6A73;--line:#E9E4DE;--lav:#CFC4FA;--butter:#FFE08A;--sky:#AEDDF6;--pink:#FFB8D6;--lime:#DDF38C;--coral:#FF8B74;--mint:#A8E8CB;--peach:#FFC6A3;--red:#C62F1E;--ok:#1F7A4D}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
+button,input,textarea,select{font:inherit;color:inherit}
+.hidden{display:none!important}
+.login{min-height:100%;display:grid;place-items:center;background:linear-gradient(180deg,#B4D7EE,#C3CCE9 55%,#F4E6DA)}
+.login .box{background:#fff;border-radius:32px;padding:34px;width:min(400px,92vw);text-align:center}
+.login img{width:150px;border-radius:28px}
+.word{font-weight:800;letter-spacing:-1.5px;font-size:40px;margin:10px 0 2px}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100%}
+aside{background:var(--ink);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+aside .brand{display:flex;align-items:center;gap:10px;margin:0 8px 22px}
+aside .brand img{width:40px;height:40px;border-radius:12px}
+aside .brand b{font-size:24px;font-weight:800;letter-spacing:-1px}
+aside .brand span{font-size:12px;opacity:.6;display:block;margin-top:-3px}
+nav button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:99px;font-weight:500;color:#fff;opacity:.8}
+nav button:hover{opacity:1;background:#262626}
+nav button.on{background:#fff;color:var(--ink);opacity:1;font-weight:600}
+nav .dot{width:10px;height:10px;border-radius:5px}
+aside .foot{margin-top:auto;font-size:12.5px;opacity:.7;padding:0 10px}
+aside .foot a{color:#fff}
+main{padding:28px 36px 60px;max-width:1180px}
+h1{font-size:34px;font-weight:800;letter-spacing:-1.2px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}
+@media(max-width:1000px){.g4{grid-template-columns:1fr 1fr}.g3,.g2{grid-template-columns:1fr}.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap}aside .foot{display:none}nav{display:flex;flex-wrap:wrap;gap:4px}main{padding:20px}}
+.tile{border-radius:28px;padding:20px;min-height:120px;position:relative;overflow:hidden}
+.tile .k{font-size:13.5px;font-weight:600;opacity:.75}
+.tile .v{font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-top:6px}
+.tile .h{font-size:13px;opacity:.75;margin-top:2px}
+.card{background:#fff;border-radius:28px;padding:22px;margin-bottom:14px}
+.card h3{margin:0 0 4px;font-size:19px;font-weight:700;letter-spacing:-.3px}
+.card p.m{margin:0 0 14px;color:var(--muted);font-size:14px}
+.chart{display:flex;align-items:flex-end;gap:4px;height:170px;padding-top:10px}
+.chart .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-width:4px;position:relative}
+.chart .b i{display:block;border-radius:6px 6px 2px 2px}
+.chart .b:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12px;padding:6px 9px;border-radius:10px;white-space:nowrap;z-index:2}
+.axis{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px}
+.legend{display:flex;gap:14px;font-size:13px;color:var(--muted);margin-top:10px;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:6px;background:var(--c)}
+.bars .r{display:grid;grid-template-columns:200px 1fr 50px;gap:10px;align-items:center;padding:6px 0;font-size:14px}
+.bars .t{height:12px;background:#F1EDE8;border-radius:6px;overflow:hidden}.bars .t i{display:block;height:100%;border-radius:6px}
+.bars .n{text-align:right;font-weight:600}
+.btn{border:0;border-radius:99px;padding:12px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:#fff}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn.small{padding:8px 14px;font-size:13.5px}
+.btn:disabled{opacity:.5;cursor:default}
+input[type=text],input[type=password],textarea,select{width:100%;border:1.5px solid var(--line);border-radius:18px;padding:12px 16px;background:#fff;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--ink)}
+textarea{min-height:110px;resize:vertical;line-height:1.45}
+label.l{display:block;font-weight:600;font-size:13.5px;margin:14px 0 6px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:5px 12px;font-size:12.5px;font-weight:600}
+.p-ok{background:#DDF5E8;color:var(--ok)}.p-bad{background:#FFE4DE;color:var(--red)}.p-warn{background:#FFF3CC;color:#8a6200}.p-mute{background:#EFEBE6;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12.5px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1.5px solid var(--line)}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.switch{position:relative;width:52px;height:30px;flex:none}.switch input{display:none}
+.switch span{position:absolute;inset:0;background:#DDD7D0;border-radius:99px;cursor:pointer;transition:.2s}
+.switch span::after{content:"";position:absolute;width:24px;height:24px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked+span{background:var(--ink)}.switch input:checked+span::after{left:25px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:99px;font-weight:500;z-index:9;transition:.3s}
+.bubble{background:var(--lav);border-radius:22px 22px 22px 8px;padding:14px 16px;white-space:pre-wrap;line-height:1.5}
+.preview{border-radius:22px;background:var(--butter);padding:14px 16px;font-weight:500}
+.steps li{margin-bottom:10px;line-height:1.5}
+code{background:#F1EDE8;padding:2px 7px;border-radius:7px;font-size:13px}
+.muted{color:var(--muted)}
+.fb{border-bottom:1px solid var(--line);padding:14px 0}.fb:last-child{border:0}
+.fb .meta{font-size:12.5px;color:var(--muted);margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--muted);padding:30px 10px}
+</style>
+</head>
+<body>
+<!-- Sign in -->
+<div id="login" class="login hidden">
+  <div class="box">
+    <img src="/icons/icon-512.png" alt="Moma characters" />
+    <div class="word">moma</div>
+    <p class="muted" style="margin:0 0 20px">Admin portal</p>
+    <form id="loginForm">
+      <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" />
+      <button class="btn" style="width:100%;margin-top:12px">Sign in</button>
+      <p id="loginErr" style="color:var(--red);font-size:14px;min-height:20px;margin:12px 0 0"></p>
+    </form>
+  </div>
+</div>
+
+<!-- Portal -->
+<div id="app" class="shell hidden">
+  <aside>
+    <div class="brand"><img src="/icons/icon-192.png" alt="" /><div><b>moma</b><span>admin</span></div></div>
+    <nav id="nav">
+      <button data-v="overview" class="on"><i class="dot" style="background:var(--lav)"></i>Overview</button>
+      <button data-v="safety"><i class="dot" style="background:var(--coral)"></i>Safety lab</button>
+      <button data-v="ai"><i class="dot" style="background:var(--pink)"></i>AI console</button>
+      <button data-v="settings"><i class="dot" style="background:var(--butter)"></i>App settings</button>
+      <button data-v="feedback"><i class="dot" style="background:var(--mint)"></i>Feedback</button>
+      <button data-v="setup"><i class="dot" style="background:var(--sky)"></i>Setup</button>
+    </nav>
+    <div class="foot"><a href="/" target="_blank">Open the app ↗</a><br /><br /><a href="#" id="logout">Sign out</a></div>
+  </aside>
+  <main>
+    <!-- Overview -->
+    <section id="v-overview">
+      <div class="row" style="justify-content:space-between;align-items:flex-start">
+        <div><h1>Overview</h1><p class="sub">Anonymous daily counts. No names, no device ids, no message text.</p></div>
+        <select id="range" style="width:auto"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option></select>
+      </div>
+      <div id="storageWarn" class="card hidden" style="background:#FFF3CC"><b>Storage isn't connected yet,</b> so there's nothing to count. See <a href="#" data-go="setup">Setup</a>.</div>
+      <div class="grid g4">
+        <div class="tile" style="background:var(--lav)"><div class="k">App opens</div><div class="v" id="t-open">0</div><div class="h">one per device per day</div></div>
+        <div class="tile" style="background:var(--butter)"><div class="k">New sign-ups</div><div class="v" id="t-onboard">0</div><div class="h" id="t-onboard-h">finished setup</div></div>
+        <div class="tile" style="background:var(--sky)"><div class="k">Check-ins</div><div class="v" id="t-checkin">0</div><div class="h">daily mood logs</div></div>
+        <div class="tile" style="background:var(--pink)"><div class="k">Ask Moma questions</div><div class="v" id="t-ask">0</div><div class="h" id="t-ask-h">messages sent</div></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Activity</h3><p class="m">Hover a bar for the day's numbers.</p>
+        <div class="chart" id="chart"></div>
+        <div class="axis"><span id="ax0"></span><span id="ax1"></span></div>
+        <div class="legend"><span style="--c:var(--lav)">Opens</span><span style="--c:var(--sky)">Check-ins</span><span style="--c:var(--pink)">Questions</span><span style="--c:var(--coral)">Red flags</span></div>
+      </div>
+      <div class="grid g2">
+        <div class="card"><h3>Red flags shown</h3><p class="m">How often the app pointed someone to urgent care, by type.</p><div class="bars" id="flags"></div></div>
+        <div class="card"><h3>Who's using Moma</h3><p class="m">New sign-ups by stage and country.</p><div class="bars" id="who"></div></div>
+      </div>
+    </section>
+
+    <!-- Safety lab -->
+    <section id="v-safety" class="hidden">
+      <h1>Safety lab</h1>
+      <p class="sub">Runs messages through the same red-flag rules the app uses, before any AI is involved.</p>
+      <div class="grid g3" style="margin-bottom:14px">
+        <div class="tile" style="background:var(--coral)"><div class="k">Urgent cases caught</div><div class="v" id="s-recall">–</div><div class="h">the number that matters most</div></div>
+        <div class="tile" style="background:var(--mint)"><div class="k">Calm cases left alone</div><div class="v" id="s-spec">–</div><div class="h">no false alarm</div></div>
+        <div class="tile" style="background:var(--butter)"><div class="k">Test cases</div><div class="v" id="s-n">–</div><div class="h" id="s-h">built-in set</div></div>
+      </div>
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><div><h3>Built-in test set</h3><p class="m" style="margin:0">Real-world phrasings, including ones written the "wrong" way round.</p></div><button class="btn" id="runEval">Run all tests</button></div>
+        <div style="overflow:auto;margin-top:14px"><table><thead><tr><th>Message</th><th>Stage</th><th>Expected</th><th>Result</th></tr></thead><tbody id="evalBody"></tbody></table></div>
+      </div>
+      <div class="card">
+        <h3>Try a message</h3><p class="m">See exactly which rules fire.</p>
+        <div class="row"><input type="text" id="tryText" placeholder="e.g. baby hasn't kicked much since this morning" style="flex:1" /><select id="tryMode" style="width:auto"><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select><button class="btn" id="tryBtn">Check</button></div>
+        <div id="tryOut" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <!-- AI console -->
+    <section id="v-ai" class="hidden">
+      <h1>AI console</h1>
+      <p class="sub">Ask Moma a test question as a pretend user. Nothing here is stored.</p>
+      <div class="card">
+        <div class="grid g3">
+          <div><label class="l" style="margin-top:0">Stage</label><select id="aiMode"><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select></div>
+          <div><label class="l" style="margin-top:0" id="aiWeekL">Week of pregnancy</label><input type="text" id="aiWeek" value="20" /></div>
+          <div><label class="l" style="margin-top:0">Country</label><select id="aiCountry"><option>UK</option><option>Canada</option><option>US</option><option>Nigeria</option><option>Other</option></select></div>
+        </div>
+        <label class="l">Question</label>
+        <textarea id="aiQ" placeholder="e.g. Is it safe to have a bath at 20 weeks?"></textarea>
+        <div class="row" style="margin-top:12px;justify-content:space-between">
+          <label class="row" style="gap:8px;font-size:14px"><span class="switch"><input type="checkbox" id="aiGuid" checked /><span></span></span>Include team guidance from App settings</label>
+          <button class="btn" id="aiBtn">Ask Moma</button>
+        </div>
+      </div>
+      <div id="aiOut"></div>
+    </section>
+
+    <!-- Settings -->
+    <section id="v-settings" class="hidden">
+      <h1>App settings</h1>
+      <p class="sub">Changes reach everyone's app within about a minute. No app update needed.</p>
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><div><h3>Announcement banner</h3><p class="m" style="margin:0">Shown at the top of the Today screen.</p></div><label class="switch"><input type="checkbox" id="annOn" /><span></span></label></div>
+        <label class="l">Message (280 characters max)</label>
+        <textarea id="ann" maxlength="280" style="min-height:70px" placeholder="e.g. New: summarise your week for your midwife from the Track tab."></textarea>
+        <label class="l">Preview</label><div class="preview" id="annPrev">Your message will appear here.</div>
+      </div>
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><div><h3>Ask Moma</h3><p class="m" style="margin:0">Turn this off to pause the AI, for example while you change models. Red-flag safety messages keep working either way.</p></div><label class="switch"><input type="checkbox" id="askOn" checked /><span></span></label></div>
+      </div>
+      <div class="card">
+        <h3>Team guidance for the AI</h3>
+        <p class="m">Extra instructions added to every Ask Moma conversation, on top of the built-in safety rules. Test them in the AI console first.</p>
+        <textarea id="guid" maxlength="2000" placeholder="e.g. When someone asks about the flu jab, mention it is offered free to pregnant women in the UK."></textarea>
+      </div>
+      <div class="row"><button class="btn" id="saveCfg">Save settings</button><span class="muted" id="cfgWhen" style="font-size:13.5px"></span></div>
+    </section>
+
+    <!-- Feedback -->
+    <section id="v-feedback" class="hidden">
+      <div class="row" style="justify-content:space-between;align-items:flex-start">
+        <div><h1>Feedback</h1><p class="sub">What people chose to send from the Me screen. Newest first.</p></div>
+        <div class="row"><button class="btn ghost small" id="fbCsv">Download CSV</button><button class="btn ghost small" id="fbClear">Clear all</button></div>
+      </div>
+      <div class="card" id="fbList"></div>
+    </section>
+
+    <!-- Setup -->
+    <section id="v-setup" class="hidden">
+      <h1>Setup</h1>
+      <p class="sub">Three things switch everything on. All are in your Vercel project.</p>
+      <div class="card">
+        <table><tbody>
+          <tr><td style="width:220px"><b>Admin password</b></td><td><span class="pill p-ok">Set</span></td><td class="muted">You're signed in, so this is done.</td></tr>
+          <tr><td><b>AI key</b></td><td id="st-ai"></td><td class="muted">Powers Ask Moma.</td></tr>
+          <tr><td><b>Storage</b></td><td id="st-db"></td><td class="muted">Needed for stats, feedback and these settings.</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <h3>How to finish setup</h3>
+        <ol class="steps">
+          <li><b>Storage:</b> in Vercel open your <b>moma-app-web</b> project, go to <b>Storage</b>, choose <b>Upstash for Redis</b> (free plan), and connect it to this project. Vercel adds the keys for you.</li>
+          <li><b>AI key:</b> in <b>Settings → Environment Variables</b> add <code>ANTHROPIC_API_KEY</code> (or <code>OPENAI_API_KEY</code>). Optional: <code>MOMA_MODEL</code> to pick the model.</li>
+          <li><b>Redeploy</b> from the Deployments tab so the new keys take effect.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast hidden" id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const dmy = d => { const x = new Date(d); return `${x.getDate()} ${MONTHS[x.getMonth()]} ${x.getFullYear()}`; };
+const short = k => { const [y, m, d] = k.split('-').map(Number); return `${d} ${MONTHS[m - 1].slice(0, 3)}`; };
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.remove('hidden'); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.add('hidden'), 2600); }
+async function api(a, opt = {}) {
+  const r = await fetch(`/api/admin?a=${a}${opt.q || ''}`, { method: opt.method || 'GET', headers: { 'content-type': 'application/json' }, body: opt.body ? JSON.stringify(opt.body) : undefined, credentials: 'same-origin' });
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && a !== 'login') { showLogin(); throw new Error('signed out'); }
+  if (!r.ok) throw new Error(j.error || `Error ${r.status}`);
+  return j;
+}
+let ME = null;
+function showLogin(msg) { $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); if (msg) $('#loginErr').textContent = msg; $('#pw').focus(); }
+async function boot() {
+  try { ME = await api('me'); } catch (e) { if (e.message !== 'signed out') showLogin(`Couldn't reach the server (${e.message})`); return; }
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+  $('#st-ai').innerHTML = ME.ai ? `<span class="pill p-ok">On · ${esc(ME.ai)}</span>` : '<span class="pill p-bad">Not set</span>';
+  $('#st-db').innerHTML = ME.storage ? '<span class="pill p-ok">Connected</span>' : '<span class="pill p-bad">Not connected</span>';
+  $('#storageWarn').classList.toggle('hidden', ME.storage);
+  show(location.hash.slice(1) || 'overview');
+}
+$('#loginForm').onsubmit = async e => {
+  e.preventDefault(); $('#loginErr').textContent = '';
+  try { await api('login', { method: 'POST', body: { password: $('#pw').value } }); $('#pw').value = ''; boot(); }
+  catch (err) { $('#loginErr').textContent = err.message; }
+};
+$('#logout').onclick = async e => { e.preventDefault(); await api('logout').catch(() => {}); showLogin(); };
+
+const loaders = {};
+function show(v) {
+  if (!document.getElementById('v-' + v)) v = 'overview';
+  $$('main > section').forEach(s => s.classList.toggle('hidden', s.id !== 'v-' + v));
+  $$('#nav button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  history.replaceState(null, '', '#' + v);
+  loaders[v] && loaders[v]();
+}
+$$('#nav button').forEach(b => (b.onclick = () => show(b.dataset.v)));
+document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); show(g.dataset.go); } });
+
+/* Overview */
+const FLAG_COL = 'var(--coral)';
+function bars(el, rows, color) {
+  const max = Math.max(1, ...rows.map(r => r[1]));
+  el.innerHTML = rows.length ? rows.map(([l, n, c]) => `<div class="r"><span>${esc(l)}</span><div class="t"><i style="width:${(n / max) * 100}%;background:${c || color}"></i></div><span class="n">${n}</span></div>`).join('') : '<div class="empty">Nothing yet</div>';
+}
+loaders.overview = async () => {
+  const s = await api('stats', { q: `&days=${$('#range').value}` });
+  const T = s.totals, n = k => T[k] || 0;
+  $('#t-open').textContent = n('open'); $('#t-onboard').textContent = n('onboard'); $('#t-checkin').textContent = n('checkin'); $('#t-ask').textContent = n('ask');
+  $('#t-onboard-h').textContent = `${n('onboard:mode:pregnant')} pregnant · ${n('onboard:mode:postpartum')} postpartum`;
+  $('#t-ask-h').textContent = n('open') ? `${(n('ask') / Math.max(1, n('open'))).toFixed(1)} per app open` : 'messages sent';
+  const max = Math.max(1, ...s.days.map(d => (d.c.open || 0) + (d.c.checkin || 0) + (d.c.ask || 0) + (d.c.flag || 0)));
+  $('#chart').innerHTML = s.days.map(d => {
+    const c = d.c, seg = [['flag', 'var(--coral)'], ['ask', 'var(--pink)'], ['checkin', 'var(--sky)'], ['open', 'var(--lav)']];
+    return `<div class="b" data-t="${short(d.d)}: ${c.open || 0} opens, ${c.checkin || 0} check-ins, ${c.ask || 0} questions, ${c.flag || 0} flags">${seg.map(([k, col]) => c[k] ? `<i style="height:${(c[k] / max) * 160}px;background:${col}"></i>` : '').join('')}${!(c.open || c.checkin || c.ask || c.flag) ? '<i style="height:3px;background:#E9E4DE"></i>' : ''}</div>`;
+  }).join('');
+  $('#ax0').textContent = short(s.days[0].d); $('#ax1').textContent = short(s.days[s.days.length - 1].d);
+  bars($('#flags'), Object.entries(s.flagTitles).map(([id, t]) => [t, n('flag:id:' + id)]).filter(r => r[1]).sort((a, b) => b[1] - a[1]), FLAG_COL);
+  bars($('#who'), [['Pregnant', n('onboard:mode:pregnant'), 'var(--lav)'], ['Postpartum', n('onboard:mode:postpartum'), 'var(--mint)'],
+    ...['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => [c, n('onboard:country:' + c), 'var(--sky)'])].filter(r => r[1]));
+};
+$('#range').onchange = () => loaders.overview();
+
+/* Safety lab: expected = list of flag ids that must fire ([] = must stay quiet) */
+const CASES = [
+  ['My baby is moving less than usual today', 'pregnant', ['mv']],
+  ["I haven't felt the baby move since this morning", 'pregnant', ['mv']],
+  ['baby hasnt kicked much today', 'pregnant', ['mv']],
+  ["Baby's movements feel slower and weaker", 'pregnant', ['mv']],
+  ["I'm bleeding heavily and passing large clots", 'postpartum', ['hb']],
+  ['Soaking a pad every hour, is that normal?', 'postpartum', ['hb']],
+  ['I have a really bad headache and blurry vision', 'pregnant', ['pe']],
+  ['seeing flashing lights and my face is puffy', 'pregnant', ['pe', 'sw']],
+  ['I think my waters have broken, I am 33 weeks', 'pregnant', ['wb']],
+  ['my temperature is 38.5 and I have chills', 'postpartum', ['fv']],
+  ['chest pain and I can\'t breathe properly', 'pregnant', ['cp']],
+  ['My left calf is swollen and hot', 'postpartum', ['dv']],
+  ['My palms and the soles of my feet are so itchy at night', 'pregnant', ['ic']],
+  ['Sometimes I feel like I want to die', 'postpartum', ['mh']],
+  ["I can't go on like this", 'postpartum', ['mh']],
+  ['Severe stomach pain that won\'t go away', 'pregnant', ['ap']],
+  ['A tiny bit of spotting after sex', 'pregnant', ['bl']],
+  ['What can I eat for heartburn?', 'pregnant', []],
+  ['Is it ok to drink coffee?', 'pregnant', []],
+  ['How often should a newborn feed?', 'postpartum', []],
+  ['Baby is kicking loads tonight!', 'pregnant', []],
+  ['When can I start running again?', 'postpartum', []],
+  ['I feel a bit tired today', 'pregnant', []],
+  ['Is it normal to feel emotional on day 4?', 'postpartum', []],
+];
+$('#s-n').textContent = CASES.length;
+function renderEval(results) {
+  let urg = 0, urgOk = 0, calm = 0, calmOk = 0;
+  $('#evalBody').innerHTML = CASES.map(([t, m, exp], i) => {
+    const r = results ? results[i] : null;
+    let res = '<span class="pill p-mute">Not run</span>';
+    if (r) {
+      const pass = exp.length ? exp.every(id => r.ids.includes(id)) : r.ids.length === 0;
+      if (exp.length) { urg++; if (pass) urgOk++; } else { calm++; if (pass) calmOk++; }
+      res = pass ? `<span class="pill p-ok">Pass</span>` : `<span class="pill p-bad">${exp.length ? 'Missed' : 'False alarm'}</span>`;
+      if (r.titles.length) res += `<div class="muted" style="font-size:12.5px;margin-top:4px">${esc(r.titles.join(', '))}</div>`;
+    }
+    return `<tr><td>${esc(t)}</td><td>${m === 'pregnant' ? 'Pregnant' : 'Postpartum'}</td><td>${exp.length ? exp.map(x => `<span class="pill p-warn">${x}</span>`).join(' ') : '<span class="pill p-mute">No flag</span>'}</td><td>${res}</td></tr>`;
+  }).join('');
+  if (results) {
+    $('#s-recall').textContent = `${urgOk}/${urg}`; $('#s-spec').textContent = `${calmOk}/${calm}`;
+    $('#s-h').textContent = `last run ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+  }
+}
+renderEval(null);
+$('#runEval').onclick = async () => {
+  $('#runEval').disabled = true;
+  try { const r = await api('triage', { method: 'POST', body: { cases: CASES.map(([text, mode]) => ({ text, mode })) } }); renderEval(r.results); toast('Tests finished'); }
+  catch (e) { toast(e.message); } finally { $('#runEval').disabled = false; }
+};
+$('#tryBtn').onclick = async () => {
+  const text = $('#tryText').value.trim(); if (!text) return;
+  const r = (await api('triage', { method: 'POST', body: { cases: [{ text, mode: $('#tryMode').value }] } })).results[0];
+  const lv = { m: ['Mental health emergency', 'p-bad'], e: ['Emergency: call 999', 'p-bad'], u: ['Urgent: call maternity triage now', 'p-bad'], s: ['Worth checking today', 'p-warn'] }[r.level];
+  $('#tryOut').innerHTML = r.level ? `<span class="pill ${lv[1]}">${lv[0]}</span> <span class="muted" style="margin-left:6px">${esc(r.titles.join(', '))}</span>` : '<span class="pill p-ok">No red flag</span> <span class="muted">The AI answers normally.</span>';
+};
+$('#tryText').onkeydown = e => { if (e.key === 'Enter') $('#tryBtn').click(); };
+
+/* AI console */
+$('#aiMode').onchange = () => { const pp = $('#aiMode').value === 'postpartum'; $('#aiWeekL').textContent = pp ? "Baby's age in weeks" : 'Week of pregnancy'; $('#aiWeek').value = pp ? 2 : 20; };
+$('#aiBtn').onclick = async () => {
+  const q = $('#aiQ').value.trim(); if (!q) return;
+  $('#aiBtn').disabled = true; $('#aiBtn').textContent = 'Thinking…';
+  try {
+    const r = await api('test', { method: 'POST', body: { message: q, mode: $('#aiMode').value, week: $('#aiWeek').value, country: $('#aiCountry').value, useGuidance: $('#aiGuid').checked } });
+    const flag = r.triage.level ? `<span class="pill p-bad">Red flag shown first: ${esc(r.triage.titles.join(', '))}</span>` : '<span class="pill p-ok">No red flag</span>';
+    $('#aiOut').innerHTML = `<div class="card"><div class="row" style="justify-content:space-between"><h3>Moma's answer</h3><div class="row">${flag}${r.ms ? `<span class="pill p-mute">${(r.ms / 1000).toFixed(1)}s</span>` : ''}</div></div><div style="margin-top:12px">${r.reply ? `<div class="bubble">${esc(r.reply)}</div>` : `<p class="muted">${esc(r.error)}</p>`}</div></div>`;
+  } catch (e) { $('#aiOut').innerHTML = `<div class="card"><p style="color:var(--red)">${esc(e.message)}</p></div>`; }
+  finally { $('#aiBtn').disabled = false; $('#aiBtn').textContent = 'Ask Moma'; }
+};
+
+/* Settings */
+loaders.settings = async () => {
+  const c = await api('config');
+  $('#ann').value = c.announcement || ''; $('#annOn').checked = !!c.announcementOn; $('#askOn').checked = c.askEnabled !== false; $('#guid').value = c.guidance || '';
+  $('#annPrev').textContent = c.announcement || 'Your message will appear here.';
+  $('#cfgWhen').textContent = c.updatedAt ? `Last saved ${dmy(c.updatedAt)} at ${new Date(c.updatedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : '';
+};
+$('#ann').oninput = () => ($('#annPrev').textContent = $('#ann').value || 'Your message will appear here.');
+$('#saveCfg').onclick = async () => {
+  try { await api('config', { method: 'PUT', body: { announcement: $('#ann').value, announcementOn: $('#annOn').checked, askEnabled: $('#askOn').checked, guidance: $('#guid').value } }); toast('Saved. Live in about a minute'); loaders.settings(); }
+  catch (e) { toast(e.message); }
+};
+
+/* Feedback */
+let FB = [];
+loaders.feedback = async () => {
+  FB = (await api('feedback')).items;
+  $('#fbList').innerHTML = FB.length ? FB.map(f => `<div class="fb"><div>${esc(f.text)}</div><div class="meta"><span>${dmy(f.t)}</span>${f.mode ? `<span class="pill p-mute">${f.mode}</span>` : ''}${f.stage ? `<span class="pill p-mute">${esc(f.stage)}</span>` : ''}${f.country ? `<span class="pill p-mute">${esc(f.country)}</span>` : ''}</div></div>`).join('') : '<div class="empty">No feedback yet. It shows up here when someone sends it from the Me screen.</div>';
+};
+$('#fbClear').onclick = async () => { if (!confirm('Delete all feedback? This cannot be undone.')) return; await api('feedback', { method: 'DELETE' }); loaders.feedback(); toast('Feedback cleared'); };
+$('#fbCsv').onclick = () => {
+  const rows = [['date', 'stage', 'country', 'feedback'], ...FB.map(f => [dmy(f.t), f.stage || f.mode || '', f.country || '', f.text])];
+  const csv = rows.map(r => r.map(x => `"${String(x).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'moma-feedback.csv'; a.click();
+};
+
+boot();
+</script>
+</body>
+</html>

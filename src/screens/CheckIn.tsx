@@ -5,6 +5,7 @@ import { useStore, dkey } from '../store';
 import { SYM_PREG, SYM_PP } from '../content';
 import { Text, Card, H3, Chip, Input, Label, FlagCard, Notice } from '../ui';
 import { triage } from '../safety';
+import { track } from '../telemetry';
 import { C } from '../theme';
 
 export default function CheckIn({ onTalk }: { onTalk: (t: string) => void }) {
@@ -19,7 +20,7 @@ export default function CheckIn({ onTalk }: { onTalk: (t: string) => void }) {
       <H3>{L.mood ? "Today's check-in ✓" : 'How are you feeling today?'}</H3>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
         {MOOD_BLOBS.map(([col, face], i) => (
-          <Pressable key={i} accessibilityLabel={`Mood ${i + 1} of 5`} onPress={() => upd({ mood: i + 1 })} style={{ padding: 4, borderRadius: 22, borderWidth: 2, borderColor: L.mood === i + 1 ? C.ink : 'transparent', opacity: L.mood && L.mood !== i + 1 ? 0.45 : 1 }}>
+          <Pressable key={i} accessibilityLabel={`Mood ${i + 1} of 5`} onPress={() => { if (!L.mood) track(s, 'checkin'); upd({ mood: i + 1 }); }} style={{ padding: 4, borderRadius: 22, borderWidth: 2, borderColor: L.mood === i + 1 ? C.ink : 'transparent', opacity: L.mood && L.mood !== i + 1 ? 0.45 : 1 }}>
             <Blob color={col} face={face} size={48} cheeks={false} />
           </Pressable>
         ))}

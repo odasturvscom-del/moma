@@ -28,6 +28,7 @@
     <script>
       window.__momaInstall = null;
       window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); window.__momaInstall = e; window.dispatchEvent(new Event('moma-installable')); });
+      window.addEventListener('appinstalled', function () { try { var st = JSON.parse(localStorage.getItem('moma.v1') || '{}'); if (st.stats === false) return; } catch (e) {} fetch('/api/event', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ e: 'install' }) }).catch(function () {}); });
       if ('serviceWorker' in navigator) { window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); }); }
     </script>
   </head>

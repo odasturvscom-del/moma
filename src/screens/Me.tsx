@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Platform, Alert, Share } from 'react-native';
+import { ScrollView, View, Platform, Alert, Share, Switch } from 'react-native';
 import { Text } from '../ui';
 import { useStore, preg, dkey, parseKey, DAY } from '../store';
 import { apiBase } from '../ai';
+import { sendFeedback } from '../telemetry';
+import { pp } from '../store';
+import { C } from '../theme';
 import { COUNTRIES, Country } from '../content';
 import { Card, H3, Muted, Btn, Input, Label, Chip, DateField, Notice, Grid2 } from '../ui';
 
@@ -16,6 +19,17 @@ export default function Me({ done }: { done: () => void }) {
   const [birth, setBirth] = useState<string | null>(s.birth);
   const [url, setUrl] = useState(s.ai.serverUrl);
   const [testing, setTesting] = useState(false);
+  const [fb, setFb] = useState('');
+  const [sending, setSending] = useState(false);
+  const send = async () => {
+    if (fb.trim().length < 2) return;
+    setSending(true);
+    const q = pp(s);
+    const stage = s.mode === 'pregnant' ? (p ? `week ${p.w}` : 'pregnant') : (q ? `postpartum week ${q.w}` : 'postpartum');
+    try { await sendFeedback(s, fb.trim(), stage); setFb(''); say('Thank you. The Moma team will read this.'); }
+    catch (e: any) { say(e?.message ?? 'Could not send feedback'); }
+    finally { setSending(false); }
+  };
   const save = () => {
     set(x => ({ ...x, name: name.trim(), country, lmp: due ? dkey(new Date(parseKey(due).getTime() - 280 * DAY)) : x.lmp, birth: birth || null, mode: birth ? 'postpartum' : 'pregnant' }));
     done();
@@ -54,8 +68,23 @@ export default function Me({ done }: { done: () => void }) {
         </Grid2>
       </Card>
       <Card>
+        <H3>Send feedback</H3>
+        <Muted>Tell us what's working and what isn't. Please don't include medical details. This goes to the Moma team, not your midwife.</Muted>
+        <View style={{ height: 10 }} />
+        <Input multiline value={fb} onChangeText={setFb} placeholder="What would make Moma better for you?" maxLength={1500} />
+        <View style={{ height: 10 }} />
+        <Btn title={sending ? 'Sending…' : 'Send feedback'} onPress={send} />
+      </Card>
+      <Card>
         <H3>Your data</H3>
         <Muted>Everything lives on this phone. Nothing is sold, shared or used for ads.</Muted>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 14 }}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 15, fontWeight: '600', color: C.ink }}>Share anonymous usage counts</Text>
+            <Muted>Just totals like "a check-in happened today". Never your name, logs or messages.</Muted>
+          </View>
+          <Switch value={s.stats !== false} onValueChange={v => set(x => ({ ...x, stats: v }))} trackColor={{ true: C.ink, false: '#DDD7D0' }} thumbColor="#fff" />
+        </View>
         <View style={{ height: 10 }} />
         <Grid2>
           <Btn kind="ghost" title="Export" onPress={() => Share.share({ message: JSON.stringify(s, null, 2) })} />
@@ -63,7 +92,7 @@ export default function Me({ done }: { done: () => void }) {
         </Grid2>
       </Card>
       <Notice kind="info">Moma supports, never replaces, your midwife, GP or doctor. In an emergency call your local emergency number.</Notice>
-      <Muted style={{ textAlign: 'center' }}>Moma v0.2</Muted>
+      <Muted style={{ textAlign: 'center' }}>Moma v0.3</Muted>
     </ScrollView>
   );
 }
