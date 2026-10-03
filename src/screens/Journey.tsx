@@ -26,7 +26,7 @@ export default function Journey() {
               <Card style={[{ flexDirection: 'row', gap: 12 }, cur ? { borderWidth: 2, borderColor: C.rose } : {}]}>
                 <Num n={w} cur={cur} />
                 <View style={{ flex: 1 }}>
-                  <Text style={{ fontWeight: '700' }}>Size of a {x[0]}</Text>
+                  <Text style={{ fontWeight: '700' }}>Size of {/^[aeiou]/i.test(x[0]) ? 'an' : 'a'} {x[0]}</Text>
                   <Muted style={{ marginTop: 2 }}>{x[1]}</Muted>
                   <Text style={{ marginTop: 6, fontSize: 14 }}>{x[2]}</Text>
                   {MILESTONES.filter(m => m[0] === w).map(m => <Text key={m[1]} style={{ marginTop: 6, fontSize: 12, color: C.ink, fontWeight: '600' }}>📅 {m[1]}</Text>)}

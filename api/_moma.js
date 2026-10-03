@@ -26,7 +26,7 @@ async function complete(messages, sys) {
 function cors(res) { res.setHeader('access-control-allow-origin', '*'); res.setHeader('access-control-allow-headers', 'content-type, x-moma-id, x-moma-secret'); res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS'); }
 async function chat(body, guidance = '') {
   const { messages = [], context = '', country = 'UK', mode = 'pregnant' } = body || {};
-  if (!provider) { const e = new Error('Server has no ANTHROPIC_API_KEY or OPENAI_API_KEY set'); e.code = 500; throw e; }
+  if (!provider) { const e = new Error('Ask Moma is offline right now.'); e.code = 503; e.offline = true; throw e; }
   const clean = messages.filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string').slice(-12).map(m => ({ role: m.role, content: m.content.slice(0, 4000) }));
   while (clean.length && clean[0].role !== 'user') clean.shift();
   if (!clean.length) { const e = new Error('No message'); e.code = 400; throw e; }

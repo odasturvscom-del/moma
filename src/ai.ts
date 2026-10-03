@@ -48,7 +48,7 @@ export function demoReply(t: string, s: State): string {
   const p = preg(s), q = pp(s), x = t.toLowerCase();
   if (/summar|midwife|appointment|health visitor/.test(x)) return summaryText(s);
   if (/this week|happening|how big|baby size/.test(x)) {
-    if (s.mode === 'pregnant' && p) { const w = weekInfo(p.w); return `At **${p.w} weeks** your baby is about the size of a **${w[0]}**. ${w[1]}\n\nFor you: ${w[2]}\n\nNext step: log how you're feeling today so I can spot patterns.`; }
+    if (s.mode === 'pregnant' && p) { const w = weekInfo(p.w); return `At **${p.w} weeks** your baby is about the size of ${/^[aeiou]/i.test(w[0]) ? 'an' : 'a'} **${w[0]}**. ${w[1]}\n\nFor you: ${w[2]}\n\nNext step: log how you're feeling today so I can spot patterns.`; }
     if (q) { const n = ppInfo(q.w); return `**${n[0]}**\n\n${n[1]}`; }
   }
   if (/nause|sick|vomit|morning sickness/.test(x)) return `Nausea is really common in the first trimester and usually eases by 14 to 16 weeks.\n\n- Eat little and often, before you get hungry\n- Dry crackers or toast before getting up\n- Sip cold drinks; ginger can help\n- Rest, tiredness makes it worse\n\nIf you can't keep fluids down for 24 hours, are peeing very little, or feel faint, contact your midwife or GP the same day. That can be hyperemesis gravidarum, and it's treatable.`;
@@ -74,7 +74,7 @@ export async function askMoma(history: ChatMsg[], s: State): Promise<string> {
       body: JSON.stringify({ messages: msgs, context: buildContext(s), country: s.country, mode: s.mode }),
     });
     const j = await r.json().catch(() => ({}));
-    if (r.status === 404 && url === '/api') return demoReply(msgs[msgs.length - 1].content, s);
+    if ((r.status === 404 && url === '/api') || (j && j.offline)) return demoReply(msgs[msgs.length - 1].content, s);
     if (!r.ok) throw new Error(j.error || `Error ${r.status}`);
     return j.reply as string;
   } finally { clearTimeout(to); }

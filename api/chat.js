@@ -8,5 +8,5 @@ module.exports = async (req, res) => {
     const cfg = await getConfig();
     if (cfg.askEnabled === false) return res.status(503).json({ error: 'Ask Moma is paused for maintenance. Please try again later.' });
     res.status(200).json(await chat(body(req), cfg.guidance));
-  } catch (e) { res.status(e.code || 500).json({ error: e.message }); }
+  } catch (e) { res.status(e.code || 500).json({ error: e.message, offline: !!e.offline }); }
 };
