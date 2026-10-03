@@ -1,44 +1,103 @@
-import React from 'react';
-import { ScrollView, View, Text } from 'react-native';
-import { useStore, preg, pp, fmtDate, ago } from '../store';
+import React, { useState } from 'react';
+import { ScrollView, View, Pressable } from 'react-native';
+import { useStore, preg, pp, fmtDate, ago, dkey, DAY } from '../store';
 import { weekInfo, ppInfo, MILESTONES } from '../content';
-import { Card, H3, Muted, Ring, Btn, Grid2 } from '../ui';
+import { Text, Muted } from '../ui';
+import { Blob, MOOD_BLOBS } from '../mascot';
+import { ISpark, IGo } from '../icons';
 import CheckIn from './CheckIn';
 import { C } from '../theme';
 
+const Tile = ({ bg, children, onPress, h, style }: { bg: string; children: React.ReactNode; onPress?: () => void; h?: number; style?: object }) => (
+  <Pressable onPress={onPress} style={({ pressed }) => [{ backgroundColor: bg, borderRadius: 28, padding: 18, minHeight: h, overflow: 'hidden', transform: [{ scale: pressed ? 0.98 : 1 }] }, style]}>{children}</Pressable>
+);
+const Big = ({ children, size = 22 }: { children: React.ReactNode; size?: number }) => <Text style={{ fontSize: size, fontWeight: '700', color: C.ink, letterSpacing: -0.5, lineHeight: size * 1.1 }}>{children}</Text>;
+const Small = ({ children }: { children: React.ReactNode }) => <Text style={{ fontSize: 13.5, color: C.ink, opacity: 0.75, marginTop: 4 }}>{children}</Text>;
+
+function WeekStrip() {
+  const { s } = useStore();
+  const today = new Date(); const dow = (today.getDay() + 6) % 7;
+  const days = Array.from({ length: 7 }, (_, i) => new Date(today.getTime() + (i - dow) * DAY));
+  return (
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 14 }}>
+      {days.map(d => {
+        const k = dkey(d), on = k === dkey(), logged = !!s.logs[k]?.mood;
+        return (
+          <View key={k} style={{ width: 44, paddingVertical: 10, borderRadius: 22, alignItems: 'center', backgroundColor: on ? C.ink : '#fff', borderWidth: on ? 0 : 1.5, borderColor: C.line }}>
+            <Text style={{ fontSize: 12, color: on ? '#fff' : C.muted }}>{d.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 3)}</Text>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: on ? '#fff' : C.ink, marginTop: 2 }}>{d.getDate()}</Text>
+            <View style={{ width: 5, height: 5, borderRadius: 3, marginTop: 4, backgroundColor: logged ? (on ? '#fff' : C.ink) : 'transparent' }} />
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
 export default function Today({ go, ask }: { go: (tab: string, sub?: string) => void; ask: (t: string) => void }) {
   const { s, set } = useStore();
+  const L = s.logs[dkey()];
+  const [open, setOpen] = useState(false);
   const logFeed = (k: string) => set(x => ({ ...x, feeds: [...x.feeds, { t: Date.now(), k }] }));
   const logNappy = (k: string) => set(x => ({ ...x, nappies: [...x.nappies, { t: Date.now(), k }] }));
-  const hero = { flexDirection: 'row' as const, gap: 16, alignItems: 'center' as const, backgroundColor: '#F3E0E8' };
+  const checkTile = (
+    <Tile bg={C.butter} h={196} onPress={() => setOpen(o => !o)}>
+      <Big>Daily{'\n'}check-in</Big>
+      <Small>{L?.mood ? 'Done today. Tap to edit' : 'How are you feeling?'}</Small>
+      <View style={{ flexDirection: 'row', position: 'absolute', bottom: 10, left: 10 }}>
+        {(L?.mood ? [MOOD_BLOBS[L.mood - 1]] : [MOOD_BLOBS[2], MOOD_BLOBS[3], MOOD_BLOBS[4]]).map(([c, f], i) => (
+          <View key={i} style={{ marginLeft: i ? -14 : 0 }}><Blob color={c} face={f} size={52} cheeks={false} /></View>
+        ))}
+      </View>
+    </Tile>
+  );
+  const askTile = (
+    <Tile bg={C.pink} h={92} onPress={() => go('ask')}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}><Big>Ask{'\n'}Moma</Big><ISpark color={C.ink} size={26} /></View>
+    </Tile>
+  );
   let body: React.ReactNode = null;
   if (s.mode === 'pregnant') {
     const p = preg(s);
     if (p) {
-      const w = weekInfo(p.w), next = MILESTONES.filter(m => m[0] >= p.w).slice(0, 2);
+      const w = weekInfo(p.w), next = MILESTONES.filter(m => m[0] >= p.w)[0];
       body = (
         <>
-          <Card style={hero}>
-            <Ring pct={p.days / 280} big={`${p.w}`} small={`weeks ${p.d}d`} />
-            <View style={{ flex: 1 }}>
-              <Muted>Trimester {p.tri}</Muted>
-              <Text style={{ fontSize: 24, fontWeight: '800', color: C.plum }}>{p.left > 0 ? `${p.left} days to go` : 'Due any day'}</Text>
-              <Muted>Due {fmtDate(p.due)}</Muted>
-              <View style={{ alignSelf: 'flex-start', backgroundColor: '#fff', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 3, marginTop: 6 }}>
-                <Text style={{ fontSize: 12, fontWeight: '600', color: C.plum }}>Baby ≈ {w[0]}</Text>
-              </View>
+          <Tile bg={C.lav} h={200}>
+            <View style={{ width: '62%' }}>
+              <Text style={{ fontSize: 44, fontWeight: '800', color: C.ink, letterSpacing: -1.5, lineHeight: 46 }}>Week {p.w}</Text>
+              <Text style={{ fontSize: 18, fontWeight: '600', color: C.ink, marginTop: 6, lineHeight: 22 }}>Baby is the size of {/^[aeiou]/i.test(w[0]) ? 'an' : 'a'} {w[0]}</Text>
             </View>
-          </Card>
-          <Card><H3>This week</H3><Text style={{ marginBottom: 8 }}><Text style={{ fontWeight: '700' }}>Baby: </Text>{w[1]}</Text><Text><Text style={{ fontWeight: '700' }}>You: </Text>{w[2]}</Text></Card>
-          <CheckIn onTalk={ask} />
-          {next.length > 0 && (
-            <Card>
-              <H3>Coming up</H3>
-              {next.map(m => <View key={m[0]} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}><Text style={{ flex: 1 }}>{m[1]}</Text><Muted>wk {m[0]}</Muted></View>)}
-              <Muted style={{ marginTop: 6 }}>Timings vary by country and clinic. Your midwife will confirm.</Muted>
-            </Card>
+            <View style={{ position: 'absolute', right: -6, top: 26 }}><Blob color={C.peach} face="smile" size={118} arms leaf /></View>
+            <View style={{ marginTop: 18, height: 8, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.6)' }}>
+              <View style={{ width: `${Math.min(100, (p.days / 280) * 100)}%`, height: 8, borderRadius: 4, backgroundColor: C.ink }} />
+            </View>
+            <Text style={{ fontSize: 13, color: C.ink, marginTop: 8, fontWeight: '500' }}>{p.left > 0 ? `${p.left} days to go · due ${fmtDate(p.due)}` : 'Due any day now'}</Text>
+          </Tile>
+          <WeekStrip />
+          <Text style={{ fontSize: 22, fontWeight: '700', color: C.ink, letterSpacing: -0.5, marginBottom: 12 }}>Today for you</Text>
+          <View style={{ flexDirection: 'row', gap: 12 }}>
+            <View style={{ flex: 1 }}>{checkTile}</View>
+            <View style={{ flex: 1, gap: 12 }}>
+              <Tile bg={C.sky} h={92} onPress={() => go('journey')}>
+                <Text style={{ fontSize: 12.5, fontWeight: '600', color: C.ink, opacity: 0.7 }}>{next ? `Around week ${next[0]}` : 'Coming up'}</Text>
+                <Text numberOfLines={3} style={{ fontSize: 15, fontWeight: '700', color: C.ink, marginTop: 4, lineHeight: 18 }}>{next ? next[1] : 'Your birth plan'}</Text>
+              </Tile>
+              {askTile}
+            </View>
+          </View>
+          {(open || !L?.mood) && <View style={{ marginTop: 12 }}><CheckIn onTalk={ask} /></View>}
+          {p.w >= 24 && (
+            <View style={{ flexDirection: 'row', gap: 12, marginTop: 12 }}>
+              <Tile bg={C.mint} style={{ flex: 1 }} onPress={() => go('track', 'moves')}><Big size={17}>Baby's{'\n'}movements</Big></Tile>
+              <Tile bg={C.lime} style={{ flex: 1 }} onPress={() => go('track', 'ctx')}><Big size={17}>Contraction{'\n'}timer</Big></Tile>
+            </View>
           )}
-          {p.w >= 24 && <Grid2><Btn kind="ghost" title="👣 Log a movement" onPress={() => go('track', 'moves')} /><Btn kind="ghost" title="⏱ Contractions" onPress={() => go('track', 'ctx')} /></Grid2>}
+          <View style={{ backgroundColor: '#fff', borderRadius: 28, padding: 18, marginTop: 12 }}>
+            <Text style={{ fontSize: 18, fontWeight: '700', color: C.ink, marginBottom: 12 }}>This week</Text>
+            <View style={{ backgroundColor: '#FFF1E8', borderRadius: 18, padding: 14, marginBottom: 8 }}><Text style={{ fontSize: 12.5, fontWeight: '700', color: C.ink, marginBottom: 4 }}>BABY</Text><Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{w[1]}</Text></View>
+            <View style={{ backgroundColor: '#F1ECFF', borderRadius: 18, padding: 14 }}><Text style={{ fontSize: 12.5, fontWeight: '700', color: C.ink, marginBottom: 4 }}>YOU</Text><Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{w[2]}</Text></View>
+          </View>
         </>
       );
     }
@@ -46,31 +105,57 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
     const q = pp(s);
     if (q) {
       const n = ppInfo(q.w), lf = s.feeds[s.feeds.length - 1];
+      const td = (arr: { t: number }[]) => arr.filter(f => dkey(new Date(f.t)) === dkey()).length;
       body = (
         <>
-          <Card style={hero}>
-            <Ring pct={q.days / 84} big={`${q.w}`} small={`weeks ${q.d}d`} />
-            <View style={{ flex: 1 }}>
-              <Muted>Fourth trimester</Muted>
-              <Text style={{ fontSize: 24, fontWeight: '800', color: C.plum }}>Day {q.days + 1}</Text>
-              <Muted>Last feed: {lf ? `${ago(lf.t)} (${lf.k})` : 'not logged'}</Muted>
+          <Tile bg={C.mint} h={190}>
+            <View style={{ width: '60%' }}>
+              <Text style={{ fontSize: 44, fontWeight: '800', color: C.ink, letterSpacing: -1.5, lineHeight: 46 }}>Day {q.days + 1}</Text>
+              <Text style={{ fontSize: 17, fontWeight: '600', color: C.ink, marginTop: 6 }}>Week {q.w + 1} of your fourth trimester</Text>
+              <Text style={{ fontSize: 13, color: C.ink, marginTop: 10, fontWeight: '500' }}>Last feed: {lf ? `${ago(lf.t)} (${lf.k})` : 'not logged yet'}</Text>
             </View>
-          </Card>
-          <Card><H3>{n[0]}</H3><Text>{n[1]}</Text></Card>
-          <Card><H3>Quick log</H3><Grid2><Btn title="🍼 Left" onPress={() => logFeed('Left')} /><Btn title="🍼 Right" onPress={() => logFeed('Right')} /><Btn kind="plum" title="🍼 Bottle" onPress={() => logFeed('Bottle')} /><Btn kind="sage" title="💧 Nappy" onPress={() => logNappy('Wet')} /></Grid2></Card>
-          <CheckIn onTalk={ask} />
+            <View style={{ position: 'absolute', right: 6, top: 24 }}><Blob color={C.coral} face="calm" size={98} arms /></View>
+            <View style={{ position: 'absolute', right: 58, top: 100 }}><Blob color={C.peach} face="smile" size={46} /></View>
+          </Tile>
+          <WeekStrip />
+          <Text style={{ fontSize: 22, fontWeight: '700', color: C.ink, letterSpacing: -0.5, marginBottom: 12 }}>Quick log</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+            {([['Left', C.butter, () => logFeed('Left')], ['Right', C.pink, () => logFeed('Right')], ['Bottle', C.sky, () => logFeed('Bottle')], ['Nappy', C.lime, () => logNappy('Wet')]] as [string, string, () => void][]).map(([l, bg, fn]) => (
+              <Tile key={l} bg={bg} style={{ width: '47.5%', flexGrow: 1 }} onPress={fn}>
+                <Big size={19}>{l}</Big>
+                <Small>{l === 'Nappy' ? `${td(s.nappies)} today` : `Tap to log feed`}</Small>
+              </Tile>
+            ))}
+          </View>
+          <View style={{ flexDirection: 'row', gap: 12, marginTop: 12 }}>
+            <View style={{ flex: 1 }}>{checkTile}</View>
+            <View style={{ flex: 1, gap: 12 }}>
+              <Tile bg={C.lav} h={92}><Text style={{ fontSize: 12.5, fontWeight: '600', color: C.ink, opacity: 0.7 }}>{td(s.feeds)} feeds today</Text><Text style={{ fontSize: 15, fontWeight: '700', color: C.ink, marginTop: 4 }}>{n[0]}</Text></Tile>
+              {askTile}
+            </View>
+          </View>
+          {(open || !L?.mood) && <View style={{ marginTop: 12 }}><CheckIn onTalk={ask} /></View>}
+          <View style={{ backgroundColor: '#fff', borderRadius: 28, padding: 18, marginTop: 12 }}>
+            <Text style={{ fontSize: 18, fontWeight: '700', color: C.ink, marginBottom: 8 }}>{n[0]}</Text>
+            <Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{n[1]}</Text>
+          </View>
         </>
       );
     }
   }
   return (
-    <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
-      {body ?? <Card><Text>Add your dates in Me to get started.</Text></Card>}
-      <Card style={{ backgroundColor: C.plum }}>
-        <H3 color="#fff">Ask Moma</H3>
-        <Text style={{ color: '#fff', opacity: 0.9, marginBottom: 10 }}>Worried about something, or just curious? I know where you are in your journey.</Text>
-        <Btn title="Start a conversation" onPress={() => go('ask')} />
-      </Card>
+    <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 10, paddingBottom: 30 }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      {body ?? <View style={{ backgroundColor: '#fff', borderRadius: 28, padding: 18 }}><Text>Add your dates in Me to get started.</Text></View>}
+      <Pressable onPress={() => ask(s.mode === 'pregnant' ? "What's happening this week?" : 'Summarise my week for my health visitor')}
+        style={{ marginTop: 12, backgroundColor: C.ink, borderRadius: 28, padding: 18, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Blob color={C.coral} face="wink" size={44} cheeks={false} />
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: '#fff', fontSize: 16, fontWeight: '700' }}>{s.mode === 'pregnant' ? "What's happening this week?" : 'Prep my health visitor chat'}</Text>
+          <Text style={{ color: '#fff', opacity: 0.7, fontSize: 13 }}>Moma knows where you are in your journey</Text>
+        </View>
+        <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: C.lime, alignItems: 'center', justifyContent: 'center' }}><IGo size={18} /></View>
+      </Pressable>
+      <Muted style={{ textAlign: 'center', marginTop: 16, fontSize: 12 }}>Moma supports, never replaces, your midwife or doctor.</Muted>
     </ScrollView>
   );
 }

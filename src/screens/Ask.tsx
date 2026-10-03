@@ -1,23 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView, Platform, TextInput, Pressable, ActivityIndicator } from 'react-native';
-import { useStore, ChatMsg } from '../store';
+import { View, ScrollView, KeyboardAvoidingView, Platform, TextInput, Pressable, ActivityIndicator } from 'react-native';
+import { useStore, ChatMsg, preg } from '../store';
 import { triage } from '../safety';
 import { askMoma, apiBase } from '../ai';
 import { EM } from '../content';
-import { Chip, FlagCard, Md, Muted } from '../ui';
-import { C } from '../theme';
+import { Text, FlagCard, Md, Muted } from '../ui';
+import { Blob } from '../mascot';
+import { IArrow, ISpark } from '../icons';
+import { C, F, PASTELS } from '../theme';
 
 export default function Ask({ pending, clearPending }: { pending: string | null; clearPending: () => void }) {
   const { s, set } = useStore();
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
   const scroll = useRef<ScrollView>(null);
-  const P = s.mode === 'pregnant';
-  const chips = P ? ["What's happening this week?", 'Summarise my week for my midwife', 'Foods to avoid?', 'Is this heartburn normal?', 'Safe exercise?']
-    : ['Summarise my week for my health visitor', 'Breastfeeding hurts', 'Are the baby blues normal?', 'How often should baby feed?', 'When can I exercise?'];
+  const P = s.mode === 'pregnant', p = preg(s);
+  const chips = P ? ["What's happening this week?", 'Prep my midwife visit', 'Foods to avoid', 'Is this heartburn normal?', 'Safe exercise']
+    : ['Prep my health visitor chat', 'Breastfeeding hurts', 'Are the baby blues normal?', 'How often should baby feed?', 'When can I exercise?'];
+  const map: Record<string, string> = { 'Prep my midwife visit': 'Summarise my week for my midwife', 'Prep my health visitor chat': 'Summarise my week for my health visitor', 'Foods to avoid': 'Foods to avoid?', 'Safe exercise': 'Safe exercise?' };
 
   const send = async (text: string) => {
-    const t = text.trim(); if (!t || busy) return;
+    const t = (map[text] ?? text).trim(); if (!t || busy) return;
     setQ('');
     const tr = triage(t, s.mode, s.country);
     const add: ChatMsg[] = [{ r: 'u', c: t }];
@@ -29,36 +32,54 @@ export default function Ask({ pending, clearPending }: { pending: string | null;
       const a = await askMoma(history, { ...s, chat: history });
       set(x => ({ ...x, chat: [...x.chat, { r: 'a', c: a }] }));
     } catch (e: any) {
-      set(x => ({ ...x, chat: [...x.chat, { r: 'a', c: `I couldn't reach the AI just now (${e?.message ?? 'network error'}). Check the server address in Me, or try again. If this is urgent, contact your maternity team or call ${(EM[s.country] ?? EM.Other).e}.` }] }));
+      set(x => ({ ...x, chat: [...x.chat, { r: 'a', c: `I couldn't reach the AI just now (${e?.message ?? 'network error'}). Try again in a moment. If this is urgent, contact your maternity team or call ${(EM[s.country] ?? EM.Other).e}.` }] }));
     } finally { setBusy(false); }
   };
   useEffect(() => { if (pending) { send(pending); clearPending(); } }, [pending]);
   useEffect(() => { setTimeout(() => scroll.current?.scrollToEnd({ animated: true }), 50); }, [s.chat.length, busy]);
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={90}>
-      <ScrollView ref={scroll} contentContainerStyle={{ padding: 16, gap: 10 }}>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={10}>
+      <View style={{ paddingHorizontal: 20, paddingTop: 8, flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <Blob color={C.coral} face={busy ? 'wow' : 'smile'} size={50} cheeks={false} />
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 30, fontWeight: '800', color: C.ink, letterSpacing: -1 }}>Ask Moma</Text>
+          <Text style={{ fontSize: 13, color: C.muted }}>{apiBase(s) ? 'Private · grounded in NHS and NICE guidance' : 'Offline mode · connect the AI in Me'}</Text>
+        </View>
+        {P && p ? <View style={{ width: 54, height: 54, borderRadius: 27, backgroundColor: C.butter, alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontSize: 11, fontWeight: '600', color: C.ink }}>Week</Text><Text style={{ fontSize: 17, fontWeight: '800', color: C.ink, marginTop: -3 }}>{p.w}</Text></View> : null}
+      </View>
+      <ScrollView ref={scroll} contentContainerStyle={{ padding: 20, gap: 10 }} showsVerticalScrollIndicator={false}>
+        {s.chat.length <= 1 && (
+          <View style={{ backgroundColor: C.lime, borderRadius: 28, padding: 18, marginBottom: 4 }}>
+            <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}><ISpark color={C.ink} size={20} /><Text style={{ fontSize: 17, fontWeight: '700', color: C.ink }}>What's on your mind today?</Text></View>
+            <Text style={{ fontSize: 14, color: C.ink, opacity: 0.75, marginTop: 6 }}>Symptoms, food, sleep, scans, feelings. No question is too small, and I'll always tell you when to call someone.</Text>
+          </View>
+        )}
         {s.chat.map((m, i) => {
           if (m.r === 'f') { try { return <FlagCard key={i} t={JSON.parse(m.c)} />; } catch { return null; } }
           const u = m.r === 'u';
           return (
-            <View key={i} style={{ alignSelf: u ? 'flex-end' : 'flex-start', maxWidth: '86%', backgroundColor: u ? C.plum : '#fff', padding: 12, borderRadius: 18, borderBottomRightRadius: u ? 6 : 18, borderBottomLeftRadius: u ? 18 : 6 }}>
-              {u ? <Text style={{ color: '#fff', fontSize: 14 }}>{m.c}</Text> : <Md text={m.c} />}
+            <View key={i} style={{ alignSelf: u ? 'flex-end' : 'flex-start', maxWidth: '86%', backgroundColor: u ? C.ink : C.lav, paddingVertical: 12, paddingHorizontal: 15, borderRadius: 24, borderBottomRightRadius: u ? 8 : 24, borderBottomLeftRadius: u ? 24 : 8 }}>
+              {u ? <Text style={{ color: '#fff', fontSize: 15, lineHeight: 21 }}>{m.c}</Text> : <Md text={m.c} />}
             </View>
           );
         })}
-        {busy && <View style={{ alignSelf: 'flex-start', backgroundColor: '#fff', padding: 12, borderRadius: 18 }}><ActivityIndicator color={C.rose} /></View>}
+        {busy && <View style={{ alignSelf: 'flex-start', backgroundColor: C.lav, padding: 14, borderRadius: 24 }}><ActivityIndicator color={C.ink} /></View>}
       </ScrollView>
-      <View style={{ paddingHorizontal: 16, paddingBottom: 8 }}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 6, paddingBottom: 8 }} keyboardShouldPersistTaps="handled">
-          {chips.map(c => <Chip key={c} label={c} onPress={() => send(c)} />)}
+      <View style={{ paddingHorizontal: 20, paddingBottom: 6 }}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 10 }} keyboardShouldPersistTaps="handled">
+          {chips.map((c, i) => (
+            <Pressable key={c} onPress={() => send(c)} style={{ backgroundColor: PASTELS[(i + 2) % PASTELS.length], borderRadius: 99, paddingVertical: 9, paddingHorizontal: 15 }}>
+              <Text style={{ fontSize: 13.5, fontWeight: '600', color: C.ink }}>{c}</Text>
+            </Pressable>
+          ))}
         </ScrollView>
-        <View style={{ flexDirection: 'row', gap: 8 }}>
+        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', backgroundColor: '#fff', borderRadius: 99, borderWidth: 1.5, borderColor: C.line, paddingLeft: 18, paddingRight: 5, paddingVertical: 5 }}>
           <TextInput value={q} onChangeText={setQ} onSubmitEditing={() => send(q)} placeholder="Ask Moma anything…" placeholderTextColor={C.muted} returnKeyType="send"
-            style={{ flex: 1, backgroundColor: '#fff', borderRadius: 99, paddingHorizontal: 16, paddingVertical: 12, borderWidth: 1, borderColor: C.line, fontSize: 15, color: C.ink }} />
-          <Pressable onPress={() => send(q)} style={{ width: 46, height: 46, borderRadius: 23, backgroundColor: C.rose, alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: '#fff', fontSize: 18, fontWeight: '800' }}>↑</Text></Pressable>
+            style={{ flex: 1, fontSize: 15, color: C.ink, fontFamily: F.r, paddingVertical: 8 }} />
+          <Pressable accessibilityLabel="Send" onPress={() => send(q)} style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: C.ink, alignItems: 'center', justifyContent: 'center' }}><IArrow size={20} /></Pressable>
         </View>
-        <Muted style={{ textAlign: 'center', fontSize: 11, marginTop: 6 }}>{apiBase(s) ? 'AI on' : 'Offline mode · connect the Moma server in Me for full answers'}. Not medical advice. Emergency: {(EM[s.country] ?? EM.Other).e}</Muted>
+        <Muted style={{ textAlign: 'center', fontSize: 11.5, marginTop: 6 }}>Not medical advice. Emergency: {(EM[s.country] ?? EM.Other).e}</Muted>
       </View>
     </KeyboardAvoidingView>
   );

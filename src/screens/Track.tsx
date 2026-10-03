@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView, View, Text, Pressable } from 'react-native';
+import { ScrollView, View, Pressable } from 'react-native';
+import { Text } from '../ui';
 import { useStore, last7, fmtDate, fmtTime, ago, dkey, DAY, pp } from '../store';
 import { MOODS, EM } from '../content';
 import { Card, H3, Muted, Btn, Grid2, Seg, Chip, Notice, Input, Label, DateField, st } from '../ui';

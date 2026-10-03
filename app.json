@@ -26,6 +26,9 @@
     "scheme": "moma",
     "splash": {
       "backgroundColor": "#FBF6F2"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

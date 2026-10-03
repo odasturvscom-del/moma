@@ -1,0 +1,12 @@
+import React from 'react';
+import Svg, { Path, Circle, Rect } from 'react-native-svg';
+type P = { color?: string; size?: number };
+const S = ({ size = 22, children }: { size?: number; children: React.ReactNode }) => <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">{children}</Svg>;
+const st = (c: string) => ({ stroke: c, strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const });
+export const IHome = ({ color = '#fff', size }: P) => <S size={size}><Path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z" {...st(color)} /></S>;
+export const IChart = ({ color = '#fff', size }: P) => <S size={size}><Rect x={4} y={4} width={16} height={16} rx={4} {...st(color)} /><Path d="M9 15v-3M12 15V9M15 15v-5" {...st(color)} /></S>;
+export const ISpark = ({ color = '#fff', size }: P) => <S size={size}><Path d="M12 3c.6 4.4 2.6 6.4 7 7-4.4.6-6.4 2.6-7 7-.6-4.4-2.6-6.4-7-7 4.4-.6 6.4-2.6 7-7z" {...st(color)} /><Path d="M19 16.5c.2 1.3.8 1.9 2 2-1.2.2-1.8.8-2 2-.2-1.2-.8-1.8-2-2 1.2-.1 1.8-.7 2-2z" {...st(color)} /></S>;
+export const ICal = ({ color = '#fff', size }: P) => <S size={size}><Rect x={4} y={5} width={16} height={15} rx={4} {...st(color)} /><Path d="M8 3v4M16 3v4M4 10h16" {...st(color)} /></S>;
+export const IUser = ({ color = '#fff', size }: P) => <S size={size}><Circle cx={12} cy={8.5} r={3.8} {...st(color)} /><Path d="M5 20c1.2-3.6 3.8-5.4 7-5.4s5.8 1.8 7 5.4" {...st(color)} /></S>;
+export const IArrow = ({ color = '#fff', size }: P) => <S size={size}><Path d="M12 19V5M6 11l6-6 6 6" {...st(color)} /></S>;
+export const IGo = ({ color = '#141414', size }: P) => <S size={size}><Path d="M5 12h14M13 6l6 6-6 6" {...st(color)} /></S>;

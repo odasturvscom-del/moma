@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, ActivityIndicator } from 'react-native';
+import { View, Pressable, ActivityIndicator, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
-import { StoreProvider, useStore } from './src/store';
+import { useFonts, Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-google-fonts/outfit';
+import { StoreProvider, useStore, preg, pp } from './src/store';
 import { C } from './src/theme';
+import { Text } from './src/ui';
+import { IHome, IChart, ISpark, ICal, IUser } from './src/icons';
 import Onboarding from './src/screens/Onboarding';
 import Today from './src/screens/Today';
 import Track from './src/screens/Track';
@@ -13,26 +16,41 @@ import Journey from './src/screens/Journey';
 import Me from './src/screens/Me';
 
 type Tab = 'today' | 'track' | 'ask' | 'journey' | 'me';
-const TABS: [Tab, string, string][] = [['today', '🏠', 'Today'], ['track', '📈', 'Track'], ['ask', '💬', 'Ask Moma'], ['journey', '🗓', 'Journey'], ['me', '👤', 'Me']];
+const TABS: [Tab, string, (p: { color: string }) => React.ReactElement][] = [
+  ['today', 'Today', IHome], ['track', 'Track', IChart], ['ask', 'Ask Moma', ISpark], ['journey', 'Journey', ICal], ['me', 'Me', IUser],
+];
+
+function Header({ onMe }: { onMe: () => void }) {
+  const { s } = useStore();
+  const p = preg(s), q = pp(s);
+  const h = new Date().getHours();
+  const sub = s.mode === 'pregnant' && p ? `Week ${p.w} · ${['1st', '2nd', '3rd'][p.tri - 1]} trimester` : q ? `Day ${q.days + 1} with your baby` : 'Welcome to Moma';
+  return (
+    <View style={{ paddingHorizontal: 20, paddingTop: 8, paddingBottom: 6, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <Pressable onPress={onMe} style={{ width: 46, height: 46, borderRadius: 23, backgroundColor: C.pink, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 19, fontWeight: '700', color: C.ink }}>{(s.name || 'M').slice(0, 1).toUpperCase()}</Text>
+      </Pressable>
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontSize: 20, fontWeight: '700', color: C.ink, letterSpacing: -0.4 }}>{h < 12 ? 'Good morning' : h < 18 ? 'Hello' : 'Good evening'}{s.name ? `, ${s.name}` : ''}</Text>
+        <Text style={{ fontSize: 13.5, color: C.muted }}>{sub}</Text>
+      </View>
+      <Text style={{ fontSize: 22, fontWeight: '800', color: C.ink, letterSpacing: -0.8 }}>moma</Text>
+    </View>
+  );
+}
 
 function Shell() {
   const { s, ready } = useStore();
   const [tab, setTab] = useState<Tab>('today');
   const [sub, setSub] = useState('');
   const [pending, setPending] = useState<string | null>(null);
-  if (!ready) return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: C.bg }}><ActivityIndicator color={C.rose} /></View>;
-  if (!s.onboarded) return <SafeAreaView style={{ flex: 1, backgroundColor: C.bg }}><Onboarding /></SafeAreaView>;
+  if (!ready) return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: C.bg }}><ActivityIndicator color={C.ink} /></View>;
+  if (!s.onboarded) return <View style={{ flex: 1, backgroundColor: C.bg }}><Onboarding /></View>;
   const go = (t: string, sb?: string) => { setTab(t as Tab); if (sb) setSub(sb); };
   const ask = (t: string) => { setPending(t); setTab('ask'); };
-  const h = new Date().getHours();
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: C.bg }}>
-      <View style={{ paddingHorizontal: 18, paddingTop: 6, paddingBottom: 4, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <View>
-          <Text style={{ fontSize: 24, fontWeight: '800', color: C.plum, letterSpacing: -0.6 }}>mo<Text style={{ color: C.rose }}>ma</Text></Text>
-          <Text style={{ color: C.muted, fontSize: 13 }}>{h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'}{s.name ? `, ${s.name}` : ''}</Text>
-        </View>
-      </View>
+      {tab !== 'ask' && <Header onMe={() => setTab('me')} />}
       <View style={{ flex: 1 }}>
         {tab === 'today' && <Today go={go} ask={ask} />}
         {tab === 'track' && <Track sub={sub} setSub={setSub} ask={ask} />}
@@ -40,16 +58,15 @@ function Shell() {
         {tab === 'journey' && <Journey />}
         {tab === 'me' && <Me done={() => setTab('today')} />}
       </View>
-      <SafeAreaView edges={['bottom']} style={{ backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: C.line }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-end', paddingTop: 8, paddingBottom: 4 }}>
-          {TABS.map(([k, ic, l]) => {
-            const on = tab === k, center = k === 'ask';
+      <SafeAreaView edges={['bottom']} style={{ backgroundColor: C.bg }}>
+        <View style={{ marginHorizontal: 20, marginTop: 6, marginBottom: Platform.OS === 'web' ? 14 : 4, backgroundColor: C.ink, borderRadius: 99, padding: 6, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          {TABS.map(([k, l, Icon]) => {
+            const on = tab === k;
             return (
-              <Pressable key={k} accessibilityRole="tab" accessibilityLabel={l} onPress={() => { Haptics.selectionAsync().catch(() => {}); setTab(k); }} style={{ alignItems: 'center', minWidth: 60 }}>
-                {center
-                  ? <View style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: C.rose, alignItems: 'center', justifyContent: 'center', marginTop: -24, shadowColor: C.rose, shadowOpacity: 0.45, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 4 }}><Text style={{ fontSize: 22 }}>{ic}</Text></View>
-                  : <Text style={{ fontSize: 21 }}>{ic}</Text>}
-                <Text style={{ fontSize: 11, color: on ? C.rose : C.muted, fontWeight: on ? '700' : '400', marginTop: 2 }}>{l}</Text>
+              <Pressable key={k} accessibilityRole="tab" accessibilityLabel={l} accessibilityState={{ selected: on }}
+                onPress={() => { Haptics.selectionAsync().catch(() => {}); setTab(k); }}
+                style={{ width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center', backgroundColor: on ? '#fff' : 'transparent' }}>
+                <Icon color={on ? C.ink : '#fff'} />
               </Pressable>
             );
           })}
@@ -58,7 +75,10 @@ function Shell() {
     </SafeAreaView>
   );
 }
+
 export default function App() {
+  const [fontsLoaded] = useFonts({ Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold, Outfit_700Bold, Outfit_800ExtraBold });
+  if (!fontsLoaded) return <View style={{ flex: 1, backgroundColor: C.bg }} />;
   return (
     <SafeAreaProvider>
       <StoreProvider>

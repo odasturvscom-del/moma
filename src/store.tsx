@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 import { Country } from './content';
 
 export const DAY = 864e5;
@@ -60,6 +61,14 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
   const loaded = useRef(false);
   useEffect(() => {
+    // Web preview with sample data: add ?demo to the link. Nothing is saved in demo mode.
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && /[?&]demo/.test(window.location.search)) {
+      const today = new Date(); const back = (n: number) => dkey(new Date(today.getTime() - n * DAY));
+      setS({ ...DEFAULT, onboarded: true, name: 'Ada', lmp: back(14 * 7 + 3),
+        logs: { [back(1)]: { mood: 4, sym: ['Tired'] }, [back(2)]: { mood: 3, sym: ['Nausea'] }, [back(3)]: { mood: 5 } },
+        chat: [{ r: 'a', c: "Hi Ada, I'm Moma. Ask me anything about your pregnancy, day or night. If something feels wrong, I'll always point you to the right person fast." }] });
+      setReady(true); return;
+    }
     AsyncStorage.getItem(KEY).then(raw => {
       if (raw) { try { const p = JSON.parse(raw); setS({ ...DEFAULT, ...p, ai: { ...DEFAULT.ai, ...(p.ai ?? {}) } }); } catch {} }
       loaded.current = true; setReady(true);

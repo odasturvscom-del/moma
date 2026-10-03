@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
+import { Blob, MOOD_BLOBS } from '../mascot';
 import { useStore, dkey } from '../store';
-import { MOODS, SYM_PREG, SYM_PP } from '../content';
-import { Card, H3, Chip, Input, Label, FlagCard, Notice } from '../ui';
+import { SYM_PREG, SYM_PP } from '../content';
+import { Text, Card, H3, Chip, Input, Label, FlagCard, Notice } from '../ui';
 import { triage } from '../safety';
 import { C } from '../theme';
 
@@ -17,9 +18,9 @@ export default function CheckIn({ onTalk }: { onTalk: (t: string) => void }) {
     <Card>
       <H3>{L.mood ? "Today's check-in ✓" : 'How are you feeling today?'}</H3>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
-        {MOODS.map((e, i) => (
-          <Pressable key={i} onPress={() => upd({ mood: i + 1 })} style={{ padding: 6, borderRadius: 14, borderWidth: 2, borderColor: L.mood === i + 1 ? C.rose : 'transparent', backgroundColor: L.mood === i + 1 ? C.roseSoft : '#fff', opacity: L.mood && L.mood !== i + 1 ? 0.5 : 1 }}>
-            <Text style={{ fontSize: 28 }}>{e}</Text>
+        {MOOD_BLOBS.map(([col, face], i) => (
+          <Pressable key={i} accessibilityLabel={`Mood ${i + 1} of 5`} onPress={() => upd({ mood: i + 1 })} style={{ padding: 4, borderRadius: 22, borderWidth: 2, borderColor: L.mood === i + 1 ? C.ink : 'transparent', opacity: L.mood && L.mood !== i + 1 ? 0.45 : 1 }}>
+            <Blob color={col} face={face} size={48} cheeks={false} />
           </Pressable>
         ))}
       </View>
@@ -32,7 +33,7 @@ export default function CheckIn({ onTalk }: { onTalk: (t: string) => void }) {
       {low ? (
         <Notice kind="warn">
           <Text style={{ fontSize: 13 }}>Rough day? That's allowed. If it's been like this for more than two weeks, I can help you prepare to talk to your GP or health visitor. </Text>
-          <Text style={{ fontSize: 13, color: C.plum, fontWeight: '700', marginTop: 6 }} onPress={() => onTalk('I have been feeling low. Can you help me explain it to my GP?')}>Talk it through →</Text>
+          <Text style={{ fontSize: 13, color: C.ink, fontWeight: '700', marginTop: 6, textDecorationLine: 'underline' }} onPress={() => onTalk('I have been feeling low. Can you help me explain it to my GP?')}>Talk it through →</Text>
         </Notice>
       ) : null}
     </Card>

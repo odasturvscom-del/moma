@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, Platform, Alert, Share } from 'react-native';
+import { ScrollView, View, Platform, Alert, Share } from 'react-native';
+import { Text } from '../ui';
 import { useStore, preg, dkey, parseKey, DAY } from '../store';
 import { apiBase } from '../ai';
 import { COUNTRIES, Country } from '../content';
