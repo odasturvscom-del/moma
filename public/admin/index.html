@@ -9,394 +9,600 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-:root{--bg:#F6F3EE;--ink:#141414;--muted:#6F6A73;--line:#E9E4DE;--lav:#CFC4FA;--butter:#FFE08A;--sky:#AEDDF6;--pink:#FFB8D6;--lime:#DDF38C;--coral:#FF8B74;--mint:#A8E8CB;--peach:#FFC6A3;--red:#C62F1E;--ok:#1F7A4D}
+:root{--bg:#F6F3EE;--ink:#141414;--muted:#6F6A73;--line:#E9E4DE;--soft:#F1EDE8;--lav:#CFC4FA;--butter:#FFE08A;--sky:#AEDDF6;--pink:#FFB8D6;--lime:#DDF38C;--coral:#FF8B74;--mint:#A8E8CB;--peach:#FFC6A3;--red:#C62F1E;--ok:#1F7A4D}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
 body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
-button,input,textarea,select{font:inherit;color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}a{color:inherit}
 .hidden{display:none!important}
-.login{min-height:100%;display:grid;place-items:center;background:linear-gradient(180deg,#B4D7EE,#C3CCE9 55%,#F4E6DA)}
-.login .box{background:#fff;border-radius:32px;padding:34px;width:min(400px,92vw);text-align:center}
-.login img{width:150px;border-radius:28px}
-.word{font-weight:800;letter-spacing:-1.5px;font-size:40px;margin:10px 0 2px}
-.shell{display:grid;grid-template-columns:240px 1fr;min-height:100%}
-aside{background:var(--ink);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
-aside .brand{display:flex;align-items:center;gap:10px;margin:0 8px 22px}
+.login{min-height:100%;display:grid;place-items:center;background:linear-gradient(180deg,#B4D7EE,#C3CCE9 55%,#F4E6DA);padding:20px}
+.login .box{background:#fff;border-radius:32px;padding:32px;width:min(420px,100%);text-align:center}
+.login img{width:120px;border-radius:26px}
+.word{font-weight:800;letter-spacing:-1.5px;font-size:38px;margin:8px 0 0}
+.login form{text-align:left}.login .btn{width:100%;margin-top:16px}
+.shell{display:grid;grid-template-columns:236px 1fr;min-height:100%}
+aside{background:var(--ink);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow:auto}
+aside .brand{display:flex;align-items:center;gap:10px;margin:0 8px 18px}
 aside .brand img{width:40px;height:40px;border-radius:12px}
 aside .brand b{font-size:24px;font-weight:800;letter-spacing:-1px}
 aside .brand span{font-size:12px;opacity:.6;display:block;margin-top:-3px}
-nav button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:99px;font-weight:500;color:#fff;opacity:.8}
+nav button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:99px;font-weight:500;color:#fff;opacity:.82}
 nav button:hover{opacity:1;background:#262626}
 nav button.on{background:#fff;color:var(--ink);opacity:1;font-weight:600}
-nav .dot{width:10px;height:10px;border-radius:5px}
-aside .foot{margin-top:auto;font-size:12.5px;opacity:.7;padding:0 10px}
-aside .foot a{color:#fff}
-main{padding:28px 36px 60px;max-width:1180px}
-h1{font-size:34px;font-weight:800;letter-spacing:-1.2px;margin:0 0 4px}
-.sub{color:var(--muted);margin:0 0 22px}
-.grid{display:grid;gap:14px}
-.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}
-@media(max-width:1000px){.g4{grid-template-columns:1fr 1fr}.g3,.g2{grid-template-columns:1fr}.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap}aside .foot{display:none}nav{display:flex;flex-wrap:wrap;gap:4px}main{padding:20px}}
-.tile{border-radius:28px;padding:20px;min-height:120px;position:relative;overflow:hidden}
-.tile .k{font-size:13.5px;font-weight:600;opacity:.75}
-.tile .v{font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-top:6px}
-.tile .h{font-size:13px;opacity:.75;margin-top:2px}
-.card{background:#fff;border-radius:28px;padding:22px;margin-bottom:14px}
-.card h3{margin:0 0 4px;font-size:19px;font-weight:700;letter-spacing:-.3px}
+nav .dot{width:10px;height:10px;border-radius:5px;flex:none}
+nav .badge{margin-left:auto;background:var(--coral);color:var(--ink);font-size:12px;font-weight:700;border-radius:99px;padding:1px 8px}
+nav .sep{height:1px;background:#2b2b2b;margin:8px 10px}
+.who{margin-top:auto;padding:14px 10px 0;border-top:1px solid #2b2b2b;font-size:13.5px}
+.who b{display:block;font-size:14.5px}.who .r{opacity:.65}
+.who .links{display:flex;flex-direction:column;gap:6px;margin-top:10px;opacity:.8}.who .links a{cursor:pointer}
+main{padding:26px 32px 60px;min-width:0}
+h1{font-size:32px;font-weight:800;letter-spacing:-1.2px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 20px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}
+@media(max-width:1100px){.g4{grid-template-columns:1fr 1fr}.g3,.g2{grid-template-columns:1fr}}
+@media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto}main{padding:18px}}
+.tile{border-radius:26px;padding:18px 20px;min-height:116px}
+.tile .k{font-size:13.5px;font-weight:600;opacity:.75}.tile .v{font-size:38px;font-weight:800;letter-spacing:-1.5px;margin-top:4px}.tile .h{font-size:13px;opacity:.75;margin-top:2px}
+.card{background:#fff;border-radius:26px;padding:20px 22px;margin-bottom:14px}
+.card h3{margin:0 0 4px;font-size:18.5px;font-weight:700;letter-spacing:-.3px}
 .card p.m{margin:0 0 14px;color:var(--muted);font-size:14px}
 .chart{display:flex;align-items:flex-end;gap:4px;height:170px;padding-top:10px}
-.chart .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-width:4px;position:relative}
+.chart .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-width:3px;position:relative}
 .chart .b i{display:block;border-radius:6px 6px 2px 2px}
-.chart .b:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12px;padding:6px 9px;border-radius:10px;white-space:nowrap;z-index:2}
+.chart .b:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12px;padding:6px 9px;border-radius:10px;white-space:nowrap;z-index:3}
 .axis{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px}
 .legend{display:flex;gap:14px;font-size:13px;color:var(--muted);margin-top:10px;flex-wrap:wrap}
 .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:6px;background:var(--c)}
-.bars .r{display:grid;grid-template-columns:200px 1fr 50px;gap:10px;align-items:center;padding:6px 0;font-size:14px}
-.bars .t{height:12px;background:#F1EDE8;border-radius:6px;overflow:hidden}.bars .t i{display:block;height:100%;border-radius:6px}
+.bars .r{display:grid;grid-template-columns:minmax(120px,210px) 1fr 70px;gap:10px;align-items:center;padding:6px 0;font-size:14px}
+.bars .t{height:12px;background:var(--soft);border-radius:6px;overflow:hidden}.bars .t i{display:block;height:100%;border-radius:6px}
 .bars .n{text-align:right;font-weight:600}
-.btn{border:0;border-radius:99px;padding:12px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:#fff}
-.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
-.btn.small{padding:8px 14px;font-size:13.5px}
-.btn:disabled{opacity:.5;cursor:default}
-input[type=text],input[type=password],textarea,select{width:100%;border:1.5px solid var(--line);border-radius:18px;padding:12px 16px;background:#fff;outline:none}
+.btn{border:0;border-radius:99px;padding:11px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:#fff;white-space:nowrap}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}.btn.danger{background:var(--red)}
+.btn.small{padding:7px 13px;font-size:13.5px}.btn:disabled{opacity:.45;cursor:default}
+input[type=text],input[type=email],input[type=password],input[type=search],textarea,select{width:100%;border:1.5px solid var(--line);border-radius:16px;padding:11px 15px;background:#fff;outline:none}
 input:focus,textarea:focus,select:focus{border-color:var(--ink)}
-textarea{min-height:110px;resize:vertical;line-height:1.45}
+textarea{min-height:100px;resize:vertical;line-height:1.45}
+select.auto{width:auto}
 label.l{display:block;font-weight:600;font-size:13.5px;margin:14px 0 6px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:5px 12px;font-size:12.5px;font-weight:600}
-.p-ok{background:#DDF5E8;color:var(--ok)}.p-bad{background:#FFE4DE;color:var(--red)}.p-warn{background:#FFF3CC;color:#8a6200}.p-mute{background:#EFEBE6;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:4px 11px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.p-ok{background:#DDF5E8;color:var(--ok)}.p-bad{background:#FFE4DE;color:var(--red)}.p-warn{background:#FFF3CC;color:#8a6200}.p-mute{background:#EFEBE6;color:var(--muted)}.p-lav{background:#EAE4FF;color:#4B3A9A}.p-sky{background:#E1F3FC;color:#1D5E80}
 table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:left;font-size:12.5px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1.5px solid var(--line)}
-td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
-.switch{position:relative;width:52px;height:30px;flex:none}.switch input{display:none}
+th{text-align:left;font-size:12.5px;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1.5px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr.click{cursor:pointer}tr.click:hover td{background:#FBF9F6}
+.switch{position:relative;width:52px;height:30px;flex:none;display:inline-block}.switch input{display:none}
 .switch span{position:absolute;inset:0;background:#DDD7D0;border-radius:99px;cursor:pointer;transition:.2s}
 .switch span::after{content:"";position:absolute;width:24px;height:24px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
 .switch input:checked+span{background:var(--ink)}.switch input:checked+span::after{left:25px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:99px;font-weight:500;z-index:9;transition:.3s}
-.bubble{background:var(--lav);border-radius:22px 22px 22px 8px;padding:14px 16px;white-space:pre-wrap;line-height:1.5}
-.preview{border-radius:22px;background:var(--butter);padding:14px 16px;font-weight:500}
-.steps li{margin-bottom:10px;line-height:1.5}
-code{background:#F1EDE8;padding:2px 7px;border-radius:7px;font-size:13px}
-.muted{color:var(--muted)}
-.fb{border-bottom:1px solid var(--line);padding:14px 0}.fb:last-child{border:0}
-.fb .meta{font-size:12.5px;color:var(--muted);margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
-.empty{text-align:center;color:var(--muted);padding:30px 10px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:99px;font-weight:500;z-index:50}
+.muted{color:var(--muted)}.small{font-size:13px}
+.empty{text-align:center;color:var(--muted);padding:34px 10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:0;background:var(--soft);border-radius:99px;padding:8px 14px;font-weight:600;font-size:13.5px;cursor:pointer}
+.tabs button.on{background:var(--ink);color:#fff}
+.tabs button .c{opacity:.7;margin-left:4px}
+/* support */
+.desk{display:grid;grid-template-columns:330px 1fr 290px;gap:14px;height:calc(100vh - 150px);min-height:520px}
+@media(max-width:1250px){.desk{grid-template-columns:300px 1fr}.desk .side{display:none}}
+.pane{background:#fff;border-radius:26px;display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.list{overflow:auto;flex:1}
+.ci{padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer}
+.ci:hover{background:#FBF9F6}.ci.on{background:#F3EFFF}
+.ci .t{display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.ci .p{color:var(--muted);font-size:13.5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci .meta{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+.unread{background:var(--coral);border-radius:99px;font-size:11.5px;padding:1px 7px;font-weight:700}
+.thread{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:10px;background:#FBF9F6}
+.msg{max-width:78%;padding:11px 14px;border-radius:20px;line-height:1.45;white-space:pre-wrap;font-size:14.5px}
+.msg .w{font-size:11.5px;color:var(--muted);margin-top:5px}
+.msg.user{background:#fff;border:1.5px solid var(--line);align-self:flex-start;border-bottom-left-radius:6px}
+.msg.staff{background:var(--lav);align-self:flex-end;border-bottom-right-radius:6px}
+.msg.note{background:#FFF3CC;align-self:flex-end;border:1.5px dashed #E5C34F}
+.msg.system{background:#FFE4DE;align-self:center;max-width:90%;font-size:13.5px;text-align:center}
+.msg.event{background:transparent;align-self:center;color:var(--muted);font-size:12.5px;padding:2px}
+.alert{background:#FFE4DE;color:#7a1d12;padding:12px 16px;font-size:14px;line-height:1.4}
+.composer{border-top:1px solid var(--line);padding:12px}
+.composer textarea{min-height:70px;border-radius:16px}
+.composer.note textarea{background:#FFFBEA;border-color:#E5C34F}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:8px 10px;font-size:14px}.kv dt{color:var(--muted)}.kv dd{margin:0;font-weight:500}
+/* modal & drawer */
+.scrim{position:fixed;inset:0;background:rgba(20,20,20,.35);z-index:20;display:flex;justify-content:flex-end}
+.scrim.center{justify-content:center;align-items:center;padding:20px}
+.drawer{background:var(--bg);width:min(560px,100%);height:100%;overflow:auto;padding:24px}
+.modal{background:#fff;border-radius:28px;padding:26px;width:min(460px,100%)}
+.heat td{text-align:center;font-weight:600;font-size:13.5px}
+.code{font-family:ui-monospace,Menlo,monospace;background:var(--soft);padding:10px 14px;border-radius:12px;font-size:16px;letter-spacing:.5px;display:inline-block}
+.matrix td,.matrix th{text-align:center}.matrix td:first-child,.matrix th:first-child{text-align:left}
 </style>
 </head>
 <body>
-<!-- Sign in -->
 <div id="login" class="login hidden">
   <div class="box">
     <img src="/icons/icon-512.png" alt="Moma characters" />
     <div class="word">moma</div>
-    <p class="muted" style="margin:0 0 20px">Admin portal</p>
+    <p class="muted" style="margin:0 0 18px">Admin portal</p>
+    <div id="setupNote" class="hidden" style="text-align:left;background:#FFF3CC;border-radius:18px;padding:14px 16px;font-size:14px;margin-bottom:12px"></div>
     <form id="loginForm">
-      <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" />
-      <button class="btn" style="width:100%;margin-top:12px">Sign in</button>
-      <p id="loginErr" style="color:var(--red);font-size:14px;min-height:20px;margin:12px 0 0"></p>
+      <div id="firstOwner" class="hidden" style="background:#EAE4FF;border-radius:18px;padding:12px 14px;font-size:14px;margin-bottom:6px">First sign-in: you'll become the owner. Use the ADMIN_PASSWORD you set in Vercel.</div>
+      <label class="l hidden" id="nameL">Your name</label><input type="text" id="lname" class="hidden" autocomplete="name" />
+      <label class="l">Email</label><input type="email" id="lemail" autocomplete="username" />
+      <label class="l">Password</label><input type="password" id="lpw" autocomplete="current-password" />
+      <button class="btn">Sign in</button>
+      <p id="loginErr" style="color:var(--red);font-size:14px;min-height:20px;margin:12px 0 0;text-align:center"></p>
     </form>
   </div>
 </div>
 
-<!-- Portal -->
 <div id="app" class="shell hidden">
   <aside>
     <div class="brand"><img src="/icons/icon-192.png" alt="" /><div><b>moma</b><span>admin</span></div></div>
-    <nav id="nav">
-      <button data-v="overview" class="on"><i class="dot" style="background:var(--lav)"></i>Overview</button>
-      <button data-v="safety"><i class="dot" style="background:var(--coral)"></i>Safety lab</button>
-      <button data-v="ai"><i class="dot" style="background:var(--pink)"></i>AI console</button>
-      <button data-v="settings"><i class="dot" style="background:var(--butter)"></i>App settings</button>
-      <button data-v="feedback"><i class="dot" style="background:var(--mint)"></i>Feedback</button>
-      <button data-v="setup"><i class="dot" style="background:var(--sky)"></i>Setup</button>
-    </nav>
-    <div class="foot"><a href="/" target="_blank">Open the app ↗</a><br /><br /><a href="#" id="logout">Sign out</a></div>
+    <nav id="nav"></nav>
+    <div class="who"><b id="whoName"></b><span class="r" id="whoRole"></span>
+      <div class="links"><a id="chgPw">Change password</a><a href="/" target="_blank">Open the app ↗</a><a id="logout">Sign out</a></div></div>
   </aside>
-  <main>
-    <!-- Overview -->
-    <section id="v-overview">
-      <div class="row" style="justify-content:space-between;align-items:flex-start">
-        <div><h1>Overview</h1><p class="sub">Anonymous daily counts. No names, no device ids, no message text.</p></div>
-        <select id="range" style="width:auto"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option></select>
-      </div>
-      <div id="storageWarn" class="card hidden" style="background:#FFF3CC"><b>Storage isn't connected yet,</b> so there's nothing to count. See <a href="#" data-go="setup">Setup</a>.</div>
-      <div class="grid g4">
-        <div class="tile" style="background:var(--lav)"><div class="k">App opens</div><div class="v" id="t-open">0</div><div class="h">one per device per day</div></div>
-        <div class="tile" style="background:var(--butter)"><div class="k">New sign-ups</div><div class="v" id="t-onboard">0</div><div class="h" id="t-onboard-h">finished setup</div></div>
-        <div class="tile" style="background:var(--sky)"><div class="k">Check-ins</div><div class="v" id="t-checkin">0</div><div class="h">daily mood logs</div></div>
-        <div class="tile" style="background:var(--pink)"><div class="k">Ask Moma questions</div><div class="v" id="t-ask">0</div><div class="h" id="t-ask-h">messages sent</div></div>
-      </div>
-      <div class="card" style="margin-top:14px">
-        <h3>Activity</h3><p class="m">Hover a bar for the day's numbers.</p>
-        <div class="chart" id="chart"></div>
-        <div class="axis"><span id="ax0"></span><span id="ax1"></span></div>
-        <div class="legend"><span style="--c:var(--lav)">Opens</span><span style="--c:var(--sky)">Check-ins</span><span style="--c:var(--pink)">Questions</span><span style="--c:var(--coral)">Red flags</span></div>
-      </div>
-      <div class="grid g2">
-        <div class="card"><h3>Red flags shown</h3><p class="m">How often the app pointed someone to urgent care, by type.</p><div class="bars" id="flags"></div></div>
-        <div class="card"><h3>Who's using Moma</h3><p class="m">New sign-ups by stage and country.</p><div class="bars" id="who"></div></div>
-      </div>
-    </section>
-
-    <!-- Safety lab -->
-    <section id="v-safety" class="hidden">
-      <h1>Safety lab</h1>
-      <p class="sub">Runs messages through the same red-flag rules the app uses, before any AI is involved.</p>
-      <div class="grid g3" style="margin-bottom:14px">
-        <div class="tile" style="background:var(--coral)"><div class="k">Urgent cases caught</div><div class="v" id="s-recall">–</div><div class="h">the number that matters most</div></div>
-        <div class="tile" style="background:var(--mint)"><div class="k">Calm cases left alone</div><div class="v" id="s-spec">–</div><div class="h">no false alarm</div></div>
-        <div class="tile" style="background:var(--butter)"><div class="k">Test cases</div><div class="v" id="s-n">–</div><div class="h" id="s-h">built-in set</div></div>
-      </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><div><h3>Built-in test set</h3><p class="m" style="margin:0">Real-world phrasings, including ones written the "wrong" way round.</p></div><button class="btn" id="runEval">Run all tests</button></div>
-        <div style="overflow:auto;margin-top:14px"><table><thead><tr><th>Message</th><th>Stage</th><th>Expected</th><th>Result</th></tr></thead><tbody id="evalBody"></tbody></table></div>
-      </div>
-      <div class="card">
-        <h3>Try a message</h3><p class="m">See exactly which rules fire.</p>
-        <div class="row"><input type="text" id="tryText" placeholder="e.g. baby hasn't kicked much since this morning" style="flex:1" /><select id="tryMode" style="width:auto"><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select><button class="btn" id="tryBtn">Check</button></div>
-        <div id="tryOut" style="margin-top:12px"></div>
-      </div>
-    </section>
-
-    <!-- AI console -->
-    <section id="v-ai" class="hidden">
-      <h1>AI console</h1>
-      <p class="sub">Ask Moma a test question as a pretend user. Nothing here is stored.</p>
-      <div class="card">
-        <div class="grid g3">
-          <div><label class="l" style="margin-top:0">Stage</label><select id="aiMode"><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select></div>
-          <div><label class="l" style="margin-top:0" id="aiWeekL">Week of pregnancy</label><input type="text" id="aiWeek" value="20" /></div>
-          <div><label class="l" style="margin-top:0">Country</label><select id="aiCountry"><option>UK</option><option>Canada</option><option>US</option><option>Nigeria</option><option>Other</option></select></div>
-        </div>
-        <label class="l">Question</label>
-        <textarea id="aiQ" placeholder="e.g. Is it safe to have a bath at 20 weeks?"></textarea>
-        <div class="row" style="margin-top:12px;justify-content:space-between">
-          <label class="row" style="gap:8px;font-size:14px"><span class="switch"><input type="checkbox" id="aiGuid" checked /><span></span></span>Include team guidance from App settings</label>
-          <button class="btn" id="aiBtn">Ask Moma</button>
-        </div>
-      </div>
-      <div id="aiOut"></div>
-    </section>
-
-    <!-- Settings -->
-    <section id="v-settings" class="hidden">
-      <h1>App settings</h1>
-      <p class="sub">Changes reach everyone's app within about a minute. No app update needed.</p>
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><div><h3>Announcement banner</h3><p class="m" style="margin:0">Shown at the top of the Today screen.</p></div><label class="switch"><input type="checkbox" id="annOn" /><span></span></label></div>
-        <label class="l">Message (280 characters max)</label>
-        <textarea id="ann" maxlength="280" style="min-height:70px" placeholder="e.g. New: summarise your week for your midwife from the Track tab."></textarea>
-        <label class="l">Preview</label><div class="preview" id="annPrev">Your message will appear here.</div>
-      </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><div><h3>Ask Moma</h3><p class="m" style="margin:0">Turn this off to pause the AI, for example while you change models. Red-flag safety messages keep working either way.</p></div><label class="switch"><input type="checkbox" id="askOn" checked /><span></span></label></div>
-      </div>
-      <div class="card">
-        <h3>Team guidance for the AI</h3>
-        <p class="m">Extra instructions added to every Ask Moma conversation, on top of the built-in safety rules. Test them in the AI console first.</p>
-        <textarea id="guid" maxlength="2000" placeholder="e.g. When someone asks about the flu jab, mention it is offered free to pregnant women in the UK."></textarea>
-      </div>
-      <div class="row"><button class="btn" id="saveCfg">Save settings</button><span class="muted" id="cfgWhen" style="font-size:13.5px"></span></div>
-    </section>
-
-    <!-- Feedback -->
-    <section id="v-feedback" class="hidden">
-      <div class="row" style="justify-content:space-between;align-items:flex-start">
-        <div><h1>Feedback</h1><p class="sub">What people chose to send from the Me screen. Newest first.</p></div>
-        <div class="row"><button class="btn ghost small" id="fbCsv">Download CSV</button><button class="btn ghost small" id="fbClear">Clear all</button></div>
-      </div>
-      <div class="card" id="fbList"></div>
-    </section>
-
-    <!-- Setup -->
-    <section id="v-setup" class="hidden">
-      <h1>Setup</h1>
-      <p class="sub">Three things switch everything on. All are in your Vercel project.</p>
-      <div class="card">
-        <table><tbody>
-          <tr><td style="width:220px"><b>Admin password</b></td><td><span class="pill p-ok">Set</span></td><td class="muted">You're signed in, so this is done.</td></tr>
-          <tr><td><b>AI key</b></td><td id="st-ai"></td><td class="muted">Powers Ask Moma.</td></tr>
-          <tr><td><b>Storage</b></td><td id="st-db"></td><td class="muted">Needed for stats, feedback and these settings.</td></tr>
-        </tbody></table>
-      </div>
-      <div class="card">
-        <h3>How to finish setup</h3>
-        <ol class="steps">
-          <li><b>Storage:</b> in Vercel open your <b>moma-app-web</b> project, go to <b>Storage</b>, choose <b>Upstash for Redis</b> (free plan), and connect it to this project. Vercel adds the keys for you.</li>
-          <li><b>AI key:</b> in <b>Settings → Environment Variables</b> add <code>ANTHROPIC_API_KEY</code> (or <code>OPENAI_API_KEY</code>). Optional: <code>MOMA_MODEL</code> to pick the model.</li>
-          <li><b>Redeploy</b> from the Deployments tab so the new keys take effect.</li>
-        </ol>
-      </div>
-    </section>
-  </main>
+  <main id="main"></main>
 </div>
+<div id="layer"></div>
 <div class="toast hidden" id="toast"></div>
 
 <script>
-const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const $ = (s, el = document) => el.querySelector(s), $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const dmy = d => { const x = new Date(d); return `${x.getDate()} ${MONTHS[x.getMonth()]} ${x.getFullYear()}`; };
+const dmy = d => { if (!d) return '—'; const x = new Date(d); return `${x.getDate()} ${MONTHS[x.getMonth()]} ${x.getFullYear()}`; };
+const tm = d => new Date(d).toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit', hour12: true });
+const when = d => { if (!d) return '—'; const m = (Date.now() - new Date(d)) / 6e4; if (m < 1) return 'just now'; if (m < 60) return `${Math.round(m)} min ago`; if (m < 1440) return `${Math.round(m / 60)}h ago`; if (m < 2880) return 'yesterday'; return dmy(d); };
 const short = k => { const [y, m, d] = k.split('-').map(Number); return `${d} ${MONTHS[m - 1].slice(0, 3)}`; };
-function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.remove('hidden'); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.add('hidden'), 2600); }
+const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.remove('hidden'); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.add('hidden'), 2800); }
 async function api(a, opt = {}) {
   const r = await fetch(`/api/admin?a=${a}${opt.q || ''}`, { method: opt.method || 'GET', headers: { 'content-type': 'application/json' }, body: opt.body ? JSON.stringify(opt.body) : undefined, credentials: 'same-origin' });
   const j = await r.json().catch(() => ({}));
-  if (r.status === 401 && a !== 'login') { showLogin(); throw new Error('signed out'); }
+  if (r.status === 401 && !['login', 'password'].includes(a)) { showLogin(); throw new Error('signed out'); }
   if (!r.ok) throw new Error(j.error || `Error ${r.status}`);
   return j;
 }
-let ME = null;
-function showLogin(msg) { $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); if (msg) $('#loginErr').textContent = msg; $('#pw').focus(); }
-async function boot() {
-  try { ME = await api('me'); } catch (e) { if (e.message !== 'signed out') showLogin(`Couldn't reach the server (${e.message})`); return; }
-  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
-  $('#st-ai').innerHTML = ME.ai ? `<span class="pill p-ok">On · ${esc(ME.ai)}</span>` : '<span class="pill p-bad">Not set</span>';
-  $('#st-db').innerHTML = ME.storage ? '<span class="pill p-ok">Connected</span>' : '<span class="pill p-bad">Not connected</span>';
-  $('#storageWarn').classList.toggle('hidden', ME.storage);
-  show(location.hash.slice(1) || 'overview');
+function csv(name, rows) {
+  const s = rows.map(r => r.map(x => `"${String(x ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([s], { type: 'text/csv' })); a.download = name; a.click();
+}
+function bars(rows, color) {
+  const max = Math.max(1, ...rows.map(r => r[1]));
+  return rows.length ? `<div class="bars">${rows.map(([l, n, c, suffix]) => `<div class="r"><span>${esc(l)}</span><div class="t"><i style="width:${(n / max) * 100}%;background:${c || color}"></i></div><span class="n">${n}${suffix || ''}</span></div>`).join('')}</div>` : '<div class="empty">Nothing yet</div>';
+}
+function modal(html, cls = 'center') {
+  $('#layer').innerHTML = `<div class="scrim ${cls}">${html}</div>`;
+  const sc = $('#layer .scrim'); sc.onclick = e => { if (e.target === sc && !sc.dataset.lock) closeLayer(); };
+  return sc;
+}
+const closeLayer = () => ($('#layer').innerHTML = '');
+
+/* ---------- session ---------- */
+let ME = null, PERMS = [], ROLES = {}, MATRIX = {}, AI = null, view = 'overview', poll = null;
+const has = p => PERMS.includes(p);
+async function showLogin(msg) {
+  stopPoll(); $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); closeLayer();
+  $('#loginErr').textContent = msg || '';
+  try {
+    const s = await (await fetch('/api/admin?a=status')).json();
+    const note = $('#setupNote');
+    if (!s.db) { note.classList.remove('hidden'); note.innerHTML = '<b>One step left:</b> connect a database. In Vercel open your project → Storage → add <b>Neon Postgres</b> (free), then redeploy. You can sign in after that.'; }
+    else if (!s.hasStaff && !s.passwordSet) { note.classList.remove('hidden'); note.innerHTML = '<b>Set ADMIN_PASSWORD</b> in Vercel → Settings → Environment Variables, then redeploy. You use it once to create the owner account.'; }
+    else note.classList.add('hidden');
+    const first = s.db && !s.hasStaff && s.passwordSet;
+    ['firstOwner', 'nameL', 'lname'].forEach(id => $('#' + id).classList.toggle('hidden', !first));
+  } catch {}
 }
 $('#loginForm').onsubmit = async e => {
   e.preventDefault(); $('#loginErr').textContent = '';
-  try { await api('login', { method: 'POST', body: { password: $('#pw').value } }); $('#pw').value = ''; boot(); }
+  try { await api('login', { method: 'POST', body: { email: $('#lemail').value, password: $('#lpw').value, name: $('#lname').value } }); $('#lpw').value = ''; boot(); }
   catch (err) { $('#loginErr').textContent = err.message; }
 };
-$('#logout').onclick = async e => { e.preventDefault(); await api('logout').catch(() => {}); showLogin(); };
-
-const loaders = {};
+$('#logout').onclick = async () => { await api('logout').catch(() => {}); showLogin(); };
+$('#chgPw').onclick = () => passwordModal(false);
+function passwordModal(forced) {
+  const sc = modal(`<div class="modal"><h3 style="margin:0 0 4px;font-size:22px">${forced ? 'Choose your password' : 'Change password'}</h3>
+    <p class="muted" style="margin:0 0 10px">${forced ? "You're using a temporary password. Pick your own to continue." : 'At least 10 characters.'}</p>
+    ${forced ? '' : '<label class="l">Current password</label><input type="password" id="pwc" autocomplete="current-password" />'}
+    <label class="l">New password</label><input type="password" id="pwn" autocomplete="new-password" />
+    <p id="pwErr" style="color:var(--red);font-size:14px;min-height:18px"></p>
+    <div class="row" style="justify-content:flex-end">${forced ? '' : '<button class="btn ghost" id="pwX">Cancel</button>'}<button class="btn" id="pwGo">Save password</button></div></div>`);
+  if (forced) sc.dataset.lock = 1; else $('#pwX').onclick = closeLayer;
+  $('#pwGo').onclick = async () => {
+    try { await api('password', { method: 'POST', body: { current: forced ? '' : $('#pwc').value, next: $('#pwn').value } }); closeLayer(); toast('Password saved'); ME.mustReset = false; }
+    catch (e) { $('#pwErr').textContent = e.message; }
+  };
+}
+const NAV = [
+  ['overview', 'Overview', 'stats', 'var(--lav)'], ['reports', 'Reports', 'reports', 'var(--butter)'], ['users', 'Users', 'users', 'var(--sky)'],
+  ['support', 'Support inbox', 'support', 'var(--coral)'], 'sep', ['safety', 'Safety lab', 'safety', 'var(--peach)'], ['ai', 'AI console', 'safety', 'var(--pink)'],
+  ['settings', 'App settings', 'guidance', 'var(--lime)'], ['feedback', 'Feedback', 'feedback', 'var(--mint)'], 'sep',
+  ['team', 'Team & access', 'staff', 'var(--lav)'], ['audit', 'Audit log', 'audit', 'var(--sky)'], ['setup', 'Setup', 'settings', '#888'],
+];
+async function boot() {
+  let r; try { r = await api('me'); } catch (e) { if (e.message !== 'signed out') showLogin(e.message); return; }
+  ME = r.me; PERMS = r.perms; ROLES = r.roles; MATRIX = r.matrix; AI = r.ai;
+  $('#login').classList.add('hidden'); $('#app').classList.remove('hidden');
+  $('#whoName').textContent = ME.name; $('#whoRole').textContent = ME.roleName;
+  $('#nav').innerHTML = NAV.map(n => n === 'sep' ? '<div class="sep"></div>' : has(n[2]) ? `<button data-v="${n[0]}"><i class="dot" style="background:${n[3]}"></i>${n[1]}${n[0] === 'support' ? '<span class="badge hidden" id="supBadge"></span>' : ''}</button>` : '').join('').replace(/(<div class="sep"><\/div>)+$/, '');
+  $$('#nav button').forEach(b => (b.onclick = () => show(b.dataset.v)));
+  if (ME.mustReset) passwordModal(true);
+  const first = NAV.find(n => n !== 'sep' && has(n[2]));
+  show(location.hash.slice(1) && NAV.some(n => n[0] === location.hash.slice(1) && has(n[2])) ? location.hash.slice(1) : first[0]);
+  if (has('support')) { badge(); setInterval(badge, 30000); }
+}
+async function badge() { try { const r = await api('inbox', { q: '&filter=open' }); const b = $('#supBadge'); b.textContent = r.counts.open; b.classList.toggle('hidden', !r.counts.open); } catch {} }
+function stopPoll() { clearInterval(poll); poll = null; }
 function show(v) {
-  if (!document.getElementById('v-' + v)) v = 'overview';
-  $$('main > section').forEach(s => s.classList.toggle('hidden', s.id !== 'v-' + v));
+  stopPoll(); view = v; closeLayer();
   $$('#nav button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
   history.replaceState(null, '', '#' + v);
-  loaders[v] && loaders[v]();
+  $('#main').innerHTML = '<div class="empty">Loading…</div>';
+  Promise.resolve(VIEWS[v]()).catch(e => { if (e.message !== 'signed out') $('#main').innerHTML = `<div class="card"><h3>Couldn't load this page</h3><p class="m">${esc(e.message)}</p></div>`; });
 }
-$$('#nav button').forEach(b => (b.onclick = () => show(b.dataset.v)));
-document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); show(g.dataset.go); } });
+const rangeSel = (id, val) => `<select class="auto" id="${id}">${[[7, 'Last 7 days'], [30, 'Last 30 days'], [90, 'Last 90 days']].map(([v, l]) => `<option value="${v}" ${v == val ? 'selected' : ''}>${l}</option>`).join('')}</select>`;
+const VIEWS = {};
 
-/* Overview */
-const FLAG_COL = 'var(--coral)';
-function bars(el, rows, color) {
-  const max = Math.max(1, ...rows.map(r => r[1]));
-  el.innerHTML = rows.length ? rows.map(([l, n, c]) => `<div class="r"><span>${esc(l)}</span><div class="t"><i style="width:${(n / max) * 100}%;background:${c || color}"></i></div><span class="n">${n}</span></div>`).join('') : '<div class="empty">Nothing yet</div>';
-}
-loaders.overview = async () => {
-  const s = await api('stats', { q: `&days=${$('#range').value}` });
-  const T = s.totals, n = k => T[k] || 0;
-  $('#t-open').textContent = n('open'); $('#t-onboard').textContent = n('onboard'); $('#t-checkin').textContent = n('checkin'); $('#t-ask').textContent = n('ask');
-  $('#t-onboard-h').textContent = `${n('onboard:mode:pregnant')} pregnant · ${n('onboard:mode:postpartum')} postpartum`;
-  $('#t-ask-h').textContent = n('open') ? `${(n('ask') / Math.max(1, n('open'))).toFixed(1)} per app open` : 'messages sent';
-  const max = Math.max(1, ...s.days.map(d => (d.c.open || 0) + (d.c.checkin || 0) + (d.c.ask || 0) + (d.c.flag || 0)));
-  $('#chart').innerHTML = s.days.map(d => {
-    const c = d.c, seg = [['flag', 'var(--coral)'], ['ask', 'var(--pink)'], ['checkin', 'var(--sky)'], ['open', 'var(--lav)']];
-    return `<div class="b" data-t="${short(d.d)}: ${c.open || 0} opens, ${c.checkin || 0} check-ins, ${c.ask || 0} questions, ${c.flag || 0} flags">${seg.map(([k, col]) => c[k] ? `<i style="height:${(c[k] / max) * 160}px;background:${col}"></i>` : '').join('')}${!(c.open || c.checkin || c.ask || c.flag) ? '<i style="height:3px;background:#E9E4DE"></i>' : ''}</div>`;
-  }).join('');
-  $('#ax0').textContent = short(s.days[0].d); $('#ax1').textContent = short(s.days[s.days.length - 1].d);
-  bars($('#flags'), Object.entries(s.flagTitles).map(([id, t]) => [t, n('flag:id:' + id)]).filter(r => r[1]).sort((a, b) => b[1] - a[1]), FLAG_COL);
-  bars($('#who'), [['Pregnant', n('onboard:mode:pregnant'), 'var(--lav)'], ['Postpartum', n('onboard:mode:postpartum'), 'var(--mint)'],
-    ...['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => [c, n('onboard:country:' + c), 'var(--sky)'])].filter(r => r[1]));
+/* ---------- overview ---------- */
+let RANGE = 30;
+VIEWS.overview = async () => {
+  const s = await api('overview', { q: `&days=${RANGE}` }), H = s.headline, T = s.totals, n = k => T[k] || 0;
+  $('#main').innerHTML = `
+    <div class="head"><div><h1>Overview</h1><p class="sub">How Moma is doing. People are counted by a random app id, never by name.</p></div>${rangeSel('rng', RANGE)}</div>
+    <div class="grid g4">
+      <div class="tile" style="background:var(--lav)"><div class="k">Active today</div><div class="v">${H.dau}</div><div class="h">${H.wau} this week · ${H.mau} this month</div></div>
+      <div class="tile" style="background:var(--butter)"><div class="k">New users</div><div class="v">${H.new_users}</div><div class="h">${H.users} in total</div></div>
+      <div class="tile" style="background:var(--sky)"><div class="k">Check-ins</div><div class="v">${n('checkin')}</div><div class="h">${n('ask')} Ask Moma questions</div></div>
+      <div class="tile" style="background:var(--coral)"><div class="k">Open support chats</div><div class="v">${s.support.open}</div><div class="h">${s.support.urgent} urgent · ${s.support.unassigned} unassigned</div></div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3>Daily activity</h3><p class="m">Hover a bar for the day's numbers.</p>
+      <div class="chart">${(() => { const max = Math.max(1, ...s.days.map(d => d.dau + d.newUsers)); return s.days.map(d => `<div class="b" data-t="${short(d.d)}: ${d.dau} active, ${d.newUsers} new, ${d.c.ask || 0} questions, ${d.c.flag || 0} red flags">${d.newUsers ? `<i style="height:${(d.newUsers / max) * 160}px;background:var(--butter)"></i>` : ''}${d.dau ? `<i style="height:${(d.dau / max) * 160}px;background:var(--lav)"></i>` : '<i style="height:3px;background:var(--line)"></i>'}</div>`).join(''); })()}</div>
+      <div class="axis"><span>${short(s.days[0].d)}</span><span>${short(s.days[s.days.length - 1].d)}</span></div>
+      <div class="legend"><span style="--c:var(--lav)">Active users</span><span style="--c:var(--butter)">New users</span></div></div>
+    <div class="grid g2">
+      <div class="card"><h3>Red flags shown</h3><p class="m">Times the app pointed someone to urgent care, by type.</p>${bars(Object.entries(s.flagTitles).map(([id, t]) => [t, n('flag:id:' + id)]).filter(r => r[1]).sort((a, b) => b[1] - a[1]), 'var(--coral)')}</div>
+      <div class="card"><h3>Who's joining</h3><p class="m">New sign-ups by stage and country.</p>${bars([['Pregnant', n('onboard:mode:pregnant'), 'var(--lav)'], ['Postpartum', n('onboard:mode:postpartum'), 'var(--mint)'], ...['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => [c, n('onboard:country:' + c), 'var(--sky)'])].filter(r => r[1]))}</div>
+    </div>`;
+  $('#rng').onchange = e => { RANGE = +e.target.value; show('overview'); };
 };
-$('#range').onchange = () => loaders.overview();
 
-/* Safety lab: expected = list of flag ids that must fire ([] = must stay quiet) */
-const CASES = [
-  ['My baby is moving less than usual today', 'pregnant', ['mv']],
-  ["I haven't felt the baby move since this morning", 'pregnant', ['mv']],
-  ['baby hasnt kicked much today', 'pregnant', ['mv']],
-  ["Baby's movements feel slower and weaker", 'pregnant', ['mv']],
-  ["I'm bleeding heavily and passing large clots", 'postpartum', ['hb']],
-  ['Soaking a pad every hour, is that normal?', 'postpartum', ['hb']],
-  ['I have a really bad headache and blurry vision', 'pregnant', ['pe']],
-  ['seeing flashing lights and my face is puffy', 'pregnant', ['pe', 'sw']],
-  ['I think my waters have broken, I am 33 weeks', 'pregnant', ['wb']],
-  ['my temperature is 38.5 and I have chills', 'postpartum', ['fv']],
-  ['chest pain and I can\'t breathe properly', 'pregnant', ['cp']],
-  ['My left calf is swollen and hot', 'postpartum', ['dv']],
-  ['My palms and the soles of my feet are so itchy at night', 'pregnant', ['ic']],
-  ['Sometimes I feel like I want to die', 'postpartum', ['mh']],
-  ["I can't go on like this", 'postpartum', ['mh']],
-  ['Severe stomach pain that won\'t go away', 'pregnant', ['ap']],
-  ['A tiny bit of spotting after sex', 'pregnant', ['bl']],
-  ['What can I eat for heartburn?', 'pregnant', []],
-  ['Is it ok to drink coffee?', 'pregnant', []],
-  ['How often should a newborn feed?', 'postpartum', []],
-  ['Baby is kicking loads tonight!', 'pregnant', []],
-  ['When can I start running again?', 'postpartum', []],
-  ['I feel a bit tired today', 'pregnant', []],
-  ['Is it normal to feel emotional on day 4?', 'postpartum', []],
+/* ---------- reports ---------- */
+let RRANGE = 30, LAST_REPORT = null;
+VIEWS.reports = async () => {
+  const r = LAST_REPORT = await api('reports', { q: `&days=${RRANGE}` }), F = r.funnel, S = r.support;
+  const steps = [['Installed and registered', F.registered], ['Finished setup', F.onboarded], ['First check-in', F.checked_in], ['First Ask Moma question', F.asked], ['Came back in week 1', F.returned_week1]];
+  const heat = v => `background:rgba(124,99,230,${Math.min(0.85, v / 100 * 0.9 + 0.05)});color:${v > 45 ? '#fff' : 'var(--ink)'}`;
+  const mix = {}; r.mix.forEach(m => { mix[m.mode || 'unknown'] = (mix[m.mode || 'unknown'] || 0) + m.n; mix[m.country] = (mix[m.country] || 0) + m.n; });
+  $('#main').innerHTML = `
+    <div class="head"><div><h1>Reports</h1><p class="sub">Activation, retention, support and safety. Only people who share usage stats are counted.</p></div><div class="row">${rangeSel('rrng', RRANGE)}<button class="btn ghost" id="dlAll">Download CSV</button></div></div>
+    <div class="grid g2">
+      <div class="card"><h3>Activation funnel</h3><p class="m">New users in this period and how far they got.</p>${bars(steps.map(([l, n], i) => [l, n, ['var(--lav)', 'var(--butter)', 'var(--sky)', 'var(--pink)', 'var(--mint)'][i], F.registered ? ` · ${pct(n, F.registered)}%` : '']))}</div>
+      <div class="card"><h3>Support performance</h3><p class="m">Human support chats opened in this period.</p>
+        <div class="grid g2" style="gap:10px">
+          <div class="tile" style="background:var(--soft);min-height:0"><div class="k">Chats opened</div><div class="v" style="font-size:30px">${S.opened}</div><div class="h">${S.resolved} resolved · ${S.flagged} with a red flag</div></div>
+          <div class="tile" style="background:var(--soft);min-height:0"><div class="k">Median first reply</div><div class="v" style="font-size:30px">${S.median_frt == null ? '—' : S.median_frt < 60 ? Math.round(S.median_frt) + 'm' : (S.median_frt / 60).toFixed(1) + 'h'}</div><div class="h">resolved in ${S.median_resolve_h == null ? '—' : (+S.median_resolve_h).toFixed(1) + 'h'} (median)</div></div>
+        </div></div>
+    </div>
+    <div class="card"><h3>Weekly retention</h3><p class="m">Of the people who joined each week, the share who opened Moma again in each following week.</p>
+      ${r.cohorts.length ? `<div style="overflow:auto"><table class="heat"><thead><tr><th style="text-align:left">Joined week of</th><th>People</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead><tbody>
+      ${r.cohorts.map(c => `<tr><td style="text-align:left">${dmy(c.wk)}</td><td>${c.size}</td>${[1, 2, 3, 4].map(w => { const end = new Date(c.wk).getTime() + (w + 1) * 7 * 864e5; if (end > Date.now() + 7 * 864e5) return '<td class="muted">·</td>'; const v = pct(c['w' + w], c.size); return `<td style="${heat(v)}">${v}%</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>` : '<div class="empty">Not enough data yet</div>'}</div>
+    <div class="grid g2">
+      <div class="card"><h3>Team activity</h3><p class="m">Replies sent to users in this period.</p>
+        ${r.agents.length ? `<table><thead><tr><th>Name</th><th>Role</th><th>Chats</th><th>Replies</th><th>Resolved</th></tr></thead><tbody>${r.agents.map(a => `<tr><td>${esc(a.name)}</td><td><span class="pill p-mute">${ROLES[a.role]}</span></td><td>${a.chats}</td><td>${a.replies}</td><td>${a.resolved}</td></tr>`).join('')}</tbody></table>` : '<div class="empty">No team members yet</div>'}</div>
+      <div class="card"><h3>Red flags by type</h3><p class="m">From Ask Moma and check-ins.</p>${bars(r.flags.sort((a, b) => b.n - a.n).map(f => [f.title, f.n]), 'var(--coral)')}
+        <h3 style="margin-top:18px">New users by stage and country</h3>${bars(Object.entries(mix).map(([k, v]) => [k[0].toUpperCase() + k.slice(1), v, ['pregnant', 'postpartum'].includes(k) ? 'var(--lav)' : 'var(--sky)']))}</div>
+    </div>`;
+  $('#rrng').onchange = e => { RRANGE = +e.target.value; show('reports'); };
+  $('#dlAll').onclick = () => csv(`moma-report-${RRANGE}d.csv`, [['section', 'metric', 'value'],
+    ...steps.map(([l, n]) => ['funnel', l, n]), ['support', 'chats opened', S.opened], ['support', 'resolved', S.resolved], ['support', 'median first reply (min)', S.median_frt == null ? '' : Math.round(S.median_frt)],
+    ...r.cohorts.flatMap(c => [1, 2, 3, 4].map(w => ['retention', `joined ${c.wk} · week ${w}`, `${pct(c['w' + w], c.size)}%`])),
+    ...r.agents.map(a => ['team', a.name, `${a.replies} replies, ${a.resolved} resolved`]), ...r.flags.map(f => ['red flags', f.title, f.n])]);
+};
+
+/* ---------- users ---------- */
+let UF = { q: '', mode: '', country: '', active: '', page: 0 };
+VIEWS.users = async () => {
+  const r = await api('users', { q: '&' + new URLSearchParams(UF).toString() });
+  $('#main').innerHTML = `
+    <div class="head"><div><h1>Users</h1><p class="sub">${r.total} ${r.total === 1 ? 'person' : 'people'}. Moma keeps health logs on each phone, so here you only see stage, country and activity. Names appear only when someone shares one in a support chat.</p></div><button class="btn ghost" id="uCsv">Download CSV</button></div>
+    <div class="card"><div class="row">
+      <input type="search" id="uq" placeholder="Search by name or id" value="${esc(UF.q)}" style="flex:1;min-width:200px" />
+      <select class="auto" id="umode"><option value="">All stages</option><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select>
+      <select class="auto" id="ucountry"><option value="">All countries</option>${['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => `<option>${c}</option>`).join('')}</select>
+      <select class="auto" id="uactive"><option value="">Any activity</option><option value="7">Active in last 7 days</option><option value="lapsed">Not seen for 14+ days</option></select>
+    </div>
+    <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>User</th><th>Stage</th><th>Country</th><th>Joined</th><th>Last seen</th><th>Support</th></tr></thead><tbody>
+    ${r.items.map(u => `<tr class="click" data-id="${u.id}"><td><b>${esc(u.name || 'Anonymous')}</b><div class="muted small">#${u.short}</div></td><td>${esc(u.stage)}</td><td>${esc(u.country || '')}</td><td>${dmy(u.createdAt)}</td><td>${when(u.lastSeen)}</td><td>${u.openConvs ? `<span class="pill p-bad">${u.openConvs} open</span>` : u.convs ? `<span class="pill p-mute">${u.convs} past</span>` : '<span class="muted">—</span>'}</td></tr>`).join('') || '<tr><td colspan="6"><div class="empty">No users match</div></td></tr>'}
+    </tbody></table></div>
+    <div class="row" style="justify-content:space-between;margin-top:12px"><span class="muted small">Showing ${r.items.length ? r.page * 50 + 1 : 0} to ${r.page * 50 + r.items.length} of ${r.total}</span>
+      <div class="row"><button class="btn ghost small" id="uprev" ${r.page ? '' : 'disabled'}>Previous</button><button class="btn ghost small" id="unext" ${(r.page + 1) * 50 < r.total ? '' : 'disabled'}>Next</button></div></div></div>`;
+  $('#umode').value = UF.mode; $('#ucountry').value = UF.country; $('#uactive').value = UF.active;
+  let t; $('#uq').oninput = e => { clearTimeout(t); t = setTimeout(() => { UF.q = e.target.value; UF.page = 0; show('users'); }, 400); };
+  ['mode', 'country', 'active'].forEach(k => ($('#u' + k).onchange = e => { UF[k] = e.target.value; UF.page = 0; show('users'); }));
+  $('#uprev').onclick = () => { UF.page--; show('users'); }; $('#unext').onclick = () => { UF.page++; show('users'); };
+  $$('tr.click').forEach(tr => (tr.onclick = () => userDrawer(tr.dataset.id)));
+  $('#uCsv').onclick = () => csv('moma-users.csv', [['id', 'name', 'stage', 'country', 'platform', 'joined', 'last seen', 'support chats'], ...r.items.map(u => [u.id, u.name || '', u.stage, u.country, u.platform, dmy(u.createdAt), dmy(u.lastSeen), u.convs])]);
+  if (UF.q) { const i = $('#uq'); i.focus(); i.setSelectionRange(i.value.length, i.value.length); }
+};
+async function userDrawer(id) {
+  modal('<div class="drawer"><div class="empty">Loading…</div></div>', '');
+  const r = await api('user', { q: `&id=${id}` }), u = r.user, A = r.activity;
+  const ms = [['Joined', u.createdAt], ['Finished setup', u.onboardedAt], ['First check-in', u.firstCheckinAt], ['First question', u.firstAskAt]];
+  $('#layer .drawer').innerHTML = `
+    <div class="row" style="justify-content:space-between"><h1 style="font-size:26px">${esc(u.name || 'Anonymous user')}</h1><button class="btn ghost small" id="dx">Close</button></div>
+    <p class="muted" style="margin:0 0 14px">#${u.short} · ${esc(u.platform || 'unknown device')} · app ${esc(u.version || '?')}</p>
+    <div class="card"><dl class="kv"><dt>Stage</dt><dd>${esc(u.stage)}</dd><dt>Country</dt><dd>${esc(u.country || '—')}</dd><dt>Last seen</dt><dd>${when(u.lastSeen)}</dd>
+      <dt>Active days</dt><dd>${A.d30} in the last 30 days (${A.total} total)</dd><dt>Usage stats</dt><dd>${u.stats ? 'Shared' : '<span class="muted">Switched off by the user</span>'}</dd></dl></div>
+    <div class="card"><h3>Journey</h3><p class="m">Activation milestones.</p>${ms.map(([l, d]) => `<div class="row" style="justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)"><span>${l}</span>${d ? `<span>${dmy(d)}</span>` : '<span class="pill p-mute">Not yet</span>'}</div>`).join('')}</div>
+    <div class="card"><h3>Support chats</h3>${r.conversations.length ? r.conversations.map(c => `<div class="row" style="justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)"><div style="min-width:0;flex:1"><b>#${c.id}</b> <span class="pill ${c.status === 'resolved' ? 'p-mute' : 'p-bad'}">${c.status}</span>${c.flagged ? ' <span class="pill p-bad">Red flag</span>' : ''}<div class="muted small" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.last_preview || '')}</div></div>${has('support') ? `<button class="btn small" data-c="${c.id}">Open</button>` : ''}</div>`).join('') : '<p class="muted">No support chats.</p>'}</div>
+    ${has('users_delete') ? `<div class="card" style="border:1.5px solid #FFD5CC"><h3>Delete this user</h3><p class="m">Removes their record, activity and support history from Moma's servers. Use this for erasure requests. It can't be undone.</p><button class="btn danger" id="udel">Delete user</button></div>` : ''}`;
+  $('#dx').onclick = closeLayer;
+  $$('[data-c]').forEach(b => (b.onclick = () => { OPEN = +b.dataset.c; SF = 'all'; show('support'); }));
+  const d = $('#udel'); if (d) d.onclick = async () => { if (!confirm('Delete this user and all their support history? This cannot be undone.')) return; await api('user', { method: 'DELETE', q: `&id=${u.id}` }); closeLayer(); toast('User deleted'); show('users'); };
+}
+
+/* ---------- support ---------- */
+let SF = 'open', OPEN = null, SQ = '';
+const QUICK = [
+  ['Welcome', "Hi, thanks for getting in touch with Moma. I'm here to help. Could you tell me a little more?"],
+  ['Contact maternity team', "Thanks for telling us. We're not able to give medical advice, so please contact your midwife or maternity triage line about this today. If it feels urgent, call them now or call the emergency number."],
+  ['How to use Ask Moma', 'You can ask Moma anything any time from the Ask Moma tab, and it will answer using what you have logged. For anything about your own care, your midwife is always the best person.'],
+  ['Data and privacy', 'Your logs stay on your phone. Our team can only see your stage, country and this chat. You can delete your data on our servers any time from Me → Your data.'],
+  ['Closing', "Glad we could help. I'll close this chat for now, but just send a message any time and we'll pick it up."],
 ];
-$('#s-n').textContent = CASES.length;
-function renderEval(results) {
-  let urg = 0, urgOk = 0, calm = 0, calmOk = 0;
-  $('#evalBody').innerHTML = CASES.map(([t, m, exp], i) => {
-    const r = results ? results[i] : null;
-    let res = '<span class="pill p-mute">Not run</span>';
-    if (r) {
-      const pass = exp.length ? exp.every(id => r.ids.includes(id)) : r.ids.length === 0;
-      if (exp.length) { urg++; if (pass) urgOk++; } else { calm++; if (pass) calmOk++; }
-      res = pass ? `<span class="pill p-ok">Pass</span>` : `<span class="pill p-bad">${exp.length ? 'Missed' : 'False alarm'}</span>`;
-      if (r.titles.length) res += `<div class="muted" style="font-size:12.5px;margin-top:4px">${esc(r.titles.join(', '))}</div>`;
-    }
-    return `<tr><td>${esc(t)}</td><td>${m === 'pregnant' ? 'Pregnant' : 'Postpartum'}</td><td>${exp.length ? exp.map(x => `<span class="pill p-warn">${x}</span>`).join(' ') : '<span class="pill p-mute">No flag</span>'}</td><td>${res}</td></tr>`;
-  }).join('');
-  if (results) {
-    $('#s-recall').textContent = `${urgOk}/${urg}`; $('#s-spec').textContent = `${calmOk}/${calm}`;
-    $('#s-h').textContent = `last run ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
-  }
+VIEWS.support = async () => {
+  $('#main').innerHTML = `
+    <div class="head"><div><h1>Support inbox</h1><p class="sub">Chats from the app's "Talk to the Moma team". Your team isn't clinical: for anything medical, point people to their maternity team.</p></div>
+      <input type="search" id="sq" placeholder="Search chats" value="${esc(SQ)}" style="width:240px" /></div>
+    <div class="desk">
+      <div class="pane"><div style="padding:12px;border-bottom:1px solid var(--line)"><div class="tabs" id="stabs"></div></div><div class="list" id="slist"></div></div>
+      <div class="pane" id="sthread"><div class="empty" style="margin:auto">Pick a chat to read and reply.</div></div>
+      <div class="pane side" id="sside" style="padding:18px;overflow:auto"><div class="empty" style="margin:auto">Chat details and the user's profile show here.</div></div>
+    </div>`;
+  let t; $('#sq').oninput = e => { clearTimeout(t); t = setTimeout(() => { SQ = e.target.value; loadInbox(); }, 400); };
+  await loadInbox(); if (OPEN) await loadConvo(OPEN, true);
+  poll = setInterval(() => { loadInbox(); if (OPEN) loadConvo(OPEN, false); }, 5000);
+};
+async function loadInbox() {
+  const r = await api('inbox', { q: `&filter=${SF === 'all' ? 'open' : SF}&q=${encodeURIComponent(SQ)}` });
+  const C = r.counts, tabs = [['open', 'Open', C.open], ['mine', 'Mine', C.mine], ['unassigned', 'Unassigned', C.unassigned], ['urgent', 'Urgent', C.urgent], ['waiting', 'Waiting on user', C.waiting], ['resolved', 'Resolved', '']];
+  $('#stabs').innerHTML = tabs.map(([k, l, n]) => `<button data-f="${k}" class="${SF === k ? 'on' : ''}">${l}${n !== '' ? `<span class="c">${n}</span>` : ''}</button>`).join('');
+  $$('#stabs button').forEach(b => (b.onclick = () => { SF = b.dataset.f; loadInbox(); }));
+  $('#slist').innerHTML = r.items.length ? r.items.map(c => `<div class="ci ${c.id === OPEN ? 'on' : ''}" data-id="${c.id}">
+    <div class="t"><span>${esc(c.user.name || 'Anonymous')}</span><span class="muted small" style="font-weight:500">${when(c.updatedAt)}</span></div>
+    <div class="p">${esc(c.preview || '')}</div>
+    <div class="meta">${c.priority === 'urgent' ? '<span class="pill p-bad">Urgent</span>' : ''}${c.flagged ? `<span class="pill p-bad">${esc(c.flagged)}</span>` : ''}<span class="pill p-mute">${esc(c.user.stage)}</span>${c.assigned ? `<span class="pill p-lav">${esc(c.assigned.split(' ')[0])}</span>` : '<span class="pill p-warn">Unassigned</span>'}${c.unread ? `<span class="unread">${c.unread}</span>` : ''}</div></div>`).join('') : '<div class="empty">No chats here</div>';
+  $$('#slist .ci').forEach(el => (el.onclick = () => { OPEN = +el.dataset.id; $$('#slist .ci').forEach(x => x.classList.toggle('on', x === el)); loadConvo(OPEN, true); }));
+  const b = $('#supBadge'); if (b) { b.textContent = C.open; b.classList.toggle('hidden', !C.open); }
 }
-renderEval(null);
-$('#runEval').onclick = async () => {
-  $('#runEval').disabled = true;
-  try { const r = await api('triage', { method: 'POST', body: { cases: CASES.map(([text, mode]) => ({ text, mode })) } }); renderEval(r.results); toast('Tests finished'); }
-  catch (e) { toast(e.message); } finally { $('#runEval').disabled = false; }
-};
-$('#tryBtn').onclick = async () => {
-  const text = $('#tryText').value.trim(); if (!text) return;
-  const r = (await api('triage', { method: 'POST', body: { cases: [{ text, mode: $('#tryMode').value }] } })).results[0];
-  const lv = { m: ['Mental health emergency', 'p-bad'], e: ['Emergency: call 999', 'p-bad'], u: ['Urgent: call maternity triage now', 'p-bad'], s: ['Worth checking today', 'p-warn'] }[r.level];
-  $('#tryOut').innerHTML = r.level ? `<span class="pill ${lv[1]}">${lv[0]}</span> <span class="muted" style="margin-left:6px">${esc(r.titles.join(', '))}</span>` : '<span class="pill p-ok">No red flag</span> <span class="muted">The AI answers normally.</span>';
-};
-$('#tryText').onkeydown = e => { if (e.key === 'Enter') $('#tryBtn').click(); };
+let LASTMSG = 0, NOTE = false;
+async function loadConvo(id, fresh) {
+  const r = await api('convo', { q: `&id=${id}` }), c = r.convo, u = r.user;
+  const lastId = r.messages.length ? r.messages[r.messages.length - 1].id : 0;
+  if (!fresh && lastId === LASTMSG && $('#cmsgs')) { renderSide(r); return; }
+  LASTMSG = lastId;
+  const draft = $('#ctext') ? $('#ctext').value : '';
+  $('#sthread').innerHTML = `
+    <div style="padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+      <div><b style="font-size:17px">${esc(u.name || 'Anonymous')}</b> <span class="muted small">#${u.short} · ${esc(u.stage)} · ${esc(u.country || '')}</span></div>
+      <div class="row">${c.status !== 'resolved' ? '<button class="btn small" id="cres">Resolve</button>' : '<button class="btn ghost small" id="creo">Reopen</button>'}</div></div>
+    ${c.flagged ? `<div class="alert"><b>Red flag: ${esc(c.flagged)}.</b> Moma already sent this person emergency guidance. Don't give medical advice. Check they've contacted their maternity team or emergency services, and loop in your clinical lead.</div>` : ''}
+    <div class="thread" id="cmsgs">${r.messages.map(m => {
+      if (m.from === 'system' && m.internal) return `<div class="msg event">${esc(m.body)} · ${tm(m.at)}</div>`;
+      const cls = m.from === 'user' ? 'user' : m.from === 'system' ? 'system' : m.internal ? 'note' : 'staff';
+      const who = m.from === 'user' ? (u.name || 'User') : m.from === 'system' ? 'Automatic safety message' : `${m.staff || 'Team'}${m.internal ? ' · internal note' : ''}`;
+      return `<div class="msg ${cls}">${esc(m.body)}<div class="w">${esc(who)} · ${dmy(m.at)}, ${tm(m.at)}</div></div>`;
+    }).join('')}</div>
+    <div class="composer ${NOTE ? 'note' : ''}" id="comp">
+      <div class="row" style="justify-content:space-between;margin-bottom:8px">
+        <div class="tabs"><button id="mReply" class="${NOTE ? '' : 'on'}">Reply to user</button><button id="mNote" class="${NOTE ? 'on' : ''}">Internal note</button></div>
+        <select class="auto" id="quick"><option value="">Quick replies</option>${QUICK.map((q, i) => `<option value="${i}">${q[0]}</option>`).join('')}</select></div>
+      <textarea id="ctext" placeholder="${NOTE ? 'Only your team sees notes' : 'Write a reply. Ctrl+Enter to send'}"></textarea>
+      <div class="row" style="justify-content:space-between;margin-top:8px"><span class="muted small">${NOTE ? 'Not sent to the user.' : 'Sends to the user in the app.'}</span><button class="btn" id="csend">${NOTE ? 'Add note' : 'Send reply'}</button></div></div>`;
+  $('#ctext').value = draft;
+  const box = $('#cmsgs'); box.scrollTop = box.scrollHeight;
+  $('#mReply').onclick = () => { NOTE = false; loadConvo(id, true); };
+  $('#mNote').onclick = () => { NOTE = true; loadConvo(id, true); };
+  $('#quick').onchange = e => { if (e.target.value !== '') { $('#ctext').value = QUICK[+e.target.value][1]; e.target.value = ''; $('#ctext').focus(); } };
+  const send = async () => {
+    const body = $('#ctext').value.trim(); if (!body) return;
+    $('#csend').disabled = true;
+    try { await api('convo', { method: 'POST', q: `&id=${id}`, body: { body, internal: NOTE } }); $('#ctext').value = ''; await loadConvo(id, true); loadInbox(); }
+    catch (e) { toast(e.message); } finally { const b = $('#csend'); if (b) b.disabled = false; }
+  };
+  $('#csend').onclick = send; $('#ctext').onkeydown = e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) send(); };
+  const patch = async (b, msg) => { try { await api('convo', { method: 'PATCH', q: `&id=${id}`, body: b }); toast(msg); await loadConvo(id, true); loadInbox(); } catch (e) { toast(e.message); } };
+  const rs = $('#cres'); if (rs) rs.onclick = () => patch({ status: 'resolved' }, 'Chat resolved');
+  const ro = $('#creo'); if (ro) ro.onclick = () => patch({ status: 'open' }, 'Chat reopened');
+  renderSide(r, patch);
+}
+function renderSide(r, patch) {
+  const c = r.convo, u = r.user;
+  patch = patch || (async (b, msg) => { await api('convo', { method: 'PATCH', q: `&id=${c.id}`, body: b }); toast(msg); loadConvo(c.id, true); loadInbox(); });
+  $('#sside').innerHTML = `
+    <h3 style="margin:0 0 10px">Chat #${c.id}</h3>
+    <label class="l" style="margin-top:0">Assigned to</label>
+    <select id="sassign"><option value="">Nobody</option>${r.staff.map(s => `<option value="${s.id}" ${s.id === c.assignedTo ? 'selected' : ''}>${esc(s.name)}${s.id === ME.id ? ' (you)' : ''} · ${s.role}</option>`).join('')}</select>
+    ${c.assignedTo !== ME.id ? '<button class="btn ghost small" id="smine" style="margin-top:8px">Assign to me</button>' : ''}
+    <label class="l">Status</label><select id="sstatus">${[['open', 'Open (waiting on us)'], ['waiting', 'Waiting on user'], ['resolved', 'Resolved']].map(([v, l]) => `<option value="${v}" ${c.status === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <label class="l">Priority</label><select id="sprio"><option value="normal" ${c.priority === 'normal' ? 'selected' : ''}>Normal</option><option value="urgent" ${c.priority === 'urgent' ? 'selected' : ''}>Urgent</option></select>
+    <h3 style="margin:22px 0 10px">About this user</h3>
+    <dl class="kv"><dt>Stage</dt><dd>${esc(u.stage)}</dd><dt>Country</dt><dd>${esc(u.country || '—')}</dd><dt>Joined</dt><dd>${dmy(u.createdAt)}</dd><dt>Last seen</dt><dd>${when(u.lastSeen)}</dd><dt>Started</dt><dd>${dmy(c.createdAt)}, ${tm(c.createdAt)}</dd><dt>First reply</dt><dd>${c.firstResponseAt ? when(c.firstResponseAt) : '<span class="pill p-warn">Not yet</span>'}</dd></dl>
+    ${r.past.length ? `<h3 style="margin:22px 0 8px">Earlier chats</h3>${r.past.map(p => `<div class="small" style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="#" data-p="${p.id}"><b>#${p.id}</b></a> · ${dmy(p.created_at)}<div class="muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(p.last_preview || '')}</div></div>`).join('')}` : ''}
+    ${has('users') ? `<button class="btn ghost small" id="sprof" style="margin-top:16px">View full profile</button>` : ''}`;
+  $('#sassign').onchange = e => patch({ assignedTo: e.target.value || null }, 'Assignment updated');
+  const m = $('#smine'); if (m) m.onclick = () => patch({ assignedTo: ME.id }, 'Assigned to you');
+  $('#sstatus').onchange = e => patch({ status: e.target.value }, 'Status updated');
+  $('#sprio').onchange = e => patch({ priority: e.target.value }, 'Priority updated');
+  $$('[data-p]').forEach(a => (a.onclick = e => { e.preventDefault(); OPEN = +a.dataset.p; loadConvo(OPEN, true); }));
+  const pf = $('#sprof'); if (pf) pf.onclick = () => userDrawer(u.id);
+}
 
-/* AI console */
-$('#aiMode').onchange = () => { const pp = $('#aiMode').value === 'postpartum'; $('#aiWeekL').textContent = pp ? "Baby's age in weeks" : 'Week of pregnancy'; $('#aiWeek').value = pp ? 2 : 20; };
-$('#aiBtn').onclick = async () => {
-  const q = $('#aiQ').value.trim(); if (!q) return;
-  $('#aiBtn').disabled = true; $('#aiBtn').textContent = 'Thinking…';
-  try {
-    const r = await api('test', { method: 'POST', body: { message: q, mode: $('#aiMode').value, week: $('#aiWeek').value, country: $('#aiCountry').value, useGuidance: $('#aiGuid').checked } });
-    const flag = r.triage.level ? `<span class="pill p-bad">Red flag shown first: ${esc(r.triage.titles.join(', '))}</span>` : '<span class="pill p-ok">No red flag</span>';
-    $('#aiOut').innerHTML = `<div class="card"><div class="row" style="justify-content:space-between"><h3>Moma's answer</h3><div class="row">${flag}${r.ms ? `<span class="pill p-mute">${(r.ms / 1000).toFixed(1)}s</span>` : ''}</div></div><div style="margin-top:12px">${r.reply ? `<div class="bubble">${esc(r.reply)}</div>` : `<p class="muted">${esc(r.error)}</p>`}</div></div>`;
-  } catch (e) { $('#aiOut').innerHTML = `<div class="card"><p style="color:var(--red)">${esc(e.message)}</p></div>`; }
-  finally { $('#aiBtn').disabled = false; $('#aiBtn').textContent = 'Ask Moma'; }
+/* ---------- safety lab ---------- */
+const CASES = [
+  ['My baby is moving less than usual today', 'pregnant', ['mv']], ["I haven't felt the baby move since this morning", 'pregnant', ['mv']], ['baby hasnt kicked much today', 'pregnant', ['mv']],
+  ["Baby's movements feel slower and weaker", 'pregnant', ['mv']], ["I'm bleeding heavily and passing large clots", 'postpartum', ['hb']], ['Soaking a pad every hour, is that normal?', 'postpartum', ['hb']],
+  ['I have a really bad headache and blurry vision', 'pregnant', ['pe']], ['seeing flashing lights and my face is puffy', 'pregnant', ['pe', 'sw']], ['I think my waters have broken, I am 33 weeks', 'pregnant', ['wb']],
+  ['my temperature is 38.5 and I have chills', 'postpartum', ['fv']], ["chest pain and I can't breathe properly", 'pregnant', ['cp']], ['My left calf is swollen and hot', 'postpartum', ['dv']],
+  ['My palms and the soles of my feet are so itchy at night', 'pregnant', ['ic']], ['Sometimes I feel like I want to die', 'postpartum', ['mh']], ["I can't go on like this", 'postpartum', ['mh']],
+  ["Severe stomach pain that won't go away", 'pregnant', ['ap']], ['A tiny bit of spotting after sex', 'pregnant', ['bl']], ['What can I eat for heartburn?', 'pregnant', []],
+  ['Is it ok to drink coffee?', 'pregnant', []], ['How often should a newborn feed?', 'postpartum', []], ['Baby is kicking loads tonight!', 'pregnant', []],
+  ['When can I start running again?', 'postpartum', []], ['I feel a bit tired today', 'pregnant', []], ['Is it normal to feel emotional on day 4?', 'postpartum', []],
+];
+VIEWS.safety = () => {
+  $('#main').innerHTML = `<h1>Safety lab</h1><p class="sub">Runs messages through the same red-flag rules the app and the support chat use, before any AI or person sees them.</p>
+    <div class="grid g3" style="margin-bottom:14px">
+      <div class="tile" style="background:var(--coral)"><div class="k">Urgent cases caught</div><div class="v" id="s-recall">–</div><div class="h">the number that matters most</div></div>
+      <div class="tile" style="background:var(--mint)"><div class="k">Calm cases left alone</div><div class="v" id="s-spec">–</div><div class="h">no false alarm</div></div>
+      <div class="tile" style="background:var(--butter)"><div class="k">Test cases</div><div class="v">${CASES.length}</div><div class="h" id="s-h">built-in set</div></div></div>
+    <div class="card"><div class="head"><div><h3>Built-in test set</h3><p class="m" style="margin:0">Real-world phrasings, including ones written the "wrong" way round.</p></div><button class="btn" id="runEval">Run all tests</button></div>
+      <div style="overflow:auto;margin-top:14px"><table><thead><tr><th>Message</th><th>Stage</th><th>Expected</th><th>Result</th></tr></thead><tbody id="evalBody"></tbody></table></div></div>
+    <div class="card"><h3>Try a message</h3><p class="m">See exactly which rules fire.</p>
+      <div class="row"><input type="text" id="tryText" placeholder="e.g. baby hasn't kicked much since this morning" style="flex:1;min-width:220px" /><select class="auto" id="tryMode"><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select><button class="btn" id="tryBtn">Check</button></div>
+      <div id="tryOut" style="margin-top:12px"></div></div>`;
+  const render = results => {
+    let urg = 0, urgOk = 0, calm = 0, calmOk = 0;
+    $('#evalBody').innerHTML = CASES.map(([t, m, exp], i) => {
+      const r = results ? results[i] : null; let res = '<span class="pill p-mute">Not run</span>';
+      if (r) {
+        const pass = exp.length ? exp.every(id => r.ids.includes(id)) : r.ids.length === 0;
+        if (exp.length) { urg++; if (pass) urgOk++; } else { calm++; if (pass) calmOk++; }
+        res = pass ? '<span class="pill p-ok">Pass</span>' : `<span class="pill p-bad">${exp.length ? 'Missed' : 'False alarm'}</span>`;
+        if (r.titles.length) res += `<div class="muted small" style="margin-top:4px">${esc(r.titles.join(', '))}</div>`;
+      }
+      return `<tr><td>${esc(t)}</td><td>${m === 'pregnant' ? 'Pregnant' : 'Postpartum'}</td><td>${exp.length ? exp.map(x => `<span class="pill p-warn">${x}</span>`).join(' ') : '<span class="pill p-mute">No flag</span>'}</td><td>${res}</td></tr>`;
+    }).join('');
+    if (results) { $('#s-recall').textContent = `${urgOk}/${urg}`; $('#s-spec').textContent = `${calmOk}/${calm}`; $('#s-h').textContent = `last run ${tm(Date.now())}`; }
+  };
+  render(null);
+  $('#runEval').onclick = async () => { $('#runEval').disabled = true; try { render((await api('triage', { method: 'POST', body: { cases: CASES.map(([text, mode]) => ({ text, mode })) } })).results); toast('Tests finished'); } catch (e) { toast(e.message); } finally { $('#runEval').disabled = false; } };
+  $('#tryBtn').onclick = async () => {
+    const text = $('#tryText').value.trim(); if (!text) return;
+    const r = (await api('triage', { method: 'POST', body: { cases: [{ text, mode: $('#tryMode').value }] } })).results[0];
+    const lv = { m: ['Mental health emergency', 'p-bad'], e: ['Emergency: call 999', 'p-bad'], u: ['Urgent: contact maternity triage now', 'p-bad'], s: ['Worth checking today', 'p-warn'] }[r.level];
+    $('#tryOut').innerHTML = r.level ? `<span class="pill ${lv[1]}">${lv[0]}</span> <span class="muted" style="margin-left:6px">${esc(r.titles.join(', '))}</span>` : '<span class="pill p-ok">No red flag</span> <span class="muted">Handled normally.</span>';
+  };
+  $('#tryText').onkeydown = e => { if (e.key === 'Enter') $('#tryBtn').click(); };
 };
 
-/* Settings */
-loaders.settings = async () => {
-  const c = await api('config');
-  $('#ann').value = c.announcement || ''; $('#annOn').checked = !!c.announcementOn; $('#askOn').checked = c.askEnabled !== false; $('#guid').value = c.guidance || '';
-  $('#annPrev').textContent = c.announcement || 'Your message will appear here.';
-  $('#cfgWhen').textContent = c.updatedAt ? `Last saved ${dmy(c.updatedAt)} at ${new Date(c.updatedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : '';
-};
-$('#ann').oninput = () => ($('#annPrev').textContent = $('#ann').value || 'Your message will appear here.');
-$('#saveCfg').onclick = async () => {
-  try { await api('config', { method: 'PUT', body: { announcement: $('#ann').value, announcementOn: $('#annOn').checked, askEnabled: $('#askOn').checked, guidance: $('#guid').value } }); toast('Saved. Live in about a minute'); loaders.settings(); }
-  catch (e) { toast(e.message); }
-};
-
-/* Feedback */
-let FB = [];
-loaders.feedback = async () => {
-  FB = (await api('feedback')).items;
-  $('#fbList').innerHTML = FB.length ? FB.map(f => `<div class="fb"><div>${esc(f.text)}</div><div class="meta"><span>${dmy(f.t)}</span>${f.mode ? `<span class="pill p-mute">${f.mode}</span>` : ''}${f.stage ? `<span class="pill p-mute">${esc(f.stage)}</span>` : ''}${f.country ? `<span class="pill p-mute">${esc(f.country)}</span>` : ''}</div></div>`).join('') : '<div class="empty">No feedback yet. It shows up here when someone sends it from the Me screen.</div>';
-};
-$('#fbClear').onclick = async () => { if (!confirm('Delete all feedback? This cannot be undone.')) return; await api('feedback', { method: 'DELETE' }); loaders.feedback(); toast('Feedback cleared'); };
-$('#fbCsv').onclick = () => {
-  const rows = [['date', 'stage', 'country', 'feedback'], ...FB.map(f => [dmy(f.t), f.stage || f.mode || '', f.country || '', f.text])];
-  const csv = rows.map(r => r.map(x => `"${String(x).replace(/"/g, '""')}"`).join(',')).join('\n');
-  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'moma-feedback.csv'; a.click();
+/* ---------- AI console ---------- */
+VIEWS.ai = () => {
+  $('#main').innerHTML = `<h1>AI console</h1><p class="sub">Ask Moma a test question as a pretend user. Nothing here is stored. ${AI ? `Model: ${esc(AI)}.` : '<b>No AI key is set yet.</b>'}</p>
+    <div class="card"><div class="grid g3">
+      <div><label class="l" style="margin-top:0">Stage</label><select id="aiMode"><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select></div>
+      <div><label class="l" style="margin-top:0" id="aiWeekL">Week of pregnancy</label><input type="text" id="aiWeek" value="20" /></div>
+      <div><label class="l" style="margin-top:0">Country</label><select id="aiCountry">${['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => `<option>${c}</option>`).join('')}</select></div></div>
+      <label class="l">Question</label><textarea id="aiQ" placeholder="e.g. Is it safe to have a bath at 20 weeks?"></textarea>
+      <div class="row" style="margin-top:12px;justify-content:space-between"><label class="row" style="gap:8px;font-size:14px"><span class="switch"><input type="checkbox" id="aiGuid" checked /><span></span></span>Include team guidance from App settings</label><button class="btn" id="aiBtn">Ask Moma</button></div></div>
+    <div id="aiOut"></div>`;
+  $('#aiMode').onchange = () => { const pp = $('#aiMode').value === 'postpartum'; $('#aiWeekL').textContent = pp ? "Baby's age in weeks" : 'Week of pregnancy'; $('#aiWeek').value = pp ? 2 : 20; };
+  $('#aiBtn').onclick = async () => {
+    const q = $('#aiQ').value.trim(); if (!q) return; $('#aiBtn').disabled = true; $('#aiBtn').textContent = 'Thinking…';
+    try {
+      const r = await api('test', { method: 'POST', body: { message: q, mode: $('#aiMode').value, week: $('#aiWeek').value, country: $('#aiCountry').value, useGuidance: $('#aiGuid').checked } });
+      const flag = r.triage.level ? `<span class="pill p-bad">Red flag shown first: ${esc(r.triage.titles.join(', '))}</span>` : '<span class="pill p-ok">No red flag</span>';
+      $('#aiOut').innerHTML = `<div class="card"><div class="head"><h3>Moma's answer</h3><div class="row">${flag}${r.ms ? `<span class="pill p-mute">${(r.ms / 1000).toFixed(1)}s</span>` : ''}</div></div><div style="margin-top:12px">${r.reply ? `<div class="msg staff" style="max-width:100%">${esc(r.reply)}</div>` : `<p class="muted">${esc(r.error)}</p>`}</div></div>`;
+    } catch (e) { $('#aiOut').innerHTML = `<div class="card"><p style="color:var(--red)">${esc(e.message)}</p></div>`; }
+    finally { $('#aiBtn').disabled = false; $('#aiBtn').textContent = 'Ask Moma'; }
+  };
 };
 
-boot();
+/* ---------- settings ---------- */
+VIEWS.settings = async () => {
+  const c = await api('config'), full = has('settings'), dis = full ? '' : 'disabled';
+  $('#main').innerHTML = `<h1>App settings</h1><p class="sub">Changes reach everyone's app within about a minute. No app update needed.${full ? '' : ' Your access level can change the AI guidance only.'}</p>
+    <div class="card"><div class="head"><div><h3>Announcement banner</h3><p class="m" style="margin:0">Shown at the top of the Today screen.</p></div><label class="switch"><input type="checkbox" id="annOn" ${c.announcementOn ? 'checked' : ''} ${dis} /><span></span></label></div>
+      <label class="l">Message (280 characters max)</label><textarea id="ann" maxlength="280" style="min-height:70px" ${dis} placeholder="e.g. New: summarise your week for your midwife from the Ask tab.">${esc(c.announcement)}</textarea></div>
+    <div class="grid g2">
+      <div class="card"><div class="head"><div><h3>Ask Moma</h3><p class="m" style="margin:0">Pause the AI, for example while you change models. Red-flag safety messages keep working either way.</p></div><label class="switch"><input type="checkbox" id="askOn" ${c.askEnabled !== false ? 'checked' : ''} ${dis} /><span></span></label></div></div>
+      <div class="card"><div class="head"><div><h3>Live support</h3><p class="m" style="margin:0">When off, the app tells people the team is offline.</p></div><label class="switch"><input type="checkbox" id="supOn" ${c.supportOn !== false ? 'checked' : ''} ${dis} /><span></span></label></div>
+        <label class="l">Reply time shown in the app</label><input type="text" id="supHours" maxlength="140" value="${esc(c.supportHours)}" ${dis} /></div>
+    </div>
+    <div class="card"><h3>Team guidance for the AI</h3><p class="m">Extra instructions added to every Ask Moma conversation, on top of the built-in safety rules. Test them in the AI console first.</p>
+      <textarea id="guid" maxlength="2000" placeholder="e.g. When someone asks about the flu jab, mention it is offered free to pregnant women in the UK.">${esc(c.guidance)}</textarea></div>
+    <div class="row"><button class="btn" id="saveCfg">Save settings</button><span class="muted small">${c.updatedAt ? `Last saved ${dmy(c.updatedAt)} at ${tm(c.updatedAt)}${c.updatedBy ? ` by ${esc(c.updatedBy)}` : ''}` : ''}</span></div>`;
+  $('#saveCfg').onclick = async () => {
+    try { await api('config', { method: 'PUT', body: { announcement: $('#ann').value, announcementOn: $('#annOn').checked, askEnabled: $('#askOn').checked, supportOn: $('#supOn').checked, supportHours: $('#supHours').value, guidance: $('#guid').value } }); toast('Saved. Live in about a minute'); show('settings'); }
+    catch (e) { toast(e.message); }
+  };
+};
+
+/* ---------- feedback ---------- */
+VIEWS.feedback = async () => {
+  const r = await api('feedback');
+  $('#main').innerHTML = `<div class="head"><div><h1>Feedback</h1><p class="sub">What people chose to send from the Me screen. Newest first.</p></div><div class="row"><button class="btn ghost small" id="fbCsv">Download CSV</button>${has('settings') ? '<button class="btn ghost small" id="fbClear">Clear all</button>' : ''}</div></div>
+    <div class="card">${r.items.length ? r.items.map(f => `<div style="border-bottom:1px solid var(--line);padding:14px 0"><div>${esc(f.text)}</div><div class="row small muted" style="margin-top:6px;gap:6px"><span>${dmy(f.created_at)}</span>${f.stage ? `<span class="pill p-mute">${esc(f.stage)}</span>` : ''}${f.country ? `<span class="pill p-mute">${esc(f.country)}</span>` : ''}${f.version ? `<span class="pill p-mute">v${esc(f.version)}</span>` : ''}</div></div>`).join('') : '<div class="empty">No feedback yet.</div>'}</div>`;
+  $('#fbCsv').onclick = () => csv('moma-feedback.csv', [['date', 'stage', 'country', 'feedback'], ...r.items.map(f => [dmy(f.created_at), f.stage, f.country, f.text])]);
+  const cl = $('#fbClear'); if (cl) cl.onclick = async () => { if (!confirm('Delete all feedback? This cannot be undone.')) return; await api('feedback', { method: 'DELETE' }); show('feedback'); };
+};
+
+/* ---------- team & access ---------- */
+const PDESC = { stats: 'See the overview', reports: 'Reports and exports', users: 'See users', users_delete: 'Delete users', support: 'Answer support chats', safety: 'Safety lab and AI console', guidance: 'Edit AI guidance', settings: 'Change app settings', feedback: 'Read feedback', staff: 'Manage the team', audit: 'Read the audit log' };
+const RDESC = { owner: 'Everything, including adding admins', admin: 'Runs the portal and the team', clinician: 'Clinical oversight: support, safety, AI guidance', support: 'Answers users in the support inbox', analyst: 'Stats and reports, no personal details' };
+VIEWS.team = async () => {
+  const r = await api('staff'), canEdit = s => ME.role === 'owner' || !['owner', 'admin'].includes(s.role);
+  const roleOpts = sel => Object.entries(ROLES).filter(([k]) => ME.role === 'owner' || !['owner', 'admin'].includes(k)).map(([k, v]) => `<option value="${k}" ${k === sel ? 'selected' : ''}>${v}</option>`).join('');
+  $('#main').innerHTML = `<div class="head"><div><h1>Team & access</h1><p class="sub">Everyone who can sign in to this portal, and what each access level can do.</p></div><button class="btn" id="addM">Add team member</button></div>
+    <div class="card"><div style="overflow:auto"><table><thead><tr><th>Name</th><th>Email</th><th>Access level</th><th>Status</th><th>Last sign-in</th><th></th></tr></thead><tbody>
+    ${r.items.map(s => `<tr><td><b>${esc(s.name)}</b>${s.id === ME.id ? ' <span class="muted small">(you)</span>' : ''}</td><td>${esc(s.email)}</td>
+      <td>${canEdit(s) && s.id !== ME.id ? `<select class="auto" data-role="${s.id}">${roleOpts(s.role)}</select>` : `<span class="pill p-lav">${s.roleName}</span>`}</td>
+      <td>${s.active ? (s.mustReset ? '<span class="pill p-warn">Invited</span>' : '<span class="pill p-ok">Active</span>') : '<span class="pill p-mute">Switched off</span>'}</td>
+      <td>${s.lastLogin ? when(s.lastLogin) : '<span class="muted">Never</span>'}</td>
+      <td style="text-align:right">${canEdit(s) && s.id !== ME.id ? `<div class="row" style="justify-content:flex-end;gap:6px"><button class="btn ghost small" data-reset="${s.id}">Reset password</button><button class="btn ghost small" data-act="${s.id}" data-on="${s.active ? 0 : 1}">${s.active ? 'Switch off' : 'Switch on'}</button></div>` : ''}</td></tr>`).join('')}
+    </tbody></table></div></div>
+    <div class="card"><h3>Access levels</h3><p class="m">What each level can do.</p><div style="overflow:auto"><table class="matrix"><thead><tr><th></th>${Object.entries(ROLES).map(([k, v]) => `<th>${v}</th>`).join('')}</tr></thead><tbody>
+      <tr><td class="muted small">Who it's for</td>${Object.keys(ROLES).map(k => `<td class="muted small">${RDESC[k]}</td>`).join('')}</tr>
+      ${Object.entries(PDESC).map(([p, d]) => `<tr><td>${d}</td>${Object.keys(ROLES).map(k => `<td>${(MATRIX[p] || []).includes(k) ? '<span class="pill p-ok">✓</span>' : '<span class="muted">—</span>'}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
+  $$('[data-role]').forEach(sel => (sel.onchange = async () => { try { await api('staff', { method: 'PATCH', body: { id: +sel.dataset.role, role: sel.value } }); toast('Access level updated'); } catch (e) { toast(e.message); show('team'); } }));
+  $$('[data-act]').forEach(b => (b.onclick = async () => { const on = b.dataset.on === '1'; if (!on && !confirm('Switch off this account? They will be signed out and their open chats unassigned.')) return; try { await api('staff', { method: 'PATCH', body: { id: +b.dataset.act, active: on } }); toast(on ? 'Account switched on' : 'Account switched off'); show('team'); } catch (e) { toast(e.message); } }));
+  $$('[data-reset]').forEach(b => (b.onclick = async () => { if (!confirm('Give this person a new temporary password?')) return; try { const x = await api('staff', { method: 'PATCH', body: { id: +b.dataset.reset, resetPassword: true } }); tempModal('New temporary password', x.tempPassword); } catch (e) { toast(e.message); } }));
+  $('#addM').onclick = () => {
+    modal(`<div class="modal"><h3 style="margin:0 0 4px;font-size:22px">Add team member</h3><p class="muted" style="margin:0">They'll get a temporary password and choose their own on first sign-in.</p>
+      <label class="l">Name</label><input type="text" id="mn" /><label class="l">Work email</label><input type="email" id="me" />
+      <label class="l">Access level</label><select id="mr">${roleOpts('support')}</select><p class="muted small" id="mrd" style="margin:6px 0 0">${RDESC.support}</p>
+      <p id="mErr" style="color:var(--red);font-size:14px;min-height:18px"></p><div class="row" style="justify-content:flex-end"><button class="btn ghost" id="mx">Cancel</button><button class="btn" id="mgo">Add</button></div></div>`);
+    $('#mr').onchange = e => ($('#mrd').textContent = RDESC[e.target.value]);
+    $('#mx').onclick = closeLayer;
+    $('#mgo').onclick = async () => { try { const x = await api('staff', { method: 'POST', body: { name: $('#mn').value, email: $('#me').value, role: $('#mr').value } }); tempModal(`${x.member.name} is on the team`, x.tempPassword, x.member.email); show('team'); } catch (e) { $('#mErr').textContent = e.message; } };
+  };
+};
+function tempModal(title, pw, email) {
+  setTimeout(() => {
+    modal(`<div class="modal"><h3 style="margin:0 0 6px;font-size:22px">${esc(title)}</h3><p class="muted">Share this privately. It's shown once, and they'll choose a new password when they sign in at <b>${location.origin}/admin</b>${email ? ` with <b>${esc(email)}</b>` : ''}.</p>
+      <div class="code">${esc(pw)}</div><div class="row" style="justify-content:flex-end;margin-top:18px"><button class="btn ghost" id="cp">Copy</button><button class="btn" id="ok">Done</button></div></div>`).dataset.lock = 1;
+    $('#cp').onclick = () => navigator.clipboard.writeText(pw).then(() => toast('Copied'));
+    $('#ok').onclick = closeLayer;
+  }, 50);
+}
+
+/* ---------- audit ---------- */
+VIEWS.audit = async () => {
+  const r = await api('audit');
+  $('#main').innerHTML = `<div class="head"><div><h1>Audit log</h1><p class="sub">Sign-ins, profile views, settings changes and team changes. Newest first.</p></div><button class="btn ghost small" id="aCsv">Download CSV</button></div>
+    <div class="card"><div style="overflow:auto"><table><thead><tr><th>When</th><th>Who</th><th>What</th><th>Detail</th></tr></thead><tbody>
+    ${r.items.map(x => `<tr><td style="white-space:nowrap">${dmy(x.created_at)}, ${tm(x.created_at)}</td><td>${esc(x.staff_name)}</td><td>${esc(x.action)}${x.target ? ` <span class="muted">${esc(x.target)}</span>` : ''}</td><td class="muted">${esc(x.detail || '')}</td></tr>`).join('') || '<tr><td colspan="4"><div class="empty">Nothing yet</div></td></tr>'}
+    </tbody></table></div></div>`;
+  $('#aCsv').onclick = () => csv('moma-audit-log.csv', [['when', 'who', 'action', 'target', 'detail'], ...r.items.map(x => [new Date(x.created_at).toISOString(), x.staff_name, x.action, x.target, x.detail])]);
+};
+
+/* ---------- setup ---------- */
+VIEWS.setup = () => {
+  $('#main').innerHTML = `<h1>Setup</h1><p class="sub">What's switched on in your Vercel project.</p>
+    <div class="card"><table><tbody>
+      <tr><td style="width:200px"><b>Database</b></td><td><span class="pill p-ok">Connected</span></td><td class="muted">Users, support chats, team and settings.</td></tr>
+      <tr><td><b>AI key</b></td><td>${AI ? `<span class="pill p-ok">On · ${esc(AI)}</span>` : '<span class="pill p-bad">Not set</span>'}</td><td class="muted">Powers Ask Moma. Add ANTHROPIC_API_KEY or OPENAI_API_KEY under Settings → Environment Variables, then redeploy.</td></tr>
+      <tr><td><b>Owner account</b></td><td><span class="pill p-ok">Done</span></td><td class="muted">ADMIN_PASSWORD was only needed for the first sign-in. Keep it secret, or change it in Vercel.</td></tr>
+    </tbody></table></div>
+    <div class="card"><h3>Privacy by design</h3><p class="m">What Moma's servers hold, and what they never see.</p>
+      <ul style="line-height:1.7;margin:0;padding-left:20px"><li>Health logs, moods, notes and Ask Moma conversations stay on the person's phone.</li>
+      <li>Servers hold a random app id, stage and week, country, activity days, and support chats the person chose to start.</li>
+      <li>People can switch off usage sharing and delete their server data from Me → Your data.</li>
+      <li>Every profile view and change by your team is in the audit log.</li></ul></div>`;
+};
+
+showLogin();
+fetch('/api/admin?a=me', { credentials: 'same-origin' }).then(r => (r.ok ? boot() : null)).catch(() => {});
 </script>
 </body>
 </html>

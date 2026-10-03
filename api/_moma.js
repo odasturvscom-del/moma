@@ -23,7 +23,7 @@ async function complete(messages, sys) {
   const j = await r.json(); if (!r.ok) throw new Error((j.error && j.error.message) || `OpenAI error ${r.status}`);
   return j.choices[0].message.content;
 }
-function cors(res) { res.setHeader('access-control-allow-origin', '*'); res.setHeader('access-control-allow-headers', 'content-type'); res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS'); }
+function cors(res) { res.setHeader('access-control-allow-origin', '*'); res.setHeader('access-control-allow-headers', 'content-type, x-moma-id, x-moma-secret'); res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS'); }
 async function chat(body, guidance = '') {
   const { messages = [], context = '', country = 'UK', mode = 'pregnant' } = body || {};
   if (!provider) { const e = new Error('Server has no ANTHROPIC_API_KEY or OPENAI_API_KEY set'); e.code = 500; throw e; }

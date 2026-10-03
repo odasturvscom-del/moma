@@ -1,5 +1,5 @@
 const { cors, chat } = require('./_moma');
-const { getConfig, body } = require('./_store');
+const { getConfig, body } = require('./_db');
 module.exports = async (req, res) => {
   cors(res);
   if (req.method === 'OPTIONS') return res.status(204).end();

@@ -5,7 +5,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { useFonts, Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold, Outfit_700Bold, Outfit_800ExtraBold } from '@expo-google-fonts/outfit';
 import { StoreProvider, useStore, preg, pp, dkey } from './src/store';
-import { track } from './src/telemetry';
+import { track, hello } from './src/telemetry';
 import { C } from './src/theme';
 import { Text } from './src/ui';
 import { IHome, IChart, ISpark, ICal, IUser } from './src/icons';
@@ -16,6 +16,7 @@ import Track from './src/screens/Track';
 import Ask from './src/screens/Ask';
 import Journey from './src/screens/Journey';
 import Me from './src/screens/Me';
+import Support from './src/screens/Support';
 
 type Tab = 'today' | 'track' | 'ask' | 'journey' | 'me';
 const TABS: [Tab, string, (p: { color: string }) => React.ReactElement][] = [
@@ -47,13 +48,20 @@ function Shell() {
   const [sub, setSub] = useState('');
   const [pending, setPending] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
+  const [support, setSupport] = useState(false);
+  const [unread, setUnread] = useState(0);
   useEffect(() => {
     if (ready && s.onboarded && s.lastOpen !== dkey()) { track(s, 'open'); set(x => ({ ...x, lastOpen: dkey() })); }
   }, [ready, s.onboarded]);
+  useEffect(() => {
+    // Register this install when the user shares usage, or already uses support, so replies from the team can reach them.
+    if (ready && s.onboarded && (s.stats !== false || s.usecret)) hello(s, set).then(r => r && setUnread(r.unread));
+  }, [ready, s.onboarded, s.stats, s.mode, s.country]);
   if (!ready) return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: C.bg }}><ActivityIndicator color={C.ink} /></View>;
   if (!s.onboarded) return started ? <View style={{ flex: 1, backgroundColor: C.bg }}><Onboarding /></View> : <Welcome onStart={() => setStarted(true)} />;
   const go = (t: string, sb?: string) => { setTab(t as Tab); if (sb) setSub(sb); };
   const ask = (t: string) => { setPending(t); setTab('ask'); };
+  if (support) return <SafeAreaView edges={['top', 'bottom']} style={{ flex: 1, backgroundColor: C.bg }}><Support close={() => { setSupport(false); setUnread(0); }} /></SafeAreaView>;
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: C.bg }}>
       {tab !== 'ask' && <Header onMe={() => setTab('me')} />}
@@ -62,7 +70,7 @@ function Shell() {
         {tab === 'track' && <Track sub={sub} setSub={setSub} ask={ask} />}
         {tab === 'ask' && <Ask pending={pending} clearPending={() => setPending(null)} />}
         {tab === 'journey' && <Journey />}
-        {tab === 'me' && <Me done={() => setTab('today')} />}
+        {tab === 'me' && <Me done={() => setTab('today')} openSupport={() => setSupport(true)} unread={unread} />}
       </View>
       <SafeAreaView edges={['bottom']} style={{ backgroundColor: C.bg }}>
         <View style={{ marginHorizontal: 20, marginTop: 6, marginBottom: Platform.OS === 'web' ? 14 : 4, backgroundColor: C.ink, borderRadius: 99, padding: 6, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -73,6 +81,7 @@ function Shell() {
                 onPress={() => { Haptics.selectionAsync().catch(() => {}); setTab(k); }}
                 style={{ width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center', backgroundColor: on ? '#fff' : 'transparent' }}>
                 <Icon color={on ? C.ink : '#fff'} />
+                {k === 'me' && unread > 0 ? <View style={{ position: 'absolute', top: 10, right: 12, width: 11, height: 11, borderRadius: 6, backgroundColor: C.coral, borderWidth: 2, borderColor: on ? '#fff' : C.ink }} /> : null}
               </Pressable>
             );
           })}
