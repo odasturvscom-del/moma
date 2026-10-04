@@ -60,3 +60,49 @@ export function Blob({ color, size = 80, face = 'smile', arms, wave, leaf, cheek
   );
 }
 export const MOOD_BLOBS: [string, Face][] = [['#9CC9F5', 'sad'], ['#CFC4FA', 'meh'], ['#FFE08A', 'calm'], ['#A8E8CB', 'smile'], ['#FFB8D6', 'happy']];
+
+// Mo, Moma's mascot: a coral mum hugging a little mint baby. `grow` (0 to 1) sizes the baby, so it can grow week by week.
+export type MoPose = 'hug' | 'wave' | 'sleep';
+type MoProps = { size?: number; pose?: MoPose; grow?: number; face?: 'smile' | 'happy' | 'wow'; color?: string; baby?: string };
+export function Mo({ size = 80, pose = 'hug', grow = 0.6, face = 'smile', color = '#FF8B74', baby = '#A8E8CB' }: MoProps) {
+  const id = React.useMemo(() => `mo${++uid}`, []);
+  const ink = '#141414';
+  const k = 0.85 + 0.4 * Math.max(0, Math.min(1, grow));
+  const arm = shade(color, -0.16);
+  const asleep = pose === 'sleep';
+  return (
+    <Svg width={size} height={size * 1.1} viewBox="0 0 100 110" accessibilityLabel="Mo, the Moma mascot">
+      <Defs>
+        <RadialGradient id={id} cx="36%" cy="28%" r="78%">
+          <Stop offset="0" stopColor={shade(color, 0.55)} /><Stop offset="0.45" stopColor={color} /><Stop offset="1" stopColor={shade(color, -0.22)} />
+        </RadialGradient>
+        <RadialGradient id={`${id}b`} cx="35%" cy="25%" r="80%">
+          <Stop offset="0" stopColor={shade(baby, 0.6)} /><Stop offset="0.5" stopColor={baby} /><Stop offset="1" stopColor={shade(baby, -0.18)} />
+        </RadialGradient>
+      </Defs>
+      <Ellipse cx={50} cy={105} rx={34} ry={4} fill="#000" opacity={0.08} />
+      {pose === 'wave' && <Ellipse cx={93} cy={40} rx={8} ry={15} fill={arm} transform="rotate(25 93 40)" />}
+      <Path d="M50 4 C78 4 94 30 94 62 C94 92 76 104 50 104 C24 104 6 92 6 62 C6 30 22 4 50 4 Z" fill={`url(#${id})`} />
+      <Ellipse cx={34} cy={22} rx={12} ry={7} fill="#fff" opacity={0.45} transform="rotate(-25 34 22)" />
+      {asleep
+        ? <G><Path d="M31 42 Q37 47 43 42" stroke={ink} strokeWidth={3.6} strokeLinecap="round" fill="none" /><Path d="M57 42 Q63 47 69 42" stroke={ink} strokeWidth={3.6} strokeLinecap="round" fill="none" />
+            <Path d="M80 10 L88 10 L80 19 L88 19" stroke={ink} strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" fill="none" /></G>
+        : <G><Circle cx={37} cy={42} r={5.2} fill={ink} /><Circle cx={63} cy={42} r={5.2} fill={ink} /><Circle cx={38.7} cy={40.3} r={1.6} fill="#fff" /><Circle cx={64.7} cy={40.3} r={1.6} fill="#fff" /></G>}
+      <Ellipse cx={27} cy={52} rx={5.5} ry={3.3} fill="#FF6F91" opacity={0.35} /><Ellipse cx={73} cy={52} rx={5.5} ry={3.3} fill="#FF6F91" opacity={0.35} />
+      {face === 'wow' && !asleep ? <Ellipse cx={50} cy={53} rx={4} ry={4.8} fill={ink} />
+        : face === 'happy' && !asleep ? <Path d="M42 50 L58 50 Q56 61 50 61 Q44 61 42 50 Z" fill={ink} />
+        : <Path d={asleep ? 'M45 53 Q50 56 55 53' : 'M43 51 Q50 58 57 51'} stroke={ink} strokeWidth={3.6} strokeLinecap="round" fill="none" />}
+      <G transform={`translate(50 79) scale(${k})`}>
+        <Path d="M0 -16 C10 -16 16 -6 16 4 C16 13 9 16 0 16 C-9 16 -16 13 -16 4 C-16 -6 -10 -16 0 -16 Z" fill={`url(#${id}b)`} />
+        <Ellipse cx={-5} cy={-10} rx={4} ry={2.4} fill="#fff" opacity={0.5} transform="rotate(-25 -5 -10)" />
+        {asleep
+          ? <G><Path d="M-7.5 1 Q-5 3 -2.5 1" stroke={ink} strokeWidth={1.6} strokeLinecap="round" fill="none" /><Path d="M2.5 1 Q5 3 7.5 1" stroke={ink} strokeWidth={1.6} strokeLinecap="round" fill="none" /></G>
+          : <G><Circle cx={-5} cy={1} r={1.9} fill={ink} /><Circle cx={5} cy={1} r={1.9} fill={ink} /></G>}
+        <Path d="M-2.6 6 Q0 8.4 2.6 6" stroke={ink} strokeWidth={1.5} strokeLinecap="round" fill="none" />
+        <Ellipse cx={-9} cy={5} rx={2.6} ry={1.6} fill="#FF6F91" opacity={0.35} /><Ellipse cx={9} cy={5} rx={2.6} ry={1.6} fill="#FF6F91" opacity={0.35} />
+      </G>
+      <Path d={pose === 'wave' ? 'M12 74 Q22 100 58 96' : 'M12 74 Q20 99 44 96'} stroke={arm} strokeWidth={10} strokeLinecap="round" fill="none" />
+      {pose !== 'wave' && <Path d="M88 74 Q80 99 56 96" stroke={arm} strokeWidth={10} strokeLinecap="round" fill="none" />}
+    </Svg>
+  );
+}

@@ -6,7 +6,7 @@ import { askMoma, apiBase } from '../ai';
 import { EM } from '../content';
 import { track } from '../telemetry';
 import { Text, FlagCard, Md, Muted } from '../ui';
-import { Blob } from '../mascot';
+import { Mo } from '../mascot';
 import { IArrow, ISpark } from '../icons';
 import { C, F, P as MP, pastel } from '../theme';
 
@@ -43,7 +43,7 @@ export default function Ask({ pending, clearPending }: { pending: string | null;
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={10}>
       <View style={{ paddingHorizontal: 20, paddingTop: 8, flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-        <Blob color={MP.coral} face={busy ? 'wow' : 'smile'} size={50} cheeks={false} />
+        <Mo size={50} pose={busy ? 'hug' : 'wave'} face={busy ? 'wow' : 'smile'} />
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 30, fontWeight: '800', color: C.ink, letterSpacing: -1 }}>Ask Moma</Text>
           <Text style={{ fontSize: 13, color: C.muted }}>{apiBase(s) ? 'Private · grounded in NHS and NICE guidance' : 'Offline mode · connect the AI in Me'}</Text>

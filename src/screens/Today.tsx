@@ -3,7 +3,7 @@ import { ScrollView, View, Pressable } from 'react-native';
 import { useStore, preg, pp, fmtDate, ago, dkey, DAY } from '../store';
 import { weekInfo, ppInfo, MILESTONES } from '../content';
 import { Text, Muted } from '../ui';
-import { Blob, MOOD_BLOBS } from '../mascot';
+import { Blob, Mo, MOOD_BLOBS } from '../mascot';
 import { ISpark, IGo } from '../icons';
 import CheckIn from './CheckIn';
 import { getConfig } from '../telemetry';
@@ -71,7 +71,7 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
               <Text style={{ fontSize: 44, fontWeight: '800', color: C.ink, letterSpacing: -1.5, lineHeight: 46 }}>Week {p.w}</Text>
               <Text style={{ fontSize: 18, fontWeight: '600', color: C.ink, marginTop: 6, lineHeight: 22 }}>Baby is the size of {/^[aeiou]/i.test(w[0]) ? 'an' : 'a'} {w[0]}</Text>
             </View>
-            <View style={{ position: 'absolute', right: -6, top: 26 }}><Blob color={P.peach} face="smile" size={118} arms leaf /></View>
+            <View style={{ position: 'absolute', right: 0, top: 22 }}><Mo size={112} pose="hug" grow={p.w / 40} /></View>
             <View style={{ marginTop: 18, height: 8, borderRadius: 4, backgroundColor: C.ringTrack }}>
               <View style={{ width: `${Math.min(100, (p.days / 280) * 100)}%`, height: 8, borderRadius: 4, backgroundColor: C.ink }} />
             </View>
@@ -117,8 +117,7 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
               <Text style={{ fontSize: 17, fontWeight: '600', color: C.ink, marginTop: 6 }}>Week {q.w + 1} of your fourth trimester</Text>
               <Text style={{ fontSize: 13, color: C.ink, marginTop: 10, fontWeight: '500' }}>Last feed: {lf ? `${ago(lf.t)} (${lf.k})` : 'not logged yet'}</Text>
             </View>
-            <View style={{ position: 'absolute', right: 6, top: 24 }}><Blob color={P.coral} face="calm" size={98} arms /></View>
-            <View style={{ position: 'absolute', right: 58, top: 100 }}><Blob color={P.peach} face="smile" size={46} /></View>
+            <View style={{ position: 'absolute', right: 6, top: 24 }}><Mo size={104} pose="sleep" grow={1} /></View>
           </Tile>
           <WeekStrip />
           <Text style={{ fontSize: 22, fontWeight: '700', color: C.ink, letterSpacing: -0.5, marginBottom: 12 }}>Quick log</Text>
@@ -158,7 +157,7 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
       {body ?? <View style={{ backgroundColor: C.card, borderRadius: 28, padding: 18 }}><Text>Add your dates in Me to get started.</Text></View>}
       <Pressable onPress={() => ask(s.mode === 'pregnant' ? "What's happening this week?" : 'Summarise my week for my health visitor')}
         style={{ marginTop: 12, backgroundColor: C.ink, borderRadius: 28, padding: 18, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Blob color={P.coral} face="wink" size={44} cheeks={false} />
+        <Mo size={44} pose="wave" />
         <View style={{ flex: 1 }}>
           <Text style={{ color: C.inv, fontSize: 16, fontWeight: '700' }}>{s.mode === 'pregnant' ? "What's happening this week?" : 'Prep my health visitor chat'}</Text>
           <Text style={{ color: C.inv, opacity: 0.7, fontSize: 13 }}>Moma knows where you are in your journey</Text>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Pressable, Alert, Platform } from 'react-native';
-import { Blob } from '../mascot';
+import { Mo } from '../mascot';
 import { useStore, dkey, parseKey, DAY, Mode, State } from '../store';
 import { track } from '../telemetry';
 import { COUNTRIES, Country } from '../content';
@@ -34,7 +34,7 @@ export default function Onboarding() {
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
       <View style={{ paddingTop: 56, paddingHorizontal: 22, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Blob color={P.coral} face="smile" size={54} arms />
+        <Mo size={54} pose="wave" />
         <Text style={{ fontSize: 30, fontWeight: '800', color: C.ink, letterSpacing: -1 }}>moma</Text>
       </View>
       <View style={{ padding: 22 }}>
