@@ -72,7 +72,7 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
               <Text style={{ fontSize: 18, fontWeight: '600', color: C.ink, marginTop: 6, lineHeight: 22 }}>Baby is the size of {/^[aeiou]/i.test(w[0]) ? 'an' : 'a'} {w[0]}</Text>
             </View>
             <View style={{ position: 'absolute', right: 0, top: 22 }}><Mo size={112} pose="hug" grow={p.w / 40} /></View>
-            <View style={{ marginTop: 18, height: 8, borderRadius: 4, backgroundColor: C.ringTrack }}>
+            <View style={{ marginTop: 18, width: '62%', height: 8, borderRadius: 4, backgroundColor: C.ringTrack }}>
               <View style={{ width: `${Math.min(100, (p.days / 280) * 100)}%`, height: 8, borderRadius: 4, backgroundColor: C.ink }} />
             </View>
             <Text style={{ fontSize: 13, color: C.ink, marginTop: 8, fontWeight: '500' }}>{p.left > 0 ? `${p.left} days to go · due ${fmtDate(p.due)}` : 'Due any day now'}</Text>

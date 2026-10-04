@@ -68,7 +68,7 @@ export function Mo({ size = 80, pose = 'hug', grow = 0.6, face = 'smile', color 
   const id = React.useMemo(() => `mo${++uid}`, []);
   const ink = '#141414';
   const k = 0.85 + 0.4 * Math.max(0, Math.min(1, grow));
-  const arm = shade(color, -0.16);
+  const arm = shade(color, -0.2);
   const asleep = pose === 'sleep';
   return (
     <Svg width={size} height={size * 1.1} viewBox="0 0 100 110" accessibilityLabel="Mo, the Moma mascot">
@@ -81,7 +81,7 @@ export function Mo({ size = 80, pose = 'hug', grow = 0.6, face = 'smile', color 
         </RadialGradient>
       </Defs>
       <Ellipse cx={50} cy={105} rx={34} ry={4} fill="#000" opacity={0.08} />
-      {pose === 'wave' && <Ellipse cx={93} cy={40} rx={8} ry={15} fill={arm} transform="rotate(25 93 40)" />}
+      {pose === 'wave' && <Ellipse cx={93} cy={40} rx={8} ry={15} fill={arm} stroke={ink} strokeOpacity={0.3} strokeWidth={1.5} transform="rotate(25 93 40)" />}
       <Path d="M50 4 C78 4 94 30 94 62 C94 92 76 104 50 104 C24 104 6 92 6 62 C6 30 22 4 50 4 Z" fill={`url(#${id})`} />
       <Ellipse cx={34} cy={22} rx={12} ry={7} fill="#fff" opacity={0.45} transform="rotate(-25 34 22)" />
       {asleep
@@ -101,8 +101,9 @@ export function Mo({ size = 80, pose = 'hug', grow = 0.6, face = 'smile', color 
         <Path d="M-2.6 6 Q0 8.4 2.6 6" stroke={ink} strokeWidth={1.5} strokeLinecap="round" fill="none" />
         <Ellipse cx={-9} cy={5} rx={2.6} ry={1.6} fill="#FF6F91" opacity={0.35} /><Ellipse cx={9} cy={5} rx={2.6} ry={1.6} fill="#FF6F91" opacity={0.35} />
       </G>
+      <Path d={pose === 'wave' ? 'M12 74 Q22 100 58 96' : 'M12 74 Q20 99 44 96'} stroke={ink} opacity={0.3} strokeWidth={13} strokeLinecap="round" fill="none" />
       <Path d={pose === 'wave' ? 'M12 74 Q22 100 58 96' : 'M12 74 Q20 99 44 96'} stroke={arm} strokeWidth={10} strokeLinecap="round" fill="none" />
-      {pose !== 'wave' && <Path d="M88 74 Q80 99 56 96" stroke={arm} strokeWidth={10} strokeLinecap="round" fill="none" />}
+      {pose !== 'wave' && <G><Path d="M88 74 Q80 99 56 96" stroke={ink} opacity={0.3} strokeWidth={13} strokeLinecap="round" fill="none" /><Path d="M88 74 Q80 99 56 96" stroke={arm} strokeWidth={10} strokeLinecap="round" fill="none" /></G>}
     </Svg>
   );
 }
