@@ -8,10 +8,14 @@ import { Triage } from './safety';
 
 // Every piece of text goes through here so the whole app uses Outfit, with the weight picked from fontWeight.
 const FW: Record<string, string> = { '300': F.r, '400': F.r, normal: F.r, '500': F.m, '600': F.s, '700': F.b, bold: F.b, '800': F.x, '900': F.x };
+// Text with no colour set takes its parent's colour, or the theme ink, so nothing goes black-on-dark in dark mode.
+const InkCtx = React.createContext<string | null>(null);
 export function Text(props: React.ComponentProps<typeof RNText>) {
+  const parent = React.useContext(InkCtx);
   const f = (StyleSheet.flatten(props.style) ?? {}) as TextStyle;
   const fam = f.fontFamily ?? FW[String(f.fontWeight ?? '400')] ?? F.r;
-  return <RNText {...props} style={[props.style, { fontFamily: fam, fontWeight: undefined }]} />;
+  const color = (f.color as string | undefined) ?? parent ?? C.ink;
+  return <InkCtx.Provider value={color}><RNText {...props} style={[{ color }, props.style, { color, fontFamily: fam, fontWeight: undefined }]} /></InkCtx.Provider>;
 }
 export const Title = ({ children, style }: { children: React.ReactNode; style?: TextStyle }) => (
   <Text style={[{ fontSize: 30, fontWeight: '800', color: C.ink, letterSpacing: -0.8 }, style]}>{children}</Text>
