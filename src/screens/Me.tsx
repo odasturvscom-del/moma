@@ -7,7 +7,7 @@ import { sendFeedback, deleteServerData, VERSION } from '../telemetry';
 import { pp } from '../store';
 import { C } from '../theme';
 import { COUNTRIES, Country } from '../content';
-import { Card, H3, Muted, Btn, Input, Label, Chip, DateField, Notice, Grid2 } from '../ui';
+import { Card, H3, Muted, Btn, Input, Label, Chip, DateField, Notice, Grid2, Seg } from '../ui';
 
 const say = (m: string) => (Platform.OS === 'web' ? alert(m) : Alert.alert(m));
 export default function Me({ done, openSupport, unread = 0 }: { done: () => void; openSupport: () => void; unread?: number }) {
@@ -61,6 +61,11 @@ export default function Me({ done, openSupport, unread = 0 }: { done: () => void
         <Btn title={unread ? 'Read reply' : 'Start a chat'} onPress={openSupport} />
       </Card>
       <Card>
+        <H3>Appearance</H3>
+        <Seg items={[['system', 'Auto'], ['light', 'Light'], ['dark', 'Dark']]} value={s.theme ?? 'system'} onChange={v => set(x => ({ ...x, theme: v }))} />
+        <Muted style={{ marginTop: 4 }}>Auto follows your phone's light or dark setting.</Muted>
+      </Card>
+      <Card>
         <H3>Profile</H3>
         <Label>First name</Label><Input value={name} onChangeText={setName} />
         <Label>Country</Label>
@@ -97,7 +102,7 @@ export default function Me({ done, openSupport, unread = 0 }: { done: () => void
             <Text style={{ fontSize: 15, fontWeight: '600', color: C.ink }}>Share usage with the Moma team</Text>
             <Muted>Your stage, country and which features you use, linked to a random ID. Never your logs, moods or Ask Moma chats.</Muted>
           </View>
-          <Switch value={s.stats !== false} onValueChange={v => set(x => ({ ...x, stats: v }))} trackColor={{ true: C.ink, false: '#DDD7D0' }} thumbColor="#fff" />
+          <Switch value={s.stats !== false} onValueChange={v => set(x => ({ ...x, stats: v }))} trackColor={{ true: C.ink, false: C.trackOff }} thumbColor="#fff" />
         </View>
         <View style={{ height: 10 }} />
         <Grid2>

@@ -7,7 +7,7 @@ import { Blob, MOOD_BLOBS } from '../mascot';
 import { ISpark, IGo } from '../icons';
 import CheckIn from './CheckIn';
 import { getConfig } from '../telemetry';
-import { C } from '../theme';
+import { C, P } from '../theme';
 
 const Tile = ({ bg, children, onPress, h, style }: { bg: string; children: React.ReactNode; onPress?: () => void; h?: number; style?: object }) => (
   <Pressable onPress={onPress} style={({ pressed }) => [{ backgroundColor: bg, borderRadius: 28, padding: 18, minHeight: h, overflow: 'hidden', transform: [{ scale: pressed ? 0.98 : 1 }] }, style]}>{children}</Pressable>
@@ -24,10 +24,10 @@ function WeekStrip() {
       {days.map(d => {
         const k = dkey(d), on = k === dkey(), logged = !!s.logs[k]?.mood;
         return (
-          <View key={k} style={{ width: 44, paddingVertical: 10, borderRadius: 22, alignItems: 'center', backgroundColor: on ? C.ink : '#fff', borderWidth: on ? 0 : 1.5, borderColor: C.line }}>
-            <Text style={{ fontSize: 12, color: on ? '#fff' : C.muted }}>{d.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 3)}</Text>
-            <Text style={{ fontSize: 16, fontWeight: '700', color: on ? '#fff' : C.ink, marginTop: 2 }}>{d.getDate()}</Text>
-            <View style={{ width: 5, height: 5, borderRadius: 3, marginTop: 4, backgroundColor: logged ? (on ? '#fff' : C.ink) : 'transparent' }} />
+          <View key={k} style={{ width: 44, paddingVertical: 10, borderRadius: 22, alignItems: 'center', backgroundColor: on ? C.ink : C.card, borderWidth: on ? 0 : 1.5, borderColor: C.line }}>
+            <Text style={{ fontSize: 12, color: on ? C.inv : C.muted }}>{d.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 3)}</Text>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: on ? C.inv : C.ink, marginTop: 2 }}>{d.getDate()}</Text>
+            <View style={{ width: 5, height: 5, borderRadius: 3, marginTop: 4, backgroundColor: logged ? (on ? C.inv : C.ink) : 'transparent' }} />
           </View>
         );
       })}
@@ -71,8 +71,8 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
               <Text style={{ fontSize: 44, fontWeight: '800', color: C.ink, letterSpacing: -1.5, lineHeight: 46 }}>Week {p.w}</Text>
               <Text style={{ fontSize: 18, fontWeight: '600', color: C.ink, marginTop: 6, lineHeight: 22 }}>Baby is the size of {/^[aeiou]/i.test(w[0]) ? 'an' : 'a'} {w[0]}</Text>
             </View>
-            <View style={{ position: 'absolute', right: -6, top: 26 }}><Blob color={C.peach} face="smile" size={118} arms leaf /></View>
-            <View style={{ marginTop: 18, height: 8, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.6)' }}>
+            <View style={{ position: 'absolute', right: -6, top: 26 }}><Blob color={P.peach} face="smile" size={118} arms leaf /></View>
+            <View style={{ marginTop: 18, height: 8, borderRadius: 4, backgroundColor: C.ringTrack }}>
               <View style={{ width: `${Math.min(100, (p.days / 280) * 100)}%`, height: 8, borderRadius: 4, backgroundColor: C.ink }} />
             </View>
             <Text style={{ fontSize: 13, color: C.ink, marginTop: 8, fontWeight: '500' }}>{p.left > 0 ? `${p.left} days to go · due ${fmtDate(p.due)}` : 'Due any day now'}</Text>
@@ -96,10 +96,10 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
               <Tile bg={C.lime} style={{ flex: 1 }} onPress={() => go('track', 'ctx')}><Big size={17}>Contraction{'\n'}timer</Big></Tile>
             </View>
           )}
-          <View style={{ backgroundColor: '#fff', borderRadius: 28, padding: 18, marginTop: 12 }}>
+          <View style={{ backgroundColor: C.card, borderRadius: 28, padding: 18, marginTop: 12 }}>
             <Text style={{ fontSize: 18, fontWeight: '700', color: C.ink, marginBottom: 12 }}>This week</Text>
-            <View style={{ backgroundColor: '#FFF1E8', borderRadius: 18, padding: 14, marginBottom: 8 }}><Text style={{ fontSize: 12.5, fontWeight: '700', color: C.ink, marginBottom: 4 }}>BABY</Text><Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{w[1]}</Text></View>
-            <View style={{ backgroundColor: '#F1ECFF', borderRadius: 18, padding: 14 }}><Text style={{ fontSize: 12.5, fontWeight: '700', color: C.ink, marginBottom: 4 }}>YOU</Text><Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{w[2]}</Text></View>
+            <View style={{ backgroundColor: C.peachSoft, borderRadius: 18, padding: 14, marginBottom: 8 }}><Text style={{ fontSize: 12.5, fontWeight: '700', color: C.ink, marginBottom: 4 }}>BABY</Text><Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{w[1]}</Text></View>
+            <View style={{ backgroundColor: C.roseSoft, borderRadius: 18, padding: 14 }}><Text style={{ fontSize: 12.5, fontWeight: '700', color: C.ink, marginBottom: 4 }}>YOU</Text><Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{w[2]}</Text></View>
           </View>
         </>
       );
@@ -117,8 +117,8 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
               <Text style={{ fontSize: 17, fontWeight: '600', color: C.ink, marginTop: 6 }}>Week {q.w + 1} of your fourth trimester</Text>
               <Text style={{ fontSize: 13, color: C.ink, marginTop: 10, fontWeight: '500' }}>Last feed: {lf ? `${ago(lf.t)} (${lf.k})` : 'not logged yet'}</Text>
             </View>
-            <View style={{ position: 'absolute', right: 6, top: 24 }}><Blob color={C.coral} face="calm" size={98} arms /></View>
-            <View style={{ position: 'absolute', right: 58, top: 100 }}><Blob color={C.peach} face="smile" size={46} /></View>
+            <View style={{ position: 'absolute', right: 6, top: 24 }}><Blob color={P.coral} face="calm" size={98} arms /></View>
+            <View style={{ position: 'absolute', right: 58, top: 100 }}><Blob color={P.peach} face="smile" size={46} /></View>
           </Tile>
           <WeekStrip />
           <Text style={{ fontSize: 22, fontWeight: '700', color: C.ink, letterSpacing: -0.5, marginBottom: 12 }}>Quick log</Text>
@@ -138,7 +138,7 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
             </View>
           </View>
           {(open || !L?.mood) && <View style={{ marginTop: 12 }}><CheckIn onTalk={ask} /></View>}
-          <View style={{ backgroundColor: '#fff', borderRadius: 28, padding: 18, marginTop: 12 }}>
+          <View style={{ backgroundColor: C.card, borderRadius: 28, padding: 18, marginTop: 12 }}>
             <Text style={{ fontSize: 18, fontWeight: '700', color: C.ink, marginBottom: 8 }}>{n[0]}</Text>
             <Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{n[1]}</Text>
           </View>
@@ -155,15 +155,15 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
           <Pressable accessibilityLabel="Dismiss" onPress={() => setNews('')} hitSlop={10}><Text style={{ fontSize: 16, color: C.ink }}>✕</Text></Pressable>
         </View>
       ) : null}
-      {body ?? <View style={{ backgroundColor: '#fff', borderRadius: 28, padding: 18 }}><Text>Add your dates in Me to get started.</Text></View>}
+      {body ?? <View style={{ backgroundColor: C.card, borderRadius: 28, padding: 18 }}><Text>Add your dates in Me to get started.</Text></View>}
       <Pressable onPress={() => ask(s.mode === 'pregnant' ? "What's happening this week?" : 'Summarise my week for my health visitor')}
         style={{ marginTop: 12, backgroundColor: C.ink, borderRadius: 28, padding: 18, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Blob color={C.coral} face="wink" size={44} cheeks={false} />
+        <Blob color={P.coral} face="wink" size={44} cheeks={false} />
         <View style={{ flex: 1 }}>
-          <Text style={{ color: '#fff', fontSize: 16, fontWeight: '700' }}>{s.mode === 'pregnant' ? "What's happening this week?" : 'Prep my health visitor chat'}</Text>
-          <Text style={{ color: '#fff', opacity: 0.7, fontSize: 13 }}>Moma knows where you are in your journey</Text>
+          <Text style={{ color: C.inv, fontSize: 16, fontWeight: '700' }}>{s.mode === 'pregnant' ? "What's happening this week?" : 'Prep my health visitor chat'}</Text>
+          <Text style={{ color: C.inv, opacity: 0.7, fontSize: 13 }}>Moma knows where you are in your journey</Text>
         </View>
-        <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: C.lime, alignItems: 'center', justifyContent: 'center' }}><IGo size={18} /></View>
+        <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: C.lime, alignItems: 'center', justifyContent: 'center' }}><IGo size={18} color={C.ink} /></View>
       </Pressable>
       <Muted style={{ textAlign: 'center', marginTop: 16, fontSize: 12 }}>Moma supports, never replaces, your midwife or doctor.</Muted>
     </ScrollView>

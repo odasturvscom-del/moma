@@ -8,7 +8,7 @@ import { track } from '../telemetry';
 import { Text, FlagCard, Md, Muted } from '../ui';
 import { Blob } from '../mascot';
 import { IArrow, ISpark } from '../icons';
-import { C, F, PASTELS } from '../theme';
+import { C, F, P as MP, pastel } from '../theme';
 
 export default function Ask({ pending, clearPending }: { pending: string | null; clearPending: () => void }) {
   const { s, set } = useStore();
@@ -43,7 +43,7 @@ export default function Ask({ pending, clearPending }: { pending: string | null;
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={10}>
       <View style={{ paddingHorizontal: 20, paddingTop: 8, flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-        <Blob color={C.coral} face={busy ? 'wow' : 'smile'} size={50} cheeks={false} />
+        <Blob color={MP.coral} face={busy ? 'wow' : 'smile'} size={50} cheeks={false} />
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 30, fontWeight: '800', color: C.ink, letterSpacing: -1 }}>Ask Moma</Text>
           <Text style={{ fontSize: 13, color: C.muted }}>{apiBase(s) ? 'Private · grounded in NHS and NICE guidance' : 'Offline mode · connect the AI in Me'}</Text>
@@ -62,7 +62,7 @@ export default function Ask({ pending, clearPending }: { pending: string | null;
           const u = m.r === 'u';
           return (
             <View key={i} style={{ alignSelf: u ? 'flex-end' : 'flex-start', maxWidth: '86%', backgroundColor: u ? C.ink : C.lav, paddingVertical: 12, paddingHorizontal: 15, borderRadius: 24, borderBottomRightRadius: u ? 8 : 24, borderBottomLeftRadius: u ? 24 : 8 }}>
-              {u ? <Text style={{ color: '#fff', fontSize: 15, lineHeight: 21 }}>{m.c}</Text> : <Md text={m.c} />}
+              {u ? <Text style={{ color: C.inv, fontSize: 15, lineHeight: 21 }}>{m.c}</Text> : <Md text={m.c} />}
             </View>
           );
         })}
@@ -71,15 +71,15 @@ export default function Ask({ pending, clearPending }: { pending: string | null;
       <View style={{ paddingHorizontal: 20, paddingBottom: 6 }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 10 }} keyboardShouldPersistTaps="handled">
           {chips.map((c, i) => (
-            <Pressable key={c} onPress={() => send(c)} style={{ backgroundColor: PASTELS[(i + 2) % PASTELS.length], borderRadius: 99, paddingVertical: 9, paddingHorizontal: 15 }}>
+            <Pressable key={c} onPress={() => send(c)} style={{ backgroundColor: pastel(i + 2), borderRadius: 99, paddingVertical: 9, paddingHorizontal: 15 }}>
               <Text style={{ fontSize: 13.5, fontWeight: '600', color: C.ink }}>{c}</Text>
             </Pressable>
           ))}
         </ScrollView>
-        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', backgroundColor: '#fff', borderRadius: 99, borderWidth: 1.5, borderColor: C.line, paddingLeft: 18, paddingRight: 5, paddingVertical: 5 }}>
+        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', backgroundColor: C.card, borderRadius: 99, borderWidth: 1.5, borderColor: C.line, paddingLeft: 18, paddingRight: 5, paddingVertical: 5 }}>
           <TextInput value={q} onChangeText={setQ} onSubmitEditing={() => send(q)} placeholder="Ask Moma anything…" placeholderTextColor={C.muted} returnKeyType="send"
             style={{ flex: 1, fontSize: 15, color: C.ink, fontFamily: F.r, paddingVertical: 8 }} />
-          <Pressable accessibilityLabel="Send" onPress={() => send(q)} style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: C.ink, alignItems: 'center', justifyContent: 'center' }}><IArrow size={20} /></Pressable>
+          <Pressable accessibilityLabel="Send" onPress={() => send(q)} style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: C.ink, alignItems: 'center', justifyContent: 'center' }}><IArrow size={20} color={C.inv} /></Pressable>
         </View>
         <Muted style={{ textAlign: 'center', fontSize: 11.5, marginTop: 6 }}>Not medical advice. Emergency: {(EM[s.country] ?? EM.Other).e}</Muted>
       </View>

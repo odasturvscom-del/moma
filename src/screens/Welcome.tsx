@@ -56,12 +56,12 @@ export default function Welcome({ onStart }: { onStart: () => void }) {
         </View>
         <View style={{ width: colW, paddingHorizontal: 24, paddingBottom: 18 }}>
           <Text style={{ textAlign: 'center', fontSize: 18, color: '#3A3540', marginBottom: 18 }}>Your pregnancy, made lighter</Text>
-          <Pressable accessibilityRole="button" onPress={onStart} style={({ pressed }) => ({ backgroundColor: C.ink, borderRadius: 99, paddingVertical: 17, alignItems: 'center', opacity: pressed ? 0.85 : 1 })}>
+          <Pressable accessibilityRole="button" onPress={onStart} style={({ pressed }) => ({ backgroundColor: '#141414', borderRadius: 99, paddingVertical: 17, alignItems: 'center', opacity: pressed ? 0.85 : 1 })}>
             <Text style={{ color: '#fff', fontSize: 17, fontWeight: '600' }}>Get started</Text>
           </Pressable>
           {can && (
             <Pressable accessibilityRole="button" onPress={install} style={({ pressed }) => ({ backgroundColor: '#fff', borderRadius: 99, paddingVertical: 16, alignItems: 'center', marginTop: 10, opacity: pressed ? 0.85 : 1 })}>
-              <Text style={{ color: C.ink, fontSize: 16, fontWeight: '600' }}>Install Moma on this device</Text>
+              <Text style={{ color: '#141414', fontSize: 16, fontWeight: '600' }}>Install Moma on this device</Text>
             </Pressable>
           )}
           {ios && <Text style={{ textAlign: 'center', fontSize: 13, color: '#4A4550', marginTop: 12 }}>On iPhone: tap Share, then Add to Home Screen to install Moma.</Text>}

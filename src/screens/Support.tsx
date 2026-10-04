@@ -7,7 +7,7 @@ import { EM } from '../content';
 import { hello, supportThread, supportSend, getConfig, SupportMsg, track } from '../telemetry';
 import { Blob } from '../mascot';
 import { IArrow } from '../icons';
-import { C, F } from '../theme';
+import { C, F, P } from '../theme';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const stamp = (d: string) => { const x = new Date(d); const same = x.toDateString() === new Date().toDateString(); return `${same ? '' : `${x.getDate()} ${MONTHS[x.getMonth()]}, `}${x.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`; };
@@ -64,14 +64,14 @@ export default function Support({ close }: { close: () => void }) {
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: C.bg }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingVertical: 10 }}>
-        <Pressable accessibilityLabel="Back" onPress={close} style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
+        <Pressable accessibilityLabel="Back" onPress={close} style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: C.card, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ fontSize: 20, color: C.ink }}>‹</Text>
         </Pressable>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 19, fontWeight: '700', color: C.ink }}>Moma team</Text>
           <Muted style={{ fontSize: 13 }}>{cfg?.supportOn === false ? 'Offline right now' : cfg?.supportHours ?? 'Real people, here to help'}</Muted>
         </View>
-        <Blob color={C.mint} face="happy" size={40} />
+        <Blob color={P.mint} face="happy" size={40} />
       </View>
       <ScrollView ref={scroll} contentContainerStyle={{ padding: 16, gap: 10, paddingBottom: 20 }} keyboardShouldPersistTaps="handled">
         <View style={{ backgroundColor: C.butter, borderRadius: 22, padding: 14 }}>
@@ -81,24 +81,24 @@ export default function Support({ close }: { close: () => void }) {
         {msgs.map(m => (
           <View key={m.id} style={{ alignSelf: m.from === 'user' ? 'flex-end' : m.from === 'system' ? 'center' : 'flex-start', maxWidth: m.from === 'system' ? '95%' : '82%' }}>
             {m.from === 'staff' && m.name ? <Text style={{ fontSize: 12, color: C.muted, marginBottom: 3, marginLeft: 6 }}>{m.name} · Moma team</Text> : null}
-            <View style={{ backgroundColor: m.from === 'user' ? C.ink : m.from === 'system' ? '#FFE4DE' : '#fff', borderRadius: 22, padding: 13,
+            <View style={{ backgroundColor: m.from === 'user' ? C.ink : m.from === 'system' ? C.redSoft : C.card, borderRadius: 22, padding: 13,
               borderBottomRightRadius: m.from === 'user' ? 6 : 22, borderBottomLeftRadius: m.from === 'staff' ? 6 : 22 }}>
-              <Text style={{ fontSize: 15, lineHeight: 21, color: m.from === 'user' ? '#fff' : C.ink }}>{m.body}</Text>
+              <Text style={{ fontSize: 15, lineHeight: 21, color: m.from === 'user' ? C.inv : C.ink }}>{m.body}</Text>
             </View>
             <Text style={{ fontSize: 11.5, color: C.muted, marginTop: 3, alignSelf: m.from === 'user' ? 'flex-end' : 'flex-start', marginHorizontal: 6 }}>{stamp(m.at)}</Text>
           </View>
         ))}
         {flag ? <FlagCard t={flag} /> : null}
         {!loading && !msgs.length && !err ? <Muted style={{ textAlign: 'center', marginTop: 10 }}>Say hello and someone from the team will reply here.</Muted> : null}
-        {err ? <Text style={{ color: '#C62F1E', textAlign: 'center', fontSize: 14 }}>{err}</Text> : null}
+        {err ? <Text style={{ color: C.red, textAlign: 'center', fontSize: 14 }}>{err}</Text> : null}
       </ScrollView>
       <View style={{ padding: 12, paddingBottom: 16, gap: 8 }}>
         {first ? <Input value={name} onChangeText={setName} placeholder="Your first name (optional)" maxLength={40} /> : null}
-        <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 8, backgroundColor: '#fff', borderRadius: 26, padding: 6, paddingLeft: 16 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 8, backgroundColor: C.card, borderRadius: 26, padding: 6, paddingLeft: 16 }}>
           <TextInput value={text} onChangeText={setText} placeholder="Write a message" placeholderTextColor={C.muted} multiline maxLength={3000}
             style={{ flex: 1, fontFamily: F.r, fontSize: 15.5, color: C.ink, paddingVertical: 10, maxHeight: 120 }} />
-          <Pressable accessibilityLabel="Send" onPress={send} style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: text.trim() ? C.ink : '#CFCAC4', alignItems: 'center', justifyContent: 'center' }}>
-            {busy ? <ActivityIndicator color="#fff" /> : <IArrow color="#fff" />}
+          <Pressable accessibilityLabel="Send" onPress={send} style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: text.trim() ? C.ink : C.disabled, alignItems: 'center', justifyContent: 'center' }}>
+            {busy ? <ActivityIndicator color={C.inv} /> : <IArrow color={C.inv} />}
           </Pressable>
         </View>
       </View>

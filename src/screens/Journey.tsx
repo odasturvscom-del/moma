@@ -3,11 +3,11 @@ import { ScrollView, View } from 'react-native';
 import { useStore, preg, pp } from '../store';
 import { WEEKS, MILESTONES, POSTPARTUM, ppInfo } from '../content';
 import { Text, Card, Muted, Notice } from '../ui';
-import { C, PASTELS } from '../theme';
+import { C, pastel } from '../theme';
 
 const Num = ({ n, cur }: { n: number | string; cur: boolean }) => (
-  <View style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: cur ? C.ink : PASTELS[Number(n) % PASTELS.length], alignItems: 'center', justifyContent: 'center' }}>
-    <Text style={{ fontWeight: '800', fontSize: 17, color: cur ? '#fff' : C.ink }}>{n}</Text>
+  <View style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: cur ? C.ink : pastel(Number(n)), alignItems: 'center', justifyContent: 'center' }}>
+    <Text style={{ fontWeight: '800', fontSize: 17, color: cur ? C.inv : C.ink }}>{n}</Text>
   </View>
 );
 export default function Journey() {

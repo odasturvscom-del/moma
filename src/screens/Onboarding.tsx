@@ -5,7 +5,7 @@ import { useStore, dkey, parseKey, DAY, Mode, State } from '../store';
 import { track } from '../telemetry';
 import { COUNTRIES, Country } from '../content';
 import { Text, Btn, Input, Label, Muted, Seg, DateField, Chip } from '../ui';
-import { C } from '../theme';
+import { C, P } from '../theme';
 
 export default function Onboarding() {
   const { set } = useStore();
@@ -27,14 +27,14 @@ export default function Onboarding() {
     });
   };
   const Toggle = ({ k, label }: { k: Mode; label: string }) => (
-    <Pressable onPress={() => setMode(k)} style={{ flex: 1, borderWidth: 2, borderColor: mode === k ? C.ink : C.line, backgroundColor: mode === k ? (k === 'pregnant' ? C.lav : C.mint) : '#fff', borderRadius: 22, padding: 16, alignItems: 'center' }}>
+    <Pressable onPress={() => setMode(k)} style={{ flex: 1, borderWidth: 2, borderColor: mode === k ? C.ink : C.line, backgroundColor: mode === k ? (k === 'pregnant' ? C.lav : C.mint) : C.card, borderRadius: 22, padding: 16, alignItems: 'center' }}>
       <Text style={{ fontWeight: '600', color: C.ink, fontSize: 15 }}>{label}</Text>
     </Pressable>
   );
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 60 }} keyboardShouldPersistTaps="handled">
       <View style={{ paddingTop: 56, paddingHorizontal: 22, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Blob color={C.coral} face="smile" size={54} arms />
+        <Blob color={P.coral} face="smile" size={54} arms />
         <Text style={{ fontSize: 30, fontWeight: '800', color: C.ink, letterSpacing: -1 }}>moma</Text>
       </View>
       <View style={{ padding: 22 }}>

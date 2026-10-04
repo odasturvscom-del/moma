@@ -28,17 +28,17 @@ export const Label = ({ children }: { children: React.ReactNode }) => <Text styl
 
 type BtnKind = 'rose' | 'ghost' | 'plum' | 'sage' | 'danger' | 'lav' | 'butter' | 'sky' | 'pink' | 'lime' | 'mint';
 export function Btn({ title, onPress, kind = 'rose', big, style }: { title: string; onPress: () => void; kind?: BtnKind; big?: boolean; style?: ViewStyle }) {
-  const bg = { rose: C.ink, ghost: '#fff', plum: C.lav, sage: C.mint, danger: C.red, lav: C.lav, butter: C.butter, sky: C.sky, pink: C.pink, lime: C.lime, mint: C.mint }[kind];
+  const bg = { rose: C.ink, ghost: C.card, plum: C.lav, sage: C.mint, danger: C.red, lav: C.lav, butter: C.butter, sky: C.sky, pink: C.pink, lime: C.lime, mint: C.mint }[kind];
   const light = kind === 'rose' || kind === 'danger';
   return (
     <Pressable accessibilityRole="button" onPress={onPress} style={({ pressed }) => [st.btn, { backgroundColor: bg, opacity: pressed ? 0.85 : 1 }, big && { height: 120, borderRadius: 32 }, kind === 'ghost' && { borderWidth: 1.5, borderColor: C.line }, style]}>
-      <Text style={[st.btnT, !light && { color: C.ink }, big && { fontSize: 20 }]}>{title}</Text>
+      <Text style={[st.btnT, { color: light ? C.inv : C.ink }, big && { fontSize: 20 }]}>{title}</Text>
     </Pressable>
   );
 }
 export const Chip = ({ label, on, onPress }: { label: string; on?: boolean; onPress?: () => void }) => (
   <Pressable onPress={onPress} style={[st.chip, on && { backgroundColor: C.plum, borderColor: C.plum }]}>
-    <Text style={[{ fontSize: 13.5, fontWeight: '500', color: C.ink }, on && { color: '#fff' }]}>{label}</Text>
+    <Text style={[{ fontSize: 13.5, fontWeight: '500', color: C.ink }, on && { color: C.inv }]}>{label}</Text>
   </Pressable>
 );
 export const Row = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => <View style={[{ flexDirection: 'row', gap: 8, alignItems: 'center' }, style]}>{children}</View>;
@@ -52,7 +52,7 @@ export function Seg<T extends string>({ items, value, onChange }: { items: [T, s
     <View style={st.seg}>
       {items.map(([k, l]) => (
         <Pressable key={k} onPress={() => onChange(k)} style={[st.segB, value === k && st.segOn]}>
-          <Text style={{ fontSize: 13.5, fontWeight: '600', color: value === k ? '#fff' : C.muted }}>{l}</Text>
+          <Text style={{ fontSize: 13.5, fontWeight: '600', color: value === k ? C.inv : C.muted }}>{l}</Text>
         </Pressable>
       ))}
     </View>
@@ -63,7 +63,7 @@ export function Ring({ pct, big, small }: { pct: number; big: string; small: str
   return (
     <View style={{ width: 108, height: 108 }}>
       <Svg width={108} height={108} style={{ transform: [{ rotate: '-90deg' }] }}>
-        <Circle cx={54} cy={54} r={r} stroke="rgba(255,255,255,0.7)" strokeWidth={10} fill="none" />
+        <Circle cx={54} cy={54} r={r} stroke={C.ringTrack} strokeWidth={10} fill="none" />
         <Circle cx={54} cy={54} r={r} stroke={C.rose} strokeWidth={10} fill="none" strokeLinecap="round" strokeDasharray={`${c}`} strokeDashoffset={c * (1 - Math.min(1, Math.max(0, pct)))} />
       </Svg>
       <View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }]}>
@@ -156,20 +156,23 @@ export function Md({ text, color = C.ink }: { text: string; color?: string }) {
     </View>
   );
 }
-export const st = StyleSheet.create({
+const mk = () => StyleSheet.create({
   card: { backgroundColor: C.card, borderRadius: R, padding: 18, marginVertical: 6 },
   h3: { fontSize: 18, fontWeight: '700', color: C.ink, marginBottom: 10, letterSpacing: -0.3 },
   muted: { color: C.muted, fontSize: 13.5 },
   label: { fontSize: 13, fontWeight: '600', color: C.ink, marginTop: 16, marginBottom: 6 },
   btn: { borderRadius: 99, paddingVertical: 15, paddingHorizontal: 18, alignItems: 'center', justifyContent: 'center' },
   btnT: { color: '#fff', fontWeight: '600', fontSize: 15, textAlign: 'center' },
-  chip: { borderWidth: 1.5, borderColor: C.line, backgroundColor: '#fff', borderRadius: 99, paddingVertical: 8, paddingHorizontal: 14 },
-  seg: { flexDirection: 'row', backgroundColor: '#EBE6E0', borderRadius: 99, padding: 4, gap: 4, marginVertical: 6 },
+  chip: { borderWidth: 1.5, borderColor: C.line, backgroundColor: C.card, borderRadius: 99, paddingVertical: 8, paddingHorizontal: 14 },
+  seg: { flexDirection: 'row', backgroundColor: C.surf2, borderRadius: 99, padding: 4, gap: 4, marginVertical: 6 },
   segB: { flex: 1, paddingVertical: 10, borderRadius: 99, alignItems: 'center' },
   segOn: { backgroundColor: C.ink },
   notice: { borderRadius: 22, padding: 14, marginVertical: 8 },
   noticeT: { fontSize: 14, color: C.ink, lineHeight: 20 },
-  input: { borderWidth: 1.5, borderColor: C.line, borderRadius: 18, paddingVertical: 13, paddingHorizontal: 16, fontSize: 15, backgroundColor: '#fff', color: C.ink, fontFamily: F.r },
+  input: { borderWidth: 1.5, borderColor: C.line, borderRadius: 18, paddingVertical: 13, paddingHorizontal: 16, fontSize: 15, backgroundColor: C.card, color: C.ink, fontFamily: F.r },
   item: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: C.line },
   counter: { fontSize: 64, fontWeight: '800', textAlign: 'center', color: C.ink, marginVertical: 8, letterSpacing: -2 },
 });
+// Styles are rebuilt when the theme flips, so every screen picks up the new colours.
+export const st = { ...mk() };
+export function restyle() { Object.assign(st, mk()); }
