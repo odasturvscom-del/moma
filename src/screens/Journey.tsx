@@ -14,6 +14,30 @@ export default function Journey() {
   const { s } = useStore();
   const ref = useRef<ScrollView>(null);
   const ys = useRef<Record<number, number>>({});
+  if (s.mode === 'ttc') {
+    const G: [string, string, string][] = [
+      ['💊', 'Start folic acid now', 'Take 400 mcg a day while trying and for the first 12 weeks. It helps protect baby\'s brain and spine.'],
+      ['📅', 'Know your fertile window', 'You are most likely to conceive in the 5 days before ovulation and on ovulation day. Sex every one to two days in that window is enough.'],
+      ['💊', 'Start folic acid now', 'The NHS advises 400 micrograms of folic acid every day while trying and until 12 weeks pregnant, plus 10 micrograms of vitamin D.'],
+      ['🥗', 'Eat well, move often', 'Beans, eggs, fish, leafy greens and fruit. A healthy weight and regular activity help ovulation for many women.'],
+      ['🚭', 'Cut back on alcohol and smoking', 'For both of you. Ask your GP or a pharmacist before taking herbal remedies while trying.'],
+      ['🧪', 'Testing for pregnancy', 'A home test is most reliable from the day your period is due. Morning urine gives the clearest result.'],
+      ['🩺', 'When to see a doctor', 'After 12 months of trying (6 months if you are 35 or older), or sooner if periods are very irregular, very painful or very heavy, or you have had pelvic infections.'],
+      ['💜', 'Look after your mind', 'Trying can be stressful, and people ask questions. Lean on your partner and the Trying to conceive group in Community.'],
+    ];
+    return (
+      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+        <Text style={{ fontSize: 30, fontWeight: '800', color: C.ink, marginVertical: 8, letterSpacing: -1 }}>Trying for a baby</Text>
+        {G.map(([e, t, b], i) => (
+          <Card key={t} style={{ flexDirection: 'row', gap: 12 }}>
+            <Num n={e} cur={false} />
+            <View style={{ flex: 1 }}><Text style={{ fontWeight: '700' }}>{t}</Text><Text style={{ marginTop: 4, fontSize: 14 }}>{b}</Text></View>
+          </Card>
+        ))}
+        <Notice kind="info">Moma's guidance supports, never replaces, a doctor. If you have pelvic pain with a missed period or a positive test, go to hospital straight away.</Notice>
+      </ScrollView>
+    );
+  }
   if (s.mode === 'pregnant') {
     const p = preg(s), cw = Math.min(42, Math.max(4, p?.w ?? 4));
     return (
@@ -48,7 +72,7 @@ export default function Journey() {
           <View style={{ flex: 1 }}><Text style={{ fontWeight: '700' }}>{v[0]}</Text><Text style={{ marginTop: 4, fontSize: 14 }}>{v[1]}</Text></View>
         </Card>
       ))}
-      <Notice kind="info">Postnatal depression affects many parents, including partners. Talk to your GP or health visitor if you're struggling. It's treatable and nothing to be ashamed of.</Notice>
+      <Notice kind="info">Postnatal depression affects many parents, including partners. Talk to your doctor, midwife or health visitor if you're struggling. It's treatable and nothing to be ashamed of.</Notice>
     </ScrollView>
   );
 }

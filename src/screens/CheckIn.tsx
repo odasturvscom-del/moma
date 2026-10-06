@@ -33,8 +33,8 @@ export default function CheckIn({ onTalk }: { onTalk: (t: string) => void }) {
       {spot ? <FlagCard t={spot} /> : null}
       {low ? (
         <Notice kind="warn">
-          <Text style={{ fontSize: 13 }}>Rough day? That's allowed. If it's been like this for more than two weeks, I can help you prepare to talk to your GP or health visitor. </Text>
-          <Text style={{ fontSize: 13, color: C.ink, fontWeight: '700', marginTop: 6, textDecorationLine: 'underline' }} onPress={() => onTalk('I have been feeling low. Can you help me explain it to my GP?')}>Talk it through →</Text>
+          <Text style={{ fontSize: 13 }}>Rough day? That's allowed. If it's been like this for more than two weeks, I can help you prepare to talk to your doctor or health visitor. </Text>
+          <Text style={{ fontSize: 13, color: C.ink, fontWeight: '700', marginTop: 6, textDecorationLine: 'underline' }} onPress={() => onTalk('I have been feeling low. Can you help me explain it to my doctor?')}>Talk it through →</Text>
         </Notice>
       ) : null}
     </Card>

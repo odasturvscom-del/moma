@@ -4,7 +4,7 @@ const { ready, q, bump, body } = require('./_db');
 const { appUser } = require('./_appuser');
 const { FLAG_IDS } = require('./_safety');
 const EVENTS = ['open', 'onboard', 'checkin', 'ask', 'flag', 'install', 'feedback', 'support'];
-const MODES = ['pregnant', 'postpartum'], COUNTRIES = ['UK', 'Canada', 'US', 'Nigeria', 'Other'];
+const MODES = ['pregnant', 'postpartum'], COUNTRIES = ['Nigeria', 'UK', 'Canada', 'US', 'Other'];
 const MILESTONE = { onboard: 'onboarded_at', checkin: 'first_checkin_at', ask: 'first_ask_at' };
 module.exports = async (req, res) => {
   cors(res);

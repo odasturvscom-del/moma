@@ -4,10 +4,13 @@ import { useStore, preg, pp, fmtDate, ago, dkey, DAY } from '../store';
 import { weekInfo, ppInfo, MILESTONES } from '../content';
 import { Text, Muted } from '../ui';
 import { Blob, Mo, MOOD_BLOBS } from '../mascot';
-import { ISpark, IGo } from '../icons';
+import { ISpark, IGo, IStetho } from '../icons';
 import CheckIn from './CheckIn';
 import { getConfig } from '../telemetry';
 import { C, P } from '../theme';
+import { NdpaBadge } from '../ndpa';
+import { CycleSummary } from './Cycle';
+import { cycleOf } from '../cycle';
 
 const Tile = ({ bg, children, onPress, h, style }: { bg: string; children: React.ReactNode; onPress?: () => void; h?: number; style?: object }) => (
   <Pressable onPress={onPress} style={({ pressed }) => [{ backgroundColor: bg, borderRadius: 28, padding: 18, minHeight: h, overflow: 'hidden', transform: [{ scale: pressed ? 0.98 : 1 }] }, style]}>{children}</Pressable>
@@ -35,7 +38,7 @@ function WeekStrip() {
   );
 }
 
-export default function Today({ go, ask }: { go: (tab: string, sub?: string) => void; ask: (t: string) => void }) {
+export default function Today({ go, ask, book }: { go: (tab: string, sub?: string) => void; ask: (t: string) => void; book?: () => void }) {
   const { s, set } = useStore();
   const L = s.logs[dkey()];
   const [open, setOpen] = useState(false);
@@ -60,7 +63,39 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
     </Tile>
   );
   let body: React.ReactNode = null;
-  if (s.mode === 'pregnant') {
+  if (s.mode === 'ttc') {
+    const cy = cycleOf(s);
+    const tip = !cy ? 'Log your last period to see your fertile window.'
+      : cy.status === 'period' ? 'Rest, stay hydrated and keep taking folic acid. Your fertile window comes after your period.'
+      : cy.status === 'peak' ? 'Today and tomorrow are your most fertile days. Every one to two days through your window gives you the best chance.'
+      : cy.status === 'high' ? "You're in your fertile window. Sex every one to two days now gives you a good chance."
+      : 'A calm stretch. Good time to eat well, move your body and keep up your folic acid.';
+    body = (
+      <>
+        <Tile bg={C.pink} h={190} onPress={() => go('track', 'cycle')}>
+          <View style={{ width: '64%' }}><CycleSummary compact /></View>
+          <View style={{ position: 'absolute', right: 0, top: 22 }}><Mo size={104} pose="wave" /></View>
+        </Tile>
+        <Text style={{ fontSize: 22, fontWeight: '700', color: C.ink, letterSpacing: -0.5, marginBottom: 12, marginTop: 16 }}>Today for you</Text>
+        <View style={{ flexDirection: 'row', gap: 12 }}>
+          <View style={{ flex: 1 }}>{checkTile}</View>
+          <View style={{ flex: 1, gap: 12 }}>
+            <Tile bg={C.mint} h={92} onPress={() => go('track', 'cycle')}><Big size={17}>{'Log my\nperiod'}</Big></Tile>
+            {askTile}
+          </View>
+        </View>
+        {(open || !L?.mood) && <View style={{ marginTop: 12 }}><CheckIn onTalk={ask} /></View>}
+        <View style={{ backgroundColor: C.card, borderRadius: 28, padding: 18, marginTop: 12 }}>
+          <Text style={{ fontSize: 18, fontWeight: '700', color: C.ink, marginBottom: 8 }}>This part of your cycle</Text>
+          <Text style={{ fontSize: 14.5, color: C.ink, lineHeight: 20 }}>{tip}</Text>
+        </View>
+        <Tile bg={C.sky} style={{ marginTop: 12 }} onPress={() => go('community')}>
+          <Big size={17}>Trying to conceive group</Big>
+          <Small>Talk with women on the same journey</Small>
+        </Tile>
+      </>
+    );
+  } else if (s.mode === 'pregnant') {
     const p = preg(s);
     if (p) {
       const w = weekInfo(p.w), next = MILESTONES.filter(m => m[0] >= p.w)[0];
@@ -72,7 +107,7 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
               <Text style={{ fontSize: 18, fontWeight: '600', color: C.ink, marginTop: 6, lineHeight: 22 }}>Baby is the size of {/^[aeiou]/i.test(w[0]) ? 'an' : 'a'} {w[0]}</Text>
             </View>
             <View style={{ position: 'absolute', right: 0, top: 22 }}><Mo size={112} pose="hug" grow={p.w / 40} /></View>
-            <View style={{ marginTop: 18, width: '62%', height: 8, borderRadius: 4, backgroundColor: C.ringTrack }}>
+            <View style={{ marginTop: 18, height: 8, borderRadius: 4, backgroundColor: C.ringTrack }}>
               <View style={{ width: `${Math.min(100, (p.days / 280) * 100)}%`, height: 8, borderRadius: 4, backgroundColor: C.ink }} />
             </View>
             <Text style={{ fontSize: 13, color: C.ink, marginTop: 8, fontWeight: '500' }}>{p.left > 0 ? `${p.left} days to go · due ${fmtDate(p.due)}` : 'Due any day now'}</Text>
@@ -155,16 +190,29 @@ export default function Today({ go, ask }: { go: (tab: string, sub?: string) => 
         </View>
       ) : null}
       {body ?? <View style={{ backgroundColor: C.card, borderRadius: 28, padding: 18 }}><Text>Add your dates in Me to get started.</Text></View>}
-      <Pressable onPress={() => ask(s.mode === 'pregnant' ? "What's happening this week?" : 'Summarise my week for my health visitor')}
+      {book ? (
+        <Tile bg={C.peach} onPress={book} style={{ marginTop: 12 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+            <View style={{ width: 48, height: 48, borderRadius: 24, backgroundColor: C.card, alignItems: 'center', justifyContent: 'center' }}><IStetho color={C.ink} size={24} /></View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontSize: 17, fontWeight: '700', color: C.ink }}>Talk to an expert</Text>
+              <Text style={{ fontSize: 13.5, color: C.ink, opacity: 0.75, marginTop: 2 }}>Book a doctor or care expert by video, phone or in person</Text>
+            </View>
+            <IGo size={20} color={C.ink} />
+          </View>
+        </Tile>
+      ) : null}
+      <Pressable onPress={() => ask(s.mode === 'pregnant' ? "What's happening this week?" : s.mode === 'ttc' ? 'How can I boost my chances of getting pregnant?' : 'Summarise my week for my postnatal clinic')}
         style={{ marginTop: 12, backgroundColor: C.ink, borderRadius: 28, padding: 18, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
         <Mo size={44} pose="wave" />
         <View style={{ flex: 1 }}>
-          <Text style={{ color: C.inv, fontSize: 16, fontWeight: '700' }}>{s.mode === 'pregnant' ? "What's happening this week?" : 'Prep my health visitor chat'}</Text>
+          <Text style={{ color: C.inv, fontSize: 16, fontWeight: '700' }}>{s.mode === 'pregnant' ? "What's happening this week?" : s.mode === 'ttc' ? 'Boost my chances' : 'Prep my postnatal visit'}</Text>
           <Text style={{ color: C.inv, opacity: 0.7, fontSize: 13 }}>Moma knows where you are in your journey</Text>
         </View>
         <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: C.lime, alignItems: 'center', justifyContent: 'center' }}><IGo size={18} color={C.ink} /></View>
       </Pressable>
-      <Muted style={{ textAlign: 'center', marginTop: 16, fontSize: 12 }}>Moma supports, never replaces, your midwife or doctor.</Muted>
+      <NdpaBadge small style={{ alignSelf: 'center', marginTop: 20 }} />
+      <Muted style={{ textAlign: 'center', marginTop: 10, fontSize: 12 }}>Moma supports, never replaces, your midwife or doctor.</Muted>
     </ScrollView>
   );
 }

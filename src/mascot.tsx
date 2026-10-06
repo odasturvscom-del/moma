@@ -64,7 +64,7 @@ export const MOOD_BLOBS: [string, Face][] = [['#9CC9F5', 'sad'], ['#CFC4FA', 'me
 
 // Mo, Moma's mascot: the approved concept artwork, one cut-out image per pose.
 export type MoPose = 'hug' | 'wave' | 'sleep';
-type MoProps = { size?: number; pose?: MoPose; grow?: number; face?: 'smile' | 'happy' | 'wow'; color?: string; baby?: string };
+type MoProps = { size?: number; pose?: MoPose; grow?: number; face?: 'smile' | 'happy' | 'wow'; color?: string; baby?: string; badge?: boolean };
 const MO_ART: Record<MoPose, { src: any; ratio: number }> = {
   wave: { src: require('../assets/mo-wave.png'), ratio: 412 / 374 },
   hug: { src: require('../assets/mo-hug.png'), ratio: 353 / 370 },

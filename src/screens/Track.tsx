@@ -5,18 +5,21 @@ import { useStore, last7, fmtDate, fmtTime, ago, dkey, DAY, pp } from '../store'
 import { MOODS, EM } from '../content';
 import { Card, H3, Muted, Btn, Grid2, Seg, Chip, Notice, Input, Label, DateField, st } from '../ui';
 import { C } from '../theme';
+import Cycle from './Cycle';
 
-type Sub = 'log' | 'moves' | 'ctx' | 'appts' | 'feeds' | 'nappies';
-export default function Track({ sub, setSub, ask }: { sub: string; setSub: (s: string) => void; ask: (t: string) => void }) {
+type Sub = 'log' | 'moves' | 'ctx' | 'appts' | 'feeds' | 'nappies' | 'cycle';
+export default function Track({ sub, setSub, ask, toPregnant }: { sub: string; setSub: (s: string) => void; ask: (t: string) => void; toPregnant: () => void }) {
   const { s, set } = useStore();
   const P = s.mode === 'pregnant';
-  const tabs: [Sub, string][] = P ? [['log', 'Symptoms'], ['moves', 'Moves'], ['ctx', 'Contractions'], ['appts', 'Appts']] : [['feeds', 'Feeds'], ['nappies', 'Nappies'], ['log', 'Wellbeing'], ['appts', 'Appts']];
+  const T = s.mode === 'ttc';
+  const tabs: [Sub, string][] = T ? [['cycle', 'Cycle'], ['log', 'Symptoms'], ['appts', 'Appts']] : P ? [['log', 'Symptoms'], ['moves', 'Moves'], ['ctx', 'Contractions'], ['appts', 'Appts']] : [['feeds', 'Feeds'], ['nappies', 'Nappies'], ['log', 'Wellbeing'], ['appts', 'Appts']];
   const cur: Sub = (tabs.find(t => t[0] === sub)?.[0] ?? tabs[0][0]);
   const em = EM[s.country] ?? EM.Other;
   const [apT, setApT] = React.useState('');
   const [apD, setApD] = React.useState<string | null>(null);
   let body: React.ReactNode = null;
 
+  if (cur === 'cycle') body = <Cycle ask={ask} toPregnant={toPregnant} />;
   if (cur === 'log') {
     const days = Object.entries(s.logs).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 14);
     const top = Object.entries(last7(s).sym).sort((a, b) => b[1] - a[1]).slice(0, 5);
@@ -25,7 +28,7 @@ export default function Track({ sub, setSub, ask }: { sub: string; setSub: (s: s
       <Card><H3>History</H3>{days.length ? days.map(([k, v]) => (
         <View key={k} style={st.item}><View style={{ flex: 1 }}><Text>{fmtDate(k)}</Text><Muted>{(v.sym ?? []).join(', ') || 'No symptoms'}</Muted></View><Text style={{ fontSize: 22 }}>{v.mood ? MOODS[v.mood - 1] : ''}</Text></View>
       )) : <Muted>No check-ins yet.</Muted>}</Card>
-      <Btn kind="plum" title="✨ Summarise for my next appointment" onPress={() => ask(`Summarise my week for my ${P ? 'midwife' : 'health visitor'}`)} />
+      <Btn kind="plum" title="✨ Summarise for my next appointment" onPress={() => ask(`Summarise my week for my ${P ? 'midwife' : T ? 'doctor' : 'postnatal clinic'}`)} />
     </>);
   }
   if (cur === 'moves') {

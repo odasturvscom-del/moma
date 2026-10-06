@@ -10,3 +10,11 @@ export const ICal = ({ color = '#fff', size }: P) => <S size={size}><Rect x={4} 
 export const IUser = ({ color = '#fff', size }: P) => <S size={size}><Circle cx={12} cy={8.5} r={3.8} {...st(color)} /><Path d="M5 20c1.2-3.6 3.8-5.4 7-5.4s5.8 1.8 7 5.4" {...st(color)} /></S>;
 export const IArrow = ({ color = '#fff', size }: P) => <S size={size}><Path d="M12 19V5M6 11l6-6 6 6" {...st(color)} /></S>;
 export const IGo = ({ color = '#141414', size }: P) => <S size={size}><Path d="M5 12h14M13 6l6 6-6 6" {...st(color)} /></S>;
+export const IBag = ({ color = '#fff', size }: P) => <S size={size}><Path d="M5 8h14l-1.2 11.2a1.5 1.5 0 0 1-1.5 1.3H7.7a1.5 1.5 0 0 1-1.5-1.3z" {...st(color)} /><Path d="M9 10V7a3 3 0 0 1 6 0v3" {...st(color)} /></S>;
+export const IUsers = ({ color = '#fff', size }: P) => <S size={size}><Circle cx={9} cy={8.5} r={3.4} {...st(color)} /><Path d="M3 19.5c.6-3.3 3-5.2 6-5.2s5.4 1.9 6 5.2" {...st(color)} /><Circle cx={16.8} cy={9.3} r={2.6} {...st(color)} /><Path d="M16.5 14.4c2.4.2 4 1.8 4.5 4.6" {...st(color)} /></S>;
+export const IMic = ({ color = '#fff', size }: P) => <S size={size}><Rect x={9} y={3} width={6} height={11} rx={3} {...st(color)} /><Path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" {...st(color)} /></S>;
+export const ISpeaker = ({ color = '#141414', size }: P) => <S size={size}><Path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" {...st(color)} /><Path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" {...st(color)} /></S>;
+export const IGlobe = ({ color = '#141414', size }: P) => <S size={size}><Circle cx={12} cy={12} r={8.5} {...st(color)} /><Path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.2 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.2-3.4-8.5s1-6.1 3.4-8.5" {...st(color)} /></S>;
+export const IBack = ({ color = '#141414', size }: P) => <S size={size}><Path d="M15 5l-7 7 7 7" {...st(color)} /></S>;
+export const IStetho = ({ color = '#141414', size }: P) => <S size={size}><Path d="M6 3.5v5a4.5 4.5 0 0 0 9 0v-5" {...st(color)} /><Path d="M10.5 13v2.5a4.5 4.5 0 0 0 9 0V13" {...st(color)} /><Circle cx={19.5} cy={11} r={2} {...st(color)} /></S>;
+export const ICheck = ({ color = '#141414', size }: P) => <S size={size}><Path d="M5 12.5l4.5 4.5L19 7.5" {...st(color)} /></S>;

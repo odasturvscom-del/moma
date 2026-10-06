@@ -2,7 +2,7 @@
 // Dark mode swaps the pastel tiles for deep tinted versions and flips the ink; the mascots keep their pastels (P).
 export const P = {
   lav: '#CFC4FA', butter: '#FFE08A', sky: '#AEDDF6', pink: '#FFB8D6', lime: '#DDF38C',
-  coral: '#FF8B74', mint: '#A8E8CB', peach: '#FFC6A3',
+  coral: '#FF8B74', mint: '#A8E8CB', peach: '#FFC6A3', brand: '#141414', gold: '#E2A93B',
 };
 const LIGHT = {
   bg: '#F6F3EE', card: '#FFFFFF', ink: '#141414', muted: '#6F6A73', line: '#E9E4DE',
@@ -21,7 +21,7 @@ const DARK: typeof LIGHT = {
   sage: '#5FD3A0', sageSoft: '#173528', amber: '#F2C14E', amberSoft: '#3A2E0E',
   red: '#FF8A7A', redSoft: '#40201B',
   lav: '#362F5E', butter: '#4A3B12', sky: '#183F57', pink: '#4E2441', lime: '#33420F',
-  coral: '#5C2B21', mint: '#17463B', peach: '#4F3121',
+  coral: '#5C2B21', mint: '#17463B', peach: '#4F3121', brand: '#E8705A', gold: '#E2A93B',
 };
 export const C = { ...LIGHT };
 export let isDark = false;

@@ -1,5 +1,5 @@
 export type Country = 'UK' | 'Canada' | 'US' | 'Nigeria' | 'Other';
-export const COUNTRIES: Country[] = ['UK', 'Canada', 'US', 'Nigeria', 'Other'];
+export const COUNTRIES: Country[] = ['UK', 'Other'];
 export const EM: Record<Country, { e: string; u: string; mh: string; tel: string; urgentTel?: string }> = {
   UK: { e: '999', u: 'your maternity triage line (or NHS 111)', mh: 'Samaritans on 116 123', tel: '999', urgentTel: '111' },
   Canada: { e: '911', u: 'your birthing unit (or Health Link 811)', mh: 'the 988 Suicide Crisis Helpline', tel: '911', urgentTel: '811' },

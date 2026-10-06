@@ -14,21 +14,22 @@ export const FLAGS: Flag[] = [
   { id: 'fv', re: /fever|temperature.{0,10}(3[89]|high)|high temp|shiver(s|ing)|chills|rigors/i, lvl: 'u', t: 'Fever or high temperature' },
   { id: 'ic', re: /itch(y|ing|es)?.{0,20}(hands|feet|palms|soles)|(hands|feet|palms|soles).{0,20}itch/i, lvl: 'u', t: 'Itchy hands or feet (possible obstetric cholestasis)', pregOnly: true },
   { id: 'dv', re: /(calf|leg).{0,20}(pain|swollen|swelling|red|hot|tender)/i, lvl: 'u', t: 'A painful, swollen or hot calf (possible clot)' },
+  { id: 'nb', re: /baby.{0,25}(yellow|jaundice)|yellow (eyes|skin)|baby.{0,20}(not|won'?t|isn'?t|refus\w*|stopped).{0,12}(feed|feeding|suck|breastfeed)|baby.{0,25}(breathing fast|fast breathing|grunting|chest (is )?drawing in)|baby.{0,15}(very hot|cold to (the )?touch|floppy|not waking)/i, lvl: 'u', t: 'Danger signs in your newborn', x: 'Take baby to the nearest hospital now.' },
   { id: 'bl', re: /bleed|spotting|blood/i, lvl: 's', t: 'Bleeding' },
 ];
 export type Triage = { level: Level; title: string; items: string[]; ids: string[]; action: string; call?: string } | null;
 const ORDER: Record<Level, number> = { m: 0, e: 1, u: 2, s: 3 };
-export function triage(text: string, mode: 'pregnant' | 'postpartum', country: Country): Triage {
+export function triage(text: string, mode: 'pregnant' | 'postpartum' | 'ttc', country: Country): Triage {
   let hits = FLAGS.filter(f => f.re.test(text));
   if (hits.some(h => h.id === 'hb')) hits = hits.filter(h => h.id !== 'bl');
-  if (mode === 'postpartum') hits = hits.filter(h => !h.pregOnly);
+  if (mode !== 'pregnant') hits = hits.filter(h => !h.pregOnly);
   if (!hits.length) return null;
   hits.sort((a, b) => ORDER[a.lvl] - ORDER[b.lvl]);
   const e = EM[country] ?? EM.Other;
   const top = hits[0].lvl;
   const extra = hits.find(h => h.x)?.x ?? '';
   const action =
-    top === 'm' ? `If you might act on these thoughts, call ${e.e} now. You can also talk to ${e.mh}, or your GP, midwife or health visitor today. You are not alone and this is treatable.`
+    top === 'm' ? `If you might act on these thoughts, call ${e.e} now. You can also talk to ${e.mh}, or your doctor, midwife or health visitor today. You are not alone and this is treatable.`
     : top === 'e' ? `Call ${e.e} now.`
     : top === 'u' ? `Contact ${e.u} now, day or night. ${extra}`.trim()
     : `Any bleeding should be checked. Contact ${e.u} today, and call ${e.e} if it gets heavy or you feel unwell.`;

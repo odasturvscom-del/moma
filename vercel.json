@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx expo export --platform web",
+  "buildCommand": "npx expo export --platform web && node scripts/arrange-site.js",
   "outputDirectory": "dist",
   "framework": null,
   "headers": [
@@ -47,6 +47,14 @@
     {
       "source": "/admin/",
       "destination": "/admin/index.html"
+    },
+    {
+      "source": "/app",
+      "destination": "/app/index.html"
+    },
+    {
+      "source": "/app/:path*",
+      "destination": "/app/index.html"
     }
   ]
 }

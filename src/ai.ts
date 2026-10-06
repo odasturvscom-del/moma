@@ -1,6 +1,7 @@
 import { State, preg, pp, last7, dkey, fmtDate, DAY, ChatMsg } from './store';
 import { weekInfo, ppInfo } from './content';
 import { Platform } from 'react-native';
+import { cycleOf, fromDay } from './cycle';
 
 // On the hosted web app the AI lives on the same site at /api. On phones, use the saved server address.
 export const apiBase = (s: State) => {
@@ -14,9 +15,12 @@ export function buildContext(s: State) {
   let c = `Name: ${s.name || 'not given'}. Country: ${s.country}. Today: ${dkey()}.\n`;
   if (s.mode === 'pregnant' && p) c += `Pregnant: ${p.w} weeks ${p.d} days (trimester ${p.tri}), due ${dkey(p.due)}.\n`;
   if (s.mode === 'postpartum' && q) c += `Postpartum: baby born ${s.birth}, now ${q.days} days old.\n`;
+  const cy = s.mode === 'ttc' ? cycleOf(s) : null;
+  if (s.mode === 'ttc') c += cy ? `Trying to conceive. Cycle day ${cy.cd} of about ${cy.len} days${cy.irregular ? ' (irregular)' : ''}. Estimated fertile window ${dkey(fromDay(cy.fw0))} to ${dkey(fromDay(cy.fw1))}, likely ovulation ${dkey(fromDay(cy.ov))}, next period ${dkey(fromDay(cy.next))}${cy.lateDays ? `, period ${cy.lateDays} days late` : ''}. Signs today: ${(s.cycle?.marks[dkey()] ?? []).join(', ') || 'none'}.\n` : 'Trying to conceive. No period logged yet.\n';
   c += `Check-ins in last 7 days: ${l.days}. Symptoms logged: ${Object.entries(l.sym).map(([k, n]) => `${k} x${n}`).join(', ') || 'none'}. Mood (1-5): ${l.moods.join(',') || 'none'}.\n`;
   if (l.notes.length) c += `Notes: ${l.notes.slice(-5).join(' | ')}\n`;
-  if (s.mode === 'pregnant') c += `Baby movements logged in last 24h: ${s.moves.filter(t => Date.now() - t < DAY).length}.\n`;
+  if (s.mode === 'ttc') {}
+  else if (s.mode === 'pregnant') c += `Baby movements logged in last 24h: ${s.moves.filter(t => Date.now() - t < DAY).length}.\n`;
   else c += `Feeds in last 24h: ${s.feeds.filter(f => Date.now() - f.t < DAY).length}. Nappies in last 24h: ${s.nappies.filter(n => Date.now() - n.t < DAY).length}.\n`;
   const up = s.appts.filter(a => a.d >= dkey()).sort((a, b) => a.d.localeCompare(b.d)).slice(0, 3);
   if (up.length) c += `Upcoming appointments: ${up.map(a => `${a.d} ${a.t}`).join('; ')}.\n`;
@@ -27,7 +31,7 @@ export function summaryText(s: State) {
   const p = preg(s), q = pp(s), l = last7(s);
   const top = Object.entries(l.sym).sort((a, b) => b[1] - a[1]).slice(0, 4);
   const avg = l.moods.length ? l.moods.reduce((a, b) => a + b, 0) / l.moods.length : null;
-  let out = `**Your week for your ${s.mode === 'pregnant' ? 'midwife' : 'health visitor'}**\n`;
+  let out = `**Your week for your ${s.mode === 'pregnant' ? 'midwife' : s.mode === 'ttc' ? 'GP' : 'health visitor'}**\n`;
   if (s.mode === 'pregnant' && p) out += `- ${p.w} weeks ${p.d} days pregnant, due ${fmtDate(p.due)}\n`;
   if (s.mode === 'postpartum' && q) out += `- Baby is ${q.w} weeks ${q.d} days old\n`;
   out += `- Checked in ${l.days} of the last 7 days\n- Most logged: ${top.map(([k, n]) => `${k} (${n})`).join(', ') || 'nothing yet'}\n`;
@@ -51,7 +55,7 @@ export function demoReply(t: string, s: State): string {
     if (s.mode === 'pregnant' && p) { const w = weekInfo(p.w); return `At **${p.w} weeks** your baby is about the size of ${/^[aeiou]/i.test(w[0]) ? 'an' : 'a'} **${w[0]}**. ${w[1]}\n\nFor you: ${w[2]}\n\nNext step: log how you're feeling today so I can spot patterns.`; }
     if (q) { const n = ppInfo(q.w); return `**${n[0]}**\n\n${n[1]}`; }
   }
-  if (/nause|sick|vomit|morning sickness/.test(x)) return `Nausea is really common in the first trimester and usually eases by 14 to 16 weeks.\n\n- Eat little and often, before you get hungry\n- Dry crackers or toast before getting up\n- Sip cold drinks; ginger can help\n- Rest, tiredness makes it worse\n\nIf you can't keep fluids down for 24 hours, are peeing very little, or feel faint, contact your midwife or GP the same day. That can be hyperemesis gravidarum, and it's treatable.`;
+  if (/nause|sick|vomit|morning sickness/.test(x)) return `Nausea is really common in the first trimester and usually eases by 14 to 16 weeks.\n\n- Eat little and often, before you get hungry\n- Dry crackers or toast before getting up\n- Sip cold drinks; ginger can help\n- Rest, tiredness makes it worse\n\nIf you can't keep fluids down for 24 hours, are peeing very little, or feel faint, go to your antenatal clinic or a hospital the same day. That can be hyperemesis gravidarum, and it's treatable.`;
   if (/heartburn|indigestion|reflux/.test(x)) return `Heartburn is common as baby grows and hormones relax your stomach valve.\n\n- Smaller meals, and stay upright for an hour after eating\n- Avoid late, spicy or fatty meals\n- Prop your head up in bed\n\nSome antacids are fine in pregnancy, so ask a pharmacist which one suits you.`;
   if (/eat|food|avoid|cheese|fish|coffee|caffeine|alcohol/.test(x)) return `The main ones to avoid or limit in pregnancy (UK guidance):\n\n- Alcohol: none is the safest choice\n- Caffeine: under 200mg a day (about 2 mugs of instant coffee)\n- Soft mould-ripened cheese like brie, unless cooked until steaming\n- Raw or undercooked meat, liver and pâté\n- Shark, swordfish and marlin; max 2 portions of oily fish a week\n\nRunny eggs are fine if they're British Lion stamped.`;
   if (/sleep|insomnia|tired|exhaust/.test(x)) return `Sleep gets harder as pregnancy goes on, and it's brutal after birth too.\n\n- From 28 weeks, go to sleep on your side (either side)\n- A pillow between your knees and under your bump helps\n- Short daytime rests count\n\nAfter birth, sleep when you can and let others take a feed if you're bottle feeding or expressing.`;

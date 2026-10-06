@@ -9,28 +9,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-:root{--bg:#F6F3EE;--ink:#141414;--muted:#6F6A73;--line:#E9E4DE;--soft:#F1EDE8;--lav:#CFC4FA;--butter:#FFE08A;--sky:#AEDDF6;--pink:#FFB8D6;--lime:#DDF38C;--coral:#FF8B74;--mint:#A8E8CB;--peach:#FFC6A3;--red:#C62F1E;--ok:#1F7A4D}
+:root{--bg:#F8F4EC;--ink:#24142B;--brand:#69247C;--muted:#6F6A73;--line:#E9E4DE;--soft:#F1EDE8;--lav:#E3D1F0;--butter:#FFD98A;--sky:#CFE3F2;--pink:#F7C6DA;--lime:#DDF38C;--coral:#FF8B74;--mint:#A8E8CB;--peach:#FFC6A3;--red:#C62F1E;--ok:#1F7A4D}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
 body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
 button,input,textarea,select{font:inherit;color:inherit}a{color:inherit}
 .hidden{display:none!important}
-.login{min-height:100%;display:grid;place-items:center;background:linear-gradient(180deg,#B4D7EE,#C3CCE9 55%,#F4E6DA);padding:20px}
+.login{min-height:100%;display:grid;place-items:center;background:linear-gradient(180deg,#EBDDF1,#F1E6F2 55%,#F8F4EC);padding:20px}
 .login .box{background:#fff;border-radius:32px;padding:32px;width:min(420px,100%);text-align:center}
 .login img{width:120px;border-radius:26px}
 .word{font-weight:800;letter-spacing:-1.5px;font-size:38px;margin:8px 0 0}
 .login form{text-align:left}.login .btn{width:100%;margin-top:16px}
 .shell{display:grid;grid-template-columns:236px 1fr;min-height:100%}
-aside{background:var(--ink);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow:auto}
+aside{background:var(--brand);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow:auto}
 aside .brand{display:flex;align-items:center;gap:10px;margin:0 8px 18px}
 aside .brand img{width:40px;height:40px;border-radius:12px}
 aside .brand b{font-size:24px;font-weight:800;letter-spacing:-1px}
 aside .brand span{font-size:12px;opacity:.6;display:block;margin-top:-3px}
 nav button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:99px;font-weight:500;color:#fff;opacity:.82}
-nav button:hover{opacity:1;background:#262626}
+nav button:hover{opacity:1;background:#7E3A92}
 nav button.on{background:#fff;color:var(--ink);opacity:1;font-weight:600}
 nav .dot{width:10px;height:10px;border-radius:5px;flex:none}
 nav .badge{margin-left:auto;background:var(--coral);color:var(--ink);font-size:12px;font-weight:700;border-radius:99px;padding:1px 8px}
-nav .sep{height:1px;background:#2b2b2b;margin:8px 10px}
+nav .sep{height:1px;background:#8a4c9d;margin:8px 10px}
 .who{margin-top:auto;padding:14px 10px 0;border-top:1px solid #2b2b2b;font-size:13.5px}
 .who b{display:block;font-size:14.5px}.who .r{opacity:.65}
 .who .links{display:flex;flex-direction:column;gap:6px;margin-top:10px;opacity:.8}.who .links a{cursor:pointer}
@@ -40,7 +40,7 @@ h1{font-size:32px;font-weight:800;letter-spacing:-1.2px;margin:0 0 4px}
 .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}
 @media(max-width:1100px){.g4{grid-template-columns:1fr 1fr}.g3,.g2{grid-template-columns:1fr}}
-@media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto}main{padding:18px}}
+@media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:sticky;top:0;z-index:30;height:auto;padding:10px 12px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px}aside .brand{margin:0 4px 0 2px}aside .brand img{width:34px;height:34px}aside .brand b{font-size:20px}aside nav{order:3;flex:1 0 100%;display:flex;overflow-x:auto;gap:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}aside nav::-webkit-scrollbar{display:none}nav button{flex:none;white-space:nowrap;padding:8px 13px;font-size:14px}nav .sep{display:none}.who{order:2;margin:0 0 0 auto;padding:0;border:0;display:flex;align-items:center;gap:10px;font-size:12.5px}.who b{font-size:13px}.who .r{display:none}.who .links{flex-direction:row;margin:0;gap:12px}main{padding:16px 14px 48px}h1{font-size:26px;letter-spacing:-.8px}.sub{margin-bottom:14px}.tile{min-height:96px;padding:14px 16px}.tile .v{font-size:30px}table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}.desk{grid-template-columns:1fr;height:auto}.desk>*{min-height:0}}@media(max-width:520px){.g4{grid-template-columns:1fr 1fr}.login .box{padding:24px;border-radius:26px}.word{font-size:32px}}
 .tile{border-radius:26px;padding:18px 20px;min-height:116px}
 .tile .k{font-size:13.5px;font-weight:600;opacity:.75}.tile .v{font-size:38px;font-weight:800;letter-spacing:-1.5px;margin-top:4px}.tile .h{font-size:13px;opacity:.75;margin-top:2px}
 .card{background:#fff;border-radius:26px;padding:20px 22px;margin-bottom:14px}
@@ -119,12 +119,12 @@ tr.click{cursor:pointer}tr.click:hover td{background:#FBF9F6}
 <body>
 <div id="login" class="login hidden">
   <div class="box">
-    <img src="/icons/icon-512.png" alt="Moma characters" />
-    <div class="word">moma</div>
+    <img src="/icons/icon-512.png" alt="Mo, the Moma mascot" />
+    <div class="word" style="color:#69247C;letter-spacing:2px">SÒLÁYÒ</div>
     <p class="muted" style="margin:0 0 18px">Admin portal</p>
     <div id="setupNote" class="hidden" style="text-align:left;background:#FFF3CC;border-radius:18px;padding:14px 16px;font-size:14px;margin-bottom:12px"></div>
     <form id="loginForm">
-      <div id="firstOwner" class="hidden" style="background:#EAE4FF;border-radius:18px;padding:12px 14px;font-size:14px;margin-bottom:6px">First sign-in: you'll become the owner. Use the ADMIN_PASSWORD you set in Vercel.</div>
+      <div id="firstOwner" class="hidden" style="background:#EAE4FF;border-radius:18px;padding:12px 14px;font-size:14px;margin-bottom:6px">First sign-in: you'll become the owner. Use the ADMIN_PASSWORD you set in GitHub secrets.</div>
       <label class="l hidden" id="nameL">Your name</label><input type="text" id="lname" class="hidden" autocomplete="name" />
       <label class="l">Email</label><input type="email" id="lemail" autocomplete="username" />
       <label class="l">Password</label><input type="password" id="lpw" autocomplete="current-password" />
@@ -187,8 +187,8 @@ async function showLogin(msg) {
   try {
     const s = await (await fetch('/api/admin?a=status')).json();
     const note = $('#setupNote');
-    if (!s.db) { note.classList.remove('hidden'); note.innerHTML = '<b>One step left:</b> connect a database. In Vercel open your project → Storage → add <b>Neon Postgres</b> (free), then redeploy. You can sign in after that.'; }
-    else if (!s.hasStaff && !s.passwordSet) { note.classList.remove('hidden'); note.innerHTML = '<b>Set ADMIN_PASSWORD</b> in Vercel → Settings → Environment Variables, then redeploy. You use it once to create the owner account.'; }
+    if (!s.db) { note.classList.remove('hidden'); note.innerHTML = '<b>One step left:</b> connect a database. Create a free <b>Neon Postgres</b> database, add its connection string as <b>DATABASE_URL</b> in the GitHub secrets of the moma repo, then re-run the deploy. You can sign in after that.'; }
+    else if (!s.hasStaff && !s.passwordSet) { note.classList.remove('hidden'); note.innerHTML = '<b>Set ADMIN_PASSWORD</b> in the GitHub secrets of the moma repo, then re-run the deploy. You use it once to create the owner account.'; }
     else note.classList.add('hidden');
     const first = s.db && !s.hasStaff && s.passwordSet;
     ['firstOwner', 'nameL', 'lname'].forEach(id => $('#' + id).classList.toggle('hidden', !first));
@@ -216,7 +216,7 @@ function passwordModal(forced) {
 }
 const NAV = [
   ['overview', 'Overview', 'stats', 'var(--lav)'], ['reports', 'Reports', 'reports', 'var(--butter)'], ['users', 'Users', 'users', 'var(--sky)'],
-  ['support', 'Support inbox', 'support', 'var(--coral)'], 'sep', ['safety', 'Safety lab', 'safety', 'var(--peach)'], ['ai', 'AI console', 'safety', 'var(--pink)'],
+  ['support', 'Support inbox', 'support', 'var(--coral)'], ['orders', 'Shop orders', 'shop', 'var(--butter)'], ['products', 'Products', 'shop', 'var(--pink)'], ['community', 'Community', 'community', 'var(--mint)'], ['bookings', 'Expert bookings', 'bookings', 'var(--sky)'], ['payments', 'Payments', 'payments', 'var(--lime)'], ['push', 'Notifications', 'push', 'var(--coral)'], 'sep', ['safety', 'Safety lab', 'safety', 'var(--peach)'], ['ai', 'AI console', 'safety', 'var(--pink)'],
   ['settings', 'App settings', 'guidance', 'var(--lime)'], ['feedback', 'Feedback', 'feedback', 'var(--mint)'], 'sep',
   ['team', 'Team & access', 'staff', 'var(--lav)'], ['audit', 'Audit log', 'audit', 'var(--sky)'], ['setup', 'Setup', 'settings', '#888'],
 ];
@@ -262,7 +262,7 @@ VIEWS.overview = async () => {
       <div class="legend"><span style="--c:var(--lav)">Active users</span><span style="--c:var(--butter)">New users</span></div></div>
     <div class="grid g2">
       <div class="card"><h3>Red flags shown</h3><p class="m">Times the app pointed someone to urgent care, by type.</p>${bars(Object.entries(s.flagTitles).map(([id, t]) => [t, n('flag:id:' + id)]).filter(r => r[1]).sort((a, b) => b[1] - a[1]), 'var(--coral)')}</div>
-      <div class="card"><h3>Who's joining</h3><p class="m">New sign-ups by stage and country.</p>${bars([['Pregnant', n('onboard:mode:pregnant'), 'var(--lav)'], ['Postpartum', n('onboard:mode:postpartum'), 'var(--mint)'], ...['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => [c, n('onboard:country:' + c), 'var(--sky)'])].filter(r => r[1]))}</div>
+      <div class="card"><h3>Who's joining</h3><p class="m">New sign-ups by stage and country.</p>${bars([['Pregnant', n('onboard:mode:pregnant'), 'var(--lav)'], ['Postpartum', n('onboard:mode:postpartum'), 'var(--mint)'], ...['UK', 'Other'].map(c => [c, n('onboard:country:' + c), 'var(--sky)'])].filter(r => r[1]))}</div>
     </div>`;
   $('#rng').onchange = e => { RANGE = +e.target.value; show('overview'); };
 };
@@ -309,7 +309,7 @@ VIEWS.users = async () => {
     <div class="card"><div class="row">
       <input type="search" id="uq" placeholder="Search by name or id" value="${esc(UF.q)}" style="flex:1;min-width:200px" />
       <select class="auto" id="umode"><option value="">All stages</option><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select>
-      <select class="auto" id="ucountry"><option value="">All countries</option>${['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => `<option>${c}</option>`).join('')}</select>
+      <select class="auto" id="ucountry"><option value="">All countries</option>${['UK', 'Other'].map(c => `<option>${c}</option>`).join('')}</select>
       <select class="auto" id="uactive"><option value="">Any activity</option><option value="7">Active in last 7 days</option><option value="lapsed">Not seen for 14+ days</option></select>
     </div>
     <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>User</th><th>Stage</th><th>Country</th><th>Joined</th><th>Last seen</th><th>Support</th></tr></thead><tbody>
@@ -480,7 +480,7 @@ VIEWS.safety = () => {
   $('#tryBtn').onclick = async () => {
     const text = $('#tryText').value.trim(); if (!text) return;
     const r = (await api('triage', { method: 'POST', body: { cases: [{ text, mode: $('#tryMode').value }] } })).results[0];
-    const lv = { m: ['Mental health emergency', 'p-bad'], e: ['Emergency: call 999', 'p-bad'], u: ['Urgent: contact maternity triage now', 'p-bad'], s: ['Worth checking today', 'p-warn'] }[r.level];
+    const lv = { m: ['Mental health emergency', 'p-bad'], e: ['Emergency: call 999', 'p-bad'], u: ['Urgent: contact maternity triage or NHS 111 now', 'p-bad'], s: ['Worth checking today', 'p-warn'] }[r.level];
     $('#tryOut').innerHTML = r.level ? `<span class="pill ${lv[1]}">${lv[0]}</span> <span class="muted" style="margin-left:6px">${esc(r.titles.join(', '))}</span>` : '<span class="pill p-ok">No red flag</span> <span class="muted">Handled normally.</span>';
   };
   $('#tryText').onkeydown = e => { if (e.key === 'Enter') $('#tryBtn').click(); };
@@ -492,7 +492,7 @@ VIEWS.ai = () => {
     <div class="card"><div class="grid g3">
       <div><label class="l" style="margin-top:0">Stage</label><select id="aiMode"><option value="pregnant">Pregnant</option><option value="postpartum">Postpartum</option></select></div>
       <div><label class="l" style="margin-top:0" id="aiWeekL">Week of pregnancy</label><input type="text" id="aiWeek" value="20" /></div>
-      <div><label class="l" style="margin-top:0">Country</label><select id="aiCountry">${['UK', 'Canada', 'US', 'Nigeria', 'Other'].map(c => `<option>${c}</option>`).join('')}</select></div></div>
+      <div><label class="l" style="margin-top:0">Country</label><select id="aiCountry">${['UK', 'Other'].map(c => `<option>${c}</option>`).join('')}</select></div></div>
       <label class="l">Question</label><textarea id="aiQ" placeholder="e.g. Is it safe to have a bath at 20 weeks?"></textarea>
       <div class="row" style="margin-top:12px;justify-content:space-between"><label class="row" style="gap:8px;font-size:14px"><span class="switch"><input type="checkbox" id="aiGuid" checked /><span></span></span>Include team guidance from App settings</label><button class="btn" id="aiBtn">Ask Moma</button></div></div>
     <div id="aiOut"></div>`;
@@ -520,12 +520,213 @@ VIEWS.settings = async () => {
         <label class="l">Reply time shown in the app</label><input type="text" id="supHours" maxlength="140" value="${esc(c.supportHours)}" ${dis} /></div>
     </div>
     <div class="card"><h3>Team guidance for the AI</h3><p class="m">Extra instructions added to every Ask Moma conversation, on top of the built-in safety rules. Test them in the AI console first.</p>
-      <textarea id="guid" maxlength="2000" placeholder="e.g. When someone asks about the flu jab, mention it is offered free to pregnant women in the UK.">${esc(c.guidance)}</textarea></div>
+      <textarea id="guid" maxlength="2000" placeholder="e.g. When someone asks about malaria drugs in pregnancy, remind them to get tested at their antenatal clinic first and never self-treat from the chemist.">${esc(c.guidance)}</textarea></div>
     <div class="row"><button class="btn" id="saveCfg">Save settings</button><span class="muted small">${c.updatedAt ? `Last saved ${dmy(c.updatedAt)} at ${tm(c.updatedAt)}${c.updatedBy ? ` by ${esc(c.updatedBy)}` : ''}` : ''}</span></div>`;
   $('#saveCfg').onclick = async () => {
     try { await api('config', { method: 'PUT', body: { announcement: $('#ann').value, announcementOn: $('#annOn').checked, askEnabled: $('#askOn').checked, supportOn: $('#supOn').checked, supportHours: $('#supHours').value, guidance: $('#guid').value } }); toast('Saved. Live in about a minute'); show('settings'); }
     catch (e) { toast(e.message); }
   };
+};
+
+
+/* ---------- shop ---------- */
+const gbp = n => '£' + Math.round(Number(n) || 0).toLocaleString('en-GB');
+const OST = [['new', 'New (pay on delivery)'], ['awaiting_payment', 'Awaiting payment'], ['paid', 'Paid'], ['packed', 'Packed'], ['out_for_delivery', 'Out for delivery'], ['delivered', 'Delivered'], ['cancelled', 'Cancelled']];
+const OPILL = { new: 'p-mute', awaiting_payment: 'p-mute', paid: 'p-ok', packed: 'p-ok', out_for_delivery: 'p-ok', delivered: 'p-ok', cancelled: 'p-bad' };
+let OFILTER = 'all';
+VIEWS.orders = async () => {
+  const r = await api('orders', { q: `&status=${OFILTER}` });
+  $('#main').innerHTML = `<div class="head"><div><h1>Shop orders</h1><p class="sub">Last 30 days: ${r.sum.n} orders, ${gbp(r.sum.paid)} paid, ${r.sum.todo} to pack or confirm. Call the customer to confirm pay-on-delivery orders.</p></div>
+    <div class="row"><select class="auto" id="ofl">${[['all', 'All orders'], ...OST].map(([v, l]) => `<option value="${v}" ${v === OFILTER ? 'selected' : ''}>${l}</option>`).join('')}</select><button class="btn ghost small" id="oCsv">Download CSV</button></div></div>
+    <div class="card">${r.items.length ? `<table><thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody>${r.items.map(o => `<tr>
+      <td><b>${esc(o.ref)}</b><div class="small muted">${dmy(o.created_at)}</div></td>
+      <td>${esc(o.name)}<div class="small muted">${esc(o.phone)}${o.email ? ' · ' + esc(o.email) : ''}</div><div class="small muted">${esc(o.address)}${o.state ? ', ' + esc(o.state) : ''}</div></td>
+      <td class="small">${(o.items || []).map(i => `${i.qty} × ${esc(i.name)}`).join('<br>')}</td>
+      <td><b>${gbp(o.total)}</b><div class="small muted">incl. ${gbp(o.delivery)} delivery</div></td>
+      <td><span class="pill ${o.payment === 'stripe' ? 'p-ok' : 'p-mute'}">${o.payment === 'stripe' ? 'Stripe' : 'Payment link'}</span></td>
+      <td><select class="auto ost" data-ref="${esc(o.ref)}">${OST.map(([v, l]) => `<option value="${v}" ${v === o.status ? 'selected' : ''}>${l}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table>` : '<div class="empty">No orders yet.</div>'}</div>`;
+  $('#ofl').onchange = e => { OFILTER = e.target.value; show('orders'); };
+  $$('.ost').forEach(s => (s.onchange = async () => { await api('orders', { method: 'PATCH', body: { ref: s.dataset.ref, status: s.value } }); toast('Order updated'); }));
+  $('#oCsv').onclick = () => csv('moma-orders.csv', [['date', 'ref', 'name', 'phone', 'email', 'address', 'state', 'items', 'subtotal', 'delivery', 'total', 'payment', 'status'], ...r.items.map(o => [new Date(o.created_at).toISOString(), o.ref, o.name, o.phone, o.email || '', o.address, o.state || '', (o.items || []).map(i => `${i.qty}x ${i.name}`).join('; '), o.subtotal, o.delivery, o.total, o.payment, o.status])]);
+};
+VIEWS.push = async () => {
+  const r = await api('push');
+  $('#main').innerHTML = `<div class="head"><div><h1>Notifications</h1><p class="sub">${r.on ? `${r.devices} phone${r.devices === 1 ? '' : 's'} signed up for notifications. Mums turn them on from the Me screen in the app.` : 'Notifications are not switched on yet: the notification keys still need to be added.'}</p></div></div>
+    ${r.on ? `<div class="card" style="margin-bottom:14px"><h3>Send to everyone</h3>
+      <label class="small">Title</label><input id="nT" maxlength="80" placeholder="e.g. New: talk to a midwife on video">
+      <label class="small" style="margin-top:10px;display:block">Message</label><textarea id="nB" maxlength="240" rows="3" placeholder="Keep it short and useful"></textarea>
+      <label class="small" style="margin-top:10px;display:block">Opens (optional)</label><select id="nU" class="auto">${[['/app/', 'Today'], ['/app/?tab=ask', 'Ask Moma'], ['/app/?tab=community', 'Community'], ['/app/?tab=shop', 'Shop'], ['/app/?book=1', 'Talk to an expert']].map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select>
+      <div class="small muted" style="margin:10px 0">Appointment confirmations are sent automatically when you confirm a booking.</div>
+      <button class="btn" id="nSend">Send notification</button></div>` : ''}
+    <div class="card"><h3>Sent</h3>${r.items.length ? `<table><thead><tr><th>When</th><th>Message</th><th>To</th><th>Delivered</th></tr></thead><tbody>${r.items.map(m => `<tr><td>${dmy(m.created_at)}<div class="small muted">${esc(m.created_by || 'System')}</div></td><td><b>${esc(m.title)}</b><div class="small">${esc(m.body)}</div></td><td>${m.everyone ? 'Everyone' : 'One mum'}</td><td>${m.sent}${m.failed ? ` <span class="small muted">(${m.failed} failed)</span>` : ''}</td></tr>`).join('')}</tbody></table>` : '<div class="empty">Nothing sent yet.</div>'}</div>`;
+  if (r.on) $('#nSend').onclick = async () => {
+    const title = $('#nT').value.trim(), body = $('#nB').value.trim();
+    if (!title || !body) return toast('Add a title and a message');
+    if (!confirm(`Send "${title}" to ${r.devices} phone${r.devices === 1 ? '' : 's'}?`)) return;
+    const x = await api('push', { method: 'POST', body: { title, body, url: $('#nU').value } });
+    toast(`Sent to ${x.sent} phone${x.sent === 1 ? '' : 's'}`); show('push');
+  };
+};
+let PAYF = { days: 30, kind: 'all', state: 'all' };
+VIEWS.payments = async () => {
+  const r = await api('payments', { q: `&days=${PAYF.days}` });
+  const rows = r.items.filter(i => (PAYF.kind === 'all' || i.kind === PAYF.kind) && (PAYF.state === 'all' || i.state === PAYF.state));
+  const SL = { received: ['Received', 'p-ok'], pending: ['Pending', 'p-warn'], refund_due: ['Refund due', 'p-bad'], cancelled: ['Cancelled', 'p-mute'] };
+  const opt = (v, cur, l) => `<option value="${v}" ${String(v) === String(cur) ? 'selected' : ''}>${l}</option>`;
+  $('#main').innerHTML = `<div class="head"><div><h1>Payments</h1><p class="sub">Money from shop orders and expert bookings in the last ${r.days} days.</p></div>
+    <div class="row"><select class="auto" id="pDays">${[[7, '7 days'], [30, '30 days'], [90, '90 days'], [365, '12 months']].map(([v, l]) => opt(v, PAYF.days, l)).join('')}</select>
+    <select class="auto" id="pKind">${opt('all', PAYF.kind, 'Shop and bookings')}${opt('shop', PAYF.kind, 'Shop orders')}${opt('booking', PAYF.kind, 'Expert bookings')}</select>
+    <select class="auto" id="pState">${opt('all', PAYF.state, 'Any status')}${Object.entries(SL).map(([k, [l]]) => opt(k, PAYF.state, l)).join('')}</select>
+    <button class="btn ghost small" id="pCsv">Download CSV</button></div></div>
+    <div class="card" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">${r.paystack
+      ? `<span class="pill p-ok">Stripe connected${r.mode === 'test' ? ' (test mode)' : ''}</span><span class="small muted">Card, Apple Pay and Google Pay go straight to your Stripe account. Refunds are made from the Paystack dashboard, then marked here.</span>`
+      : `<span class="pill p-warn">Stripe not connected</span><span class="small muted">Shop orders get a payment link and expert bookings come in as requests. Add your Stripe secret key (STRIPE_SECRET_KEY) in Setup to take payments in the app.</span>`}</div>
+    <div class="grid4" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:14px">
+      ${[['Received', r.sum.received, 'var(--mint)'], ['Pending', r.sum.pending, 'var(--butter)'], ['Refunds due', r.sum.refund_due, 'var(--coral)'], ['From the shop', r.sum.shop, 'var(--pink)'], ['From bookings', r.sum.bookings, 'var(--sky)']]
+        .map(([l, v, c]) => `<div class="card" style="background:${c}"><div class="small">${l}</div><div style="font-size:24px;font-weight:800;margin-top:4px">${gbp(v)}</div></div>`).join('')}</div>
+    <div class="card">${rows.length ? `<table><thead><tr><th>Date</th><th>For</th><th>Customer</th><th>Amount</th><th>Method</th><th>Status</th></tr></thead><tbody>${rows.map(i => `<tr>
+      <td>${dmy(i.at)}<div class="small muted">${esc(i.ref)}</div></td>
+      <td>${esc(i.what)}</td>
+      <td>${esc(i.name)}<div class="small muted">${esc(i.phone || '')}${i.email ? ' · ' + esc(i.email) : ''}</div></td>
+      <td><b>${gbp(i.amount)}</b></td>
+      <td>${esc(i.method)}${i.paystack_ref ? `<div class="small muted">Stripe ${esc(i.paystack_ref)}</div>` : ''}</td>
+      <td><span class="pill ${SL[i.state][1]}">${SL[i.state][0]}</span><div class="small muted">${esc(String(i.status).replace(/_/g, ' '))}</div></td></tr>`).join('')}</tbody></table>`
+      : '<div class="empty">No payments in this period yet.</div>'}</div>`;
+  $('#pDays').onchange = e => { PAYF.days = +e.target.value; show('payments'); };
+  $('#pKind').onchange = e => { PAYF.kind = e.target.value; show('payments'); };
+  $('#pState').onchange = e => { PAYF.state = e.target.value; show('payments'); };
+  $('#pCsv').onclick = () => csv('moma-payments.csv', [['date', 'type', 'ref', 'for', 'name', 'phone', 'email', 'amount_gbp', 'method', 'stripe_session', 'status', 'payment_state'],
+    ...rows.map(i => [new Date(i.at).toISOString(), i.kind, i.ref, i.what, i.name, i.phone || '', i.email || '', i.amount, i.method, i.paystack_ref || '', i.status, i.state])]);
+};
+VIEWS.products = async () => {
+  const r = await api('products'), edit = has('shop_edit');
+  const form = (p = {}) => `<div class="card" id="pform"><h3>${p.id ? 'Edit ' + esc(p.name) : 'Add a product'}</h3>
+    <div class="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <label>Id (no spaces)<input id="pid" value="${esc(p.id || '')}" ${p.id ? 'readonly' : ''} /></label><label>Name<input id="pname" value="${esc(p.name || '')}" /></label>
+      <label>Price (£)<input id="pprice" type="number" value="${p.price || ''}" /></label><label>Category<input id="pcat" value="${esc(p.cat || '')}" placeholder="e.g. Postpartum" /></label>
+      <label>Best for<select id="pstage">${[['any', 'Anyone'], ['early', 'Early pregnancy'], ['late', 'Late pregnancy'], ['postpartum', 'After birth']].map(([v, l]) => `<option value="${v}" ${v === (p.stage || 'any') ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      <label>Stock (blank = unlimited)<input id="pstock" type="number" value="${p.stock ?? ''}" /></label>
+      <label>Image link<input id="pimg" value="${esc(p.img || '')}" placeholder="https://… or /shop/name.jpg" /></label><label>Emoji (if no image)<input id="pemoji" value="${esc(p.emoji || '')}" /></label>
+    </div><label>Description<textarea id="pblurb" rows="2">${esc(p.blurb || '')}</textarea></label>
+    <div class="row" style="margin-top:10px;justify-content:space-between"><label class="row" style="gap:8px"><span class="switch"><input type="checkbox" id="pact" ${p.active !== false ? 'checked' : ''} /><span></span></span>On sale</label><button class="btn" id="psave">Save product</button></div></div>`;
+  $('#main').innerHTML = `<div class="head"><div><h1>Products</h1><p class="sub">What mums see in the Shop tab. Prices are in pounds and are always checked on the server at checkout.</p></div>${edit ? '<button class="btn" id="padd">Add product</button>' : ''}</div>
+    <div id="pslot"></div>
+    <div class="card"><table><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th>${edit ? '<th></th>' : ''}</tr></thead><tbody>${r.items.map((p, i) => `<tr>
+      <td><b>${esc(p.emoji || '')} ${esc(p.name)}</b><div class="small muted">${esc(p.blurb)}</div></td><td>${esc(p.cat)}</td><td><b>${gbp(p.price)}</b></td><td>${p.stock == null ? '∞' : p.stock}</td>
+      <td><span class="pill ${p.active ? 'p-ok' : 'p-mute'}">${p.active ? 'On sale' : 'Hidden'}</span></td>${edit ? `<td><button class="btn ghost small pe" data-i="${i}">Edit</button></td>` : ''}</tr>`).join('')}</tbody></table></div>`;
+  const open = p => { $('#pslot').innerHTML = form(p); $('#psave').onclick = async () => {
+    const body = { id: $('#pid').value.trim(), name: $('#pname').value.trim(), price: Number($('#pprice').value), cat: $('#pcat').value.trim(), stage: $('#pstage').value, stock: $('#pstock').value, img: $('#pimg').value.trim(), emoji: $('#pemoji').value.trim(), blurb: $('#pblurb').value.trim(), active: $('#pact').checked, sort: p.sort ?? r.items.length };
+    try { await api('products', { method: 'PUT', body }); toast('Saved'); show('products'); } catch (e) { toast(e.message); } }; window.scrollTo(0, 0); };
+  if (edit) { $('#padd').onclick = () => open({}); $$('.pe').forEach(b => (b.onclick = () => open(r.items[+b.dataset.i]))); }
+};
+
+/* ---------- community ---------- */
+const BSTAT = { requested: ['Requested', 'p-warn'], awaiting_payment: ['Awaiting payment', 'p-mute'], confirmed: ['Confirmed', 'p-ok'], completed: ['Completed', 'p-ok'], cancelled: ['Cancelled', 'p-mute'], expired: ['Expired', 'p-mute'], no_show: ['No-show', 'p-bad'], paid_rebook: ['Paid, needs rebooking', 'p-bad'] };
+const EXPERT_ROLES = ['Physician', 'Obstetrician', 'Paediatrician', 'Midwife', 'Nurse', 'Lactation consultant', 'Nutritionist', 'Physiotherapist', 'Therapist', 'Doula'];
+const LICENCE_BODIES = ['NMC', 'GMC', 'HCPC', 'BACP', 'IBCLC', 'Other'];
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+VIEWS.bookings = async () => {
+  const st = VIEWS.bookings.st || 'upcoming';
+  const r = await api('bookings', { q: `&status=${st}` });
+  const canEdit = (ME.perms || []).includes('bookings_edit');
+  const tabs = [['upcoming', 'Upcoming'], ['requested', 'Requests'], ['refunds', `Refunds (${r.sum.refunds})`], ['completed', 'Completed'], ['cancelled', 'Cancelled'], ['all', 'All']];
+  const row = b => { const [lab, cls] = BSTAT[b.status] || [b.status, 'p-mute']; return `<tr>
+    <td><b>${esc(b.day.split('-').reverse().join('/'))}</b><div class="small muted">${esc(b.time)} WAT · ${b.mins} min</div></td>
+    <td><b>${esc(b.name)}</b><div class="small"><a href="tel:${esc(b.phone)}">${esc(b.phone)}</a>${b.email ? ` · ${esc(b.email)}` : ''}</div></td>
+    <td>${esc(b.kindLabel)}<div class="small muted">${esc(b.provider_name)}</div></td>
+    <td>${esc(b.reason)}${b.note ? `<div class="small muted" style="white-space:pre-wrap;max-width:260px">${esc(b.note)}</div>` : ''}${b.staff_note ? `<div class="small" style="margin-top:4px">📝 ${esc(b.staff_note)}</div>` : ''}</td>
+    <td><span class="pill ${cls}">${lab}</span>${b.refund_due ? ' <span class="pill p-bad">Refund due</span>' : ''}<div class="small muted">${gbp(b.fee)} · ${b.payment === 'stripe' ? (b.paystack_ref ? 'Paid online' : 'Online') : 'Arranged by team'}</div>${b.link ? `<div class="small"><a href="${esc(b.link)}" target="_blank">Call link</a></div>` : ''}<div class="small muted">${esc(b.ref)}</div></td>
+    <td><div class="row" style="gap:6px;flex-wrap:wrap;justify-content:flex-end">
+      ${['requested', 'awaiting_payment', 'paid_rebook'].includes(b.status) ? `<button class="btn small bk" data-a="confirm" data-ref="${b.ref}">Confirm</button>` : ''}
+      ${b.status === 'confirmed' ? `<button class="btn small bk" data-a="complete" data-ref="${b.ref}">Done</button><button class="btn ghost small bk" data-a="no_show" data-ref="${b.ref}">No-show</button>` : ''}
+      ${['requested', 'awaiting_payment', 'confirmed'].includes(b.status) ? `<button class="btn ghost small bk" data-a="link" data-ref="${b.ref}">${b.link ? 'Change link' : 'Add call link'}</button><button class="btn ghost small bk" data-a="cancel" data-ref="${b.ref}">Cancel</button>` : ''}
+      ${b.refund_due || b.status === 'paid_rebook' ? `<button class="btn ghost small bk" data-a="refunded" data-ref="${b.ref}">Mark refunded</button>` : ''}
+      <button class="btn ghost small bk" data-a="note" data-ref="${b.ref}">Note</button>
+    </div></td></tr>`; };
+  const pv = p => `<div class="card" style="margin-bottom:10px"><div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px"><div>
+      <b>${esc(p.name)}</b> <span class="pill p-mute">${esc(p.role || 'Expert')}</span> ${p.verified ? `<span class="pill p-ok">${esc(p.licence_body || 'Licence')} verified</span>` : '<span class="pill p-warn">Licence not checked yet</span>'} ${p.active ? '' : '<span class="pill p-mute">Hidden from app</span>'}
+      <div class="small muted">${esc(p.title)}</div>
+      <div class="small" style="margin-top:6px">${Object.entries(p.fees || {}).filter(([, v]) => v > 0).map(([k, v]) => `${esc(r.kinds[k] || k)} ${gbp(v)}`).join(' · ')} · ${p.slot_min} min slots</div>
+      <div class="small muted">${[1, 2, 3, 4, 5, 6, 0].filter(d => (p.hours || {})[d]).map(d => `${DOW[d]} ${p.hours[d][0]}–${p.hours[d][1]}`).join(', ') || 'No hours set'}</div>
+    </div>${canEdit ? `<button class="btn ghost small pe" data-id="${p.id}">Edit</button>` : ''}</div></div>`;
+  $('#main').innerHTML = `<div class="head"><div><h1>Expert bookings</h1><p class="sub">${r.sum.today} today · ${r.sum.upcoming} confirmed coming up · ${r.sum.requested} requests to confirm · ${gbp(r.sum.paid30)} booked in the last 30 days. All times are UK time.</p></div></div>
+    ${r.sum.requested ? `<div class="card" style="margin-bottom:12px;background:var(--butter)">Until Stripe is connected, new bookings arrive as requests. Call the mum to confirm the time and arrange payment, then press Confirm.</div>` : ''}
+    <div class="row" style="gap:6px;flex-wrap:wrap;margin-bottom:12px">${tabs.map(([k, l]) => `<button class="btn ${k === st ? '' : 'ghost'} small bt" data-k="${k}">${l}</button>`).join('')}</div>
+    <div class="card" style="overflow-x:auto"><table><thead><tr><th>When</th><th>Mum</th><th>Type</th><th>About</th><th>Status</th><th></th></tr></thead><tbody>${r.items.map(row).join('') || '<tr><td colspan="6" class="empty">Nothing here.</td></tr>'}</tbody></table></div>
+    <div class="row" style="justify-content:space-between;margin:22px 0 8px"><h3 style="margin:0">Experts</h3>${canEdit ? '<button class="btn small pe" data-id="">Add an expert</button>' : ''}</div>
+    ${r.providers.map(pv).join('')}`;
+  $$('.bt').forEach(b => (b.onclick = () => { VIEWS.bookings.st = b.dataset.k; show('bookings'); }));
+  $$('.bk').forEach(b => (b.onclick = async () => {
+    const act = b.dataset.a, body = { ref: b.dataset.ref, action: act };
+    if (act === 'cancel' && !confirm('Cancel this appointment? If it was paid online it will be marked for a refund.')) return;
+    if (act === 'link') { const v = prompt('Paste the video or call link the mum should use (Google Meet, Zoom or WhatsApp):', ''); if (v === null) return; body.link = v; }
+    if (act === 'note') { const v = prompt('Team note (only staff see this):', ''); if (v === null) return; body.note = v; }
+    if (act === 'refunded' && !confirm('Confirm the refund has been sent in Stripe?')) return;
+    try { await api('bookings', { method: 'PATCH', body }); toast('Booking updated'); show('bookings'); } catch (e) { toast(e.message); }
+  }));
+  $$('.pe').forEach(b => (b.onclick = () => editDoctor(r.providers.find(p => String(p.id) === b.dataset.id) || { fees: {}, hours: { 1: ['09:00', '17:00'], 2: ['09:00', '17:00'], 3: ['09:00', '17:00'], 4: ['09:00', '17:00'], 5: ['09:00', '17:00'] }, slot_min: 30, lead_hours: 3, active: true, off: [] }, r.kinds)));
+};
+function editDoctor(p, kinds) {
+  const h = p.hours || {};
+  modal(`<div class="modal" style="width:min(640px,100%);max-height:90vh;overflow:auto"><h2 style="margin-top:0">${p.id ? 'Edit expert' : 'Add an expert'}</h2>
+    <div class="row" style="gap:8px"><label style="flex:1">Role<input id="dRole" list="roleList" value="${esc(p.role || '')}" placeholder="Physician" /><datalist id="roleList">${EXPERT_ROLES.map(x => `<option value="${x}">`).join('')}</datalist></label><label style="flex:2">Name<input id="dName" value="${esc(p.name || '')}" placeholder="Dr Adaeze Okafor" /></label></div>
+    <label>Title<input id="dTitle" value="${esc(p.title || '')}" placeholder="General physician · Women's health" /></label>
+    <label>About<textarea id="dBio" rows="3">${esc(p.bio || '')}</textarea></label>
+    <div class="row" style="gap:8px"><label style="flex:1">Languages<input id="dLang" value="${esc(p.languages || 'English')}" /></label></div><div class="row" style="gap:8px"><label style="flex:1">Licensing body<input id="dBody" list="bodyList" value="${esc(p.licence_body || '')}" placeholder="MDCN" /><datalist id="bodyList">${LICENCE_BODIES.map(x => `<option value="${x}">`).join('')}</datalist></label><label style="flex:1">Licence number<input id="dMdcn" value="${esc(p.mdcn || '')}" /></label></div>
+    <label class="row" style="gap:8px;align-items:center"><input type="checkbox" id="dVer" ${p.verified ? 'checked' : ''} style="width:auto" /> I have checked this licence on the official register</label>
+    <label>Photo link (optional)<input id="dPhoto" value="${esc(p.photo || '')}" placeholder="https://…" /></label>
+    <label>Clinic address (for in-person visits)<input id="dAddr" value="${esc(p.clinic_address || '')}" /></label>
+    <h3>Fees in pounds (0 turns a type off)</h3><div class="row" style="gap:8px">${Object.entries(kinds).map(([k, l]) => `<label style="flex:1">${esc(l)}<input type="number" min="0" step="5" class="dFee" data-k="${k}" value="${Number((p.fees || {})[k] || 0)}" /></label>`).join('')}</div>
+    <h3>Weekly hours (UK time)</h3>${[1, 2, 3, 4, 5, 6, 0].map(d => `<div class="row" style="gap:8px;margin-bottom:6px;align-items:center"><label class="row" style="gap:6px;width:80px;margin:0"><input type="checkbox" class="dOn" data-d="${d}" ${h[d] ? 'checked' : ''} style="width:auto" />${DOW[d]}</label><input type="time" class="dFrom" data-d="${d}" value="${h[d] ? h[d][0] : '09:00'}" style="width:130px" /> to <input type="time" class="dTo" data-d="${d}" value="${h[d] ? h[d][1] : '17:00'}" style="width:130px" /></div>`).join('')}
+    <div class="row" style="gap:8px"><label style="flex:1">Appointment length (min)<input id="dSlot" type="number" min="15" max="120" step="5" value="${p.slot_min || 30}" /></label><label style="flex:1">Earliest booking (hours ahead)<input id="dLead" type="number" min="0" max="72" value="${p.lead_hours ?? 3}" /></label></div>
+    <label>Days off (DD/MM/YYYY, comma separated)<input id="dOff" value="${(p.off || []).map(d => d.split('-').reverse().join('/')).join(', ')}" /></label>
+    <label class="row" style="gap:8px;align-items:center"><input type="checkbox" id="dAct" ${p.active !== false ? 'checked' : ''} style="width:auto" /> Show in the app and take bookings</label>
+    <div class="row" style="justify-content:flex-end;gap:8px;margin-top:14px"><button class="btn ghost" id="dCancel">Cancel</button><button class="btn" id="dSave">Save</button></div></div>`);
+  $('#dCancel').onclick = closeLayer;
+  $('#dSave').onclick = async () => {
+    const fees = {}; $$('.dFee').forEach(i => (fees[i.dataset.k] = +i.value || 0));
+    const hours = {}; $$('.dOn').forEach(c => { if (c.checked) { const d = c.dataset.d; hours[d] = [$(`.dFrom[data-d="${d}"]`).value, $(`.dTo[data-d="${d}"]`).value]; } });
+    const off = $('#dOff').value.split(',').map(x => x.trim()).filter(Boolean).map(x => { const [dd, mm, yy] = x.split('/'); return `${yy}-${String(mm).padStart(2, '0')}-${String(dd).padStart(2, '0')}`; });
+    try { await api('providers', { method: 'PUT', body: { id: p.id, role: $('#dRole').value, licence_body: $('#dBody').value, name: $('#dName').value, title: $('#dTitle').value, bio: $('#dBio').value, languages: $('#dLang').value, mdcn: $('#dMdcn').value, verified: $('#dVer').checked,
+      photo: $('#dPhoto').value, clinic_address: $('#dAddr').value, fees, hours, slot_min: +$('#dSlot').value, lead_hours: +$('#dLead').value, off, active: $('#dAct').checked } }); closeLayer(); toast('Expert saved'); show('bookings'); }
+    catch (e) { toast(e.message); }
+  };
+}
+VIEWS.community = async () => {
+  const r = await api('community');
+  const card = (p, kind) => `<div class="card" style="margin-bottom:10px">
+    <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px"><div style="flex:1;min-width:0">
+      <div class="small muted">${esc(p.group_name)} · ${esc(p.nick)} · ${dmy(p.created_at)}${p.parent_id ? ' · reply' : ''}</div>
+      ${p.title ? `<b>${esc(p.title)}</b>` : ''}<div style="white-space:pre-wrap;margin-top:4px">${esc(p.body)}</div>
+      ${p.hold_reason ? `<div class="small" style="margin-top:6px"><span class="pill p-warn">Held: ${esc(p.hold_reason)}</span></div>` : ''}
+      ${p.reasons ? `<div class="small" style="margin-top:6px"><span class="pill p-warn">${p.reports} report(s): ${esc(p.reasons)}</span></div>` : ''}
+      ${p.flag ? `<div class="small" style="margin-top:6px"><span class="pill p-bad">Safety: ${esc((JSON.parse(p.flag).titles || []).join(', '))}</span></div>` : ''}
+    </div><div class="row" style="gap:6px;flex-wrap:wrap;justify-content:flex-end">
+      ${kind === 'held' ? `<button class="btn small cm" data-a="approve" data-id="${p.id}">Approve</button>` : ''}
+      ${kind === 'reported' ? `<button class="btn ghost small cm" data-a="dismiss" data-id="${p.id}">Keep</button>` : ''}
+      ${kind !== 'flagged' ? `<button class="btn ghost small cm" data-a="remove" data-id="${p.id}">Remove</button><button class="btn ghost small cm" data-a="ban" data-id="${p.id}">Remove and ban</button>` : ''}
+      ${kind === 'flagged' && !p.parent_id ? `<button class="btn ghost small cm" data-a="${p.pinned ? 'unpin' : 'pin'}" data-id="${p.id}">${p.pinned ? 'Unpin' : 'Pin'}</button>` : ''}
+    </div></div></div>`;
+  $('#main').innerHTML = `<div class="head"><div><h1>Community</h1><p class="sub">${r.sum.members} members · ${r.sum.posts7} posts this week · ${r.sum.held} waiting for review · ${r.sum.banned} paused. Posts with links, phone numbers or money requests, or that the AI screen flags, wait here before anyone sees them. Three reports hide a post.</p></div></div>
+    <h3 style="margin:8px 0">Waiting for review (${r.held.length})</h3>${r.held.map(p => card(p, 'held')).join('') || '<div class="card empty">Nothing waiting.</div>'}
+    <h3 style="margin:18px 0 8px">Reported by members (${r.reported.length})</h3>${r.reported.map(p => card(p, 'reported')).join('') || '<div class="card empty">No open reports.</div>'}
+    <h3 style="margin:18px 0 8px">Safety mentions this week (${r.flagged.length})</h3><p class="sub" style="margin:0 0 8px">These went live with the danger-signs card shown. A clinician may want to reply or reach out through Support.</p>${r.flagged.map(p => card(p, 'flagged')).join('') || '<div class="card empty">None this week.</div>'}
+    <div class="row" style="justify-content:space-between;margin:18px 0 8px"><h3 style="margin:0">Groups</h3></div>
+    <div class="card" style="margin-bottom:10px"><div class="row" style="gap:8px;flex-wrap:wrap"><input id="gEmoji" style="width:70px" placeholder="💜" /><input id="gName" style="flex:1;min-width:160px" placeholder="New official group name" /><input id="gBlurb" style="flex:2;min-width:200px" placeholder="One-line description" /><button class="btn" id="gAdd">Add group</button></div></div>
+    <div class="card"><table><thead><tr><th>Group</th><th>Members</th><th>Posts this week</th><th>Type</th><th></th></tr></thead><tbody>${r.groups.map(g => `<tr>
+      <td><b>${esc(g.emoji)} ${esc(g.name)}</b><div class="small muted">${esc(g.blurb)}</div></td><td>${g.members}</td><td>${g.week}</td>
+      <td><span class="pill ${g.official ? 'p-ok' : 'p-mute'}">${g.official ? 'Official' : 'Member-made'}</span>${g.hidden ? ' <span class="pill p-bad">Hidden</span>' : ''}</td>
+      <td><div class="row" style="gap:6px"><button class="btn ghost small cm" data-a="official" data-id="${g.id}">${g.official ? 'Unmark' : 'Make official'}</button><button class="btn ghost small cm" data-a="${g.hidden ? 'show-group' : 'hide-group'}" data-id="${g.id}">${g.hidden ? 'Show' : 'Hide'}</button></div></td></tr>`).join('')}</tbody></table></div>`;
+  $$('.cm').forEach(b => (b.onclick = async () => {
+    if (['remove', 'ban', 'hide-group'].includes(b.dataset.a) && !confirm(b.dataset.a === 'ban' ? 'Remove this post and pause this member from posting?' : 'Are you sure?')) return;
+    try { await api('community', { method: 'PATCH', body: { id: +b.dataset.id, action: b.dataset.a } }); toast('Done'); show('community'); } catch (e) { toast(e.message); }
+  }));
+  const top = document.querySelector('#main') || document.body;
+  if (r.samples) { const d = document.createElement('div'); d.className = 'card'; d.style.marginBottom = '14px';
+    d.innerHTML = `<div class="row" style="justify-content:space-between;gap:12px;flex-wrap:wrap"><div><b>Starter conversations</b><div class="small muted">${r.samples} sample posts and replies are showing so Community isn't empty. Remove them before launch or once real mums are posting.</div></div><button class="btn small" id="clrS">Remove sample posts</button></div>`;
+    const v = document.querySelector('.cm')?.closest('section, .view, main') || top; v.prepend(d);
+    $('#clrS').onclick = async () => { if (!confirm('Remove all sample posts and replies? This cannot be undone.')) return; try { const x = await api('community', { method: 'PATCH', body: { action: 'clear-samples' } }); toast(`Removed ${x.removed}`); show('community'); } catch (e) { toast(e.message); } }; }
+  $('#gAdd').onclick = async () => { try { await api('community', { method: 'POST', body: { name: $('#gName').value, blurb: $('#gBlurb').value, emoji: $('#gEmoji').value || '💜' } }); toast('Group added'); show('community'); } catch (e) { toast(e.message); } };
 };
 
 /* ---------- feedback ---------- */
@@ -538,7 +739,7 @@ VIEWS.feedback = async () => {
 };
 
 /* ---------- team & access ---------- */
-const PDESC = { stats: 'See the overview', reports: 'Reports and exports', users: 'See users', users_delete: 'Delete users', support: 'Answer support chats', safety: 'Safety lab and AI console', guidance: 'Edit AI guidance', settings: 'Change app settings', feedback: 'Read feedback', staff: 'Manage the team', audit: 'Read the audit log' };
+const PDESC = { stats: 'See the overview', reports: 'Reports and exports', users: 'See users', users_delete: 'Delete users', support: 'Answer support chats', safety: 'Safety lab and AI console', guidance: 'Edit AI guidance', settings: 'Change app settings', feedback: 'Read feedback', staff: 'Manage the team', audit: 'Read the audit log', shop: 'See and update shop orders', shop_edit: 'Edit products and prices' };
 const RDESC = { owner: 'Everything, including adding admins', admin: 'Runs the portal and the team', clinician: 'Clinical oversight: support, safety, AI guidance', support: 'Answers users in the support inbox', analyst: 'Stats and reports, no personal details' };
 VIEWS.team = async () => {
   const r = await api('staff'), canEdit = s => ME.role === 'owner' || !['owner', 'admin'].includes(s.role);
@@ -588,11 +789,11 @@ VIEWS.audit = async () => {
 
 /* ---------- setup ---------- */
 VIEWS.setup = () => {
-  $('#main').innerHTML = `<h1>Setup</h1><p class="sub">What's switched on in your Vercel project.</p>
+  $('#main').innerHTML = `<h1>Setup</h1><p class="sub">What's switched on for Moma.</p>
     <div class="card"><table><tbody>
       <tr><td style="width:200px"><b>Database</b></td><td><span class="pill p-ok">Connected</span></td><td class="muted">Users, support chats, team and settings.</td></tr>
-      <tr><td><b>AI key</b></td><td>${AI ? `<span class="pill p-ok">On · ${esc(AI)}</span>` : '<span class="pill p-bad">Not set</span>'}</td><td class="muted">Powers Ask Moma. Add ANTHROPIC_API_KEY or OPENAI_API_KEY under Settings → Environment Variables, then redeploy.</td></tr>
-      <tr><td><b>Owner account</b></td><td><span class="pill p-ok">Done</span></td><td class="muted">ADMIN_PASSWORD was only needed for the first sign-in. Keep it secret, or change it in Vercel.</td></tr>
+      <tr><td><b>AI key</b></td><td>${AI ? `<span class="pill p-ok">On · ${esc(AI)}</span>` : '<span class="pill p-bad">Not set</span>'}</td><td class="muted">Powers Ask Moma. Add ANTHROPIC_API_KEY or OPENAI_API_KEY to the repo's GitHub secrets, then re-run the deploy.</td></tr>
+      <tr><td><b>Owner account</b></td><td><span class="pill p-ok">Done</span></td><td class="muted">ADMIN_PASSWORD was only needed for the first sign-in. Keep it secret, or change it in GitHub secrets.</td></tr>
     </tbody></table></div>
     <div class="card"><h3>Privacy by design</h3><p class="m">What Moma's servers hold, and what they never see.</p>
       <ul style="line-height:1.7;margin:0;padding-left:20px"><li>Health logs, moods, notes and Ask Moma conversations stay on the person's phone.</li>

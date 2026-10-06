@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import { Country } from './content';
 
 export const DAY = 864e5;
-export type Mode = 'pregnant' | 'postpartum';
+export type Mode = 'pregnant' | 'postpartum' | 'ttc';
 export type Log = { mood?: number; sym?: string[]; note?: string };
 export type ChatMsg = { r: 'u' | 'a' | 'f'; c: string; level?: string; call?: string };
 export type State = {
@@ -15,11 +15,21 @@ export type State = {
   ai: { serverUrl: string }; stats: boolean; lastOpen: string | null;
   uid: string | null; usecret: string | null;
   theme: 'system' | 'light' | 'dark';
+  cart: { id: string; qty: number }[];
+  favs: string[];
+  orders: { ref: string; total: number; at: number; status: string; items: number }[];
+  ship: { name: string; phone: string; email: string; address: string; state: string };
+  lite?: boolean;
+  lang: string;
+  account?: { email: string | null; via: string } | null;
+  authSkipped?: boolean; signInWhy?: string;
+  cycle?: { periods: string[]; len: number; plen: number; marks: Record<string, string[]> };
 };
 export const DEFAULT: State = {
   onboarded: false, name: '', mode: 'pregnant', lmp: null, birth: null, country: 'UK',
   logs: {}, moves: [], ctx: [], feeds: [], nappies: [], appts: [], chat: [],
   ai: { serverUrl: process.env.EXPO_PUBLIC_MOMA_API_URL ?? '' }, stats: true, lastOpen: null, uid: null, usecret: null, theme: 'system',
+  cart: [], favs: [], orders: [], ship: { name: '', phone: '', email: '', address: '', state: '' }, lite: false, lang: 'English', account: null,
 };
 const KEY = 'moma.v1';
 
@@ -74,7 +84,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setReady(true); return;
     }
     AsyncStorage.getItem(KEY).then(raw => {
-      if (raw) { try { const p = JSON.parse(raw); setS({ ...DEFAULT, ...p, ai: { ...DEFAULT.ai, ...(p.ai ?? {}) } }); } catch {} }
+      if (raw) { try { const p = JSON.parse(raw); setS({ ...DEFAULT, ...p, ai: { ...DEFAULT.ai, ...(p.ai ?? {}) }, ship: { ...DEFAULT.ship, ...(p.ship ?? {}) } }); } catch {} }
       loaded.current = true; setReady(true);
     });
   }, []);

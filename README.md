@@ -1,4 +1,4 @@
-# Moma: pregnancy to postpartum companion (Expo / React Native)
+# Solayo: pregnancy to postpartum companion (Expo / React Native)
 
 Runs on iPhone and Android, and in a browser.
 
@@ -12,7 +12,7 @@ Runs on iPhone and Android, and in a browser.
 3. Scan the QR code with your phone camera (iPhone) or the Expo Go app (Android). Phone and laptop need to be on the same Wi-Fi.
    If it won't connect, try `npx expo start --tunnel`.
 
-Moma works straight away in offline mode (common questions, week-by-week content, all tracking and the safety checks).
+Solayo works straight away in offline mode (common questions, week-by-week content, all tracking and the safety checks).
 
 ## Turn on the full AI
 The model key stays on a small server, never on the phone.
@@ -26,7 +26,7 @@ Then in the app go to **Me → AI companion**, enter `http://<your laptop's loca
 
 ## What's inside
 - `App.tsx` app shell and tab bar
-- `src/screens/` Onboarding, Today, Check-in, Track (symptoms, movements, contractions, appointments, feeds, nappies), Ask Moma, Journey, Me
+- `src/screens/` Onboarding, Today, Check-in, Track (symptoms, movements, contractions, appointments, feeds, nappies), Ask Solayo, Journey, Me
 - `src/safety.ts` deterministic red-flag rules that run before any AI call, with one-tap call buttons for local emergency and urgent numbers
 - `src/ai.ts` personal context builder, offline answers, appointment summary, server client
 - `src/content.ts` week-by-week, milestones, postpartum guide, country numbers
@@ -36,7 +36,7 @@ Then in the app go to **Me → AI companion**, enter `http://<your laptop's loca
 - TestFlight / Play internal testing: `npm i -g eas-cli && eas login && eas build --profile preview`
 - Host the server anywhere that runs Node (Render, Fly.io, Railway) and set its URL in `EXPO_PUBLIC_MOMA_API_URL`.
 
-Moma supports, never replaces, a midwife or doctor. Content needs clinical review before real users.
+Solayo supports, never replaces, a midwife or doctor. Content needs clinical review before real users.
 
 ## Put it online for free (Vercel)
 1. Create a free GitHub account, click **New repository**, name it `moma`, then **uploading an existing file** and drag in everything inside this folder (not node_modules or dist).

@@ -11,6 +11,7 @@ const FLAGS = [
   { id: 'fv', lvl: 'u', t: 'Fever', re: /fever|temperature.{0,10}(3[89]|high)|high temp|shiver(s|ing)|chills|rigors/i },
   { id: 'ic', lvl: 'u', t: 'Itchy hands or feet', pregOnly: true, re: /itch(y|ing|es)?.{0,20}(hands|feet|palms|soles)|(hands|feet|palms|soles).{0,20}itch/i },
   { id: 'dv', lvl: 'u', t: 'Painful swollen calf', re: /(calf|leg).{0,20}(pain|swollen|swelling|red|hot|tender)/i },
+  { id: 'nb', lvl: 'u', t: 'Newborn danger signs', re: /baby.{0,25}(yellow|jaundice)|yellow (eyes|skin)|baby.{0,20}(not|won'?t|isn'?t|refus\w*|stopped).{0,12}(feed|feeding|suck|breastfeed)|baby.{0,25}(breathing fast|fast breathing|grunting|chest (is )?drawing in)|baby.{0,15}(very hot|cold to (the )?touch|floppy|not waking)/i },
   { id: 'bl', lvl: 's', t: 'Any bleeding', re: /bleed|spotting|blood/i },
 ];
 const ORDER = { m: 0, e: 1, u: 2, s: 3 };
